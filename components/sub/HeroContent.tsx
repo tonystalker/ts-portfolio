@@ -26,7 +26,7 @@ const HeroContent = () => {
           variants={slideInFromLeft(0.8)}
           className="text-5xl font-extrabold bg-gradient-to-r from-white via-purple-400 to-pink-600 text-transparent bg-clip-text leading-tight tracking-wide"
         >
-          Hi, I’m
+          Hi, I&apos;m
         </motion.h1>
 
         <motion.h2
@@ -41,7 +41,7 @@ const HeroContent = () => {
           className="text-base text-gray-400 mt-4 max-w-[600px] leading-relaxed"
         >
           A Web3 developer with experience in full stack development and a
-          passion for decentralized tech. I'm an engineering student and a
+          passion for decentralized tech. I&apso;m an engineering student and a
           degen, I love building innovative products and exploring the world of
           crypto. Let&apos;s shape the future of Web3!
         </motion.p>
