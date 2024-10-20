@@ -1,36 +1,27 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  slideInFromLeft,
-  slideInFromRight,
-  slideInFromTop,
-} from "@/utils/motion";
+import { slideInFromLeft } from "@/utils/motion";
 import { SparklesIcon } from "@heroicons/react/24/solid";
 
 const SkillText = () => {
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center">
       <motion.div
-        variants={slideInFromTop}
-        className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9]"
-      >
-        <SparklesIcon className="text-[#b49bff] mr-[10px] h-5 w-5" />
-        <h1 className="Welcome-text text-[13px]">
-          Think better with Next js 13
-        </h1>
-      </motion.div>
-      <motion.div
         variants={slideInFromLeft(0.5)}
-        className="text-[30px] text-white font-medium mt-[10px] text-center mb-[15px]"
+        className="text-center mb-[15px] relative"
       >
-        Making apps with modern technologies
-      </motion.div>
-      <motion.div
-        variants={slideInFromRight(0.5)}
-        className="cursive text-[20px] text-gray-200 mb-10 mt-[10px] text-center"
-      >
-        Never miss a task, deadline or idea
+        <SparklesIcon className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-purple-400 w-8 h-8 animate-pulse" />
+
+        <h2 className="text-[30px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 mt-[10px]">
+          Tools in my arsenal
+        </h2>
+
+        <motion.div
+          animate={{ x: [0, 300, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0 bg-gradient-to-r from-white to-transparent opacity-20 w-[80px] h-full rounded-full pointer-events-none"
+        />
       </motion.div>
     </div>
   );
