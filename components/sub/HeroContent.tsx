@@ -43,7 +43,7 @@ const HeroContent = () => {
           A Web3 developer with experience in full stack development and a
           passion for decentralized tech. I'm an engineering student and a
           degen, I love building innovative products and exploring the world of
-          crypto. Let’s shape the future of Web3!
+          crypto. Let&apos;s shape the future of Web3!
         </motion.p>
       </div>
 
