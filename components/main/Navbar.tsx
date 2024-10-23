@@ -61,7 +61,6 @@ const Navbar = () => {
             <a
               href="/Resume.pdf"
               className="cursor-pointer hover:text-purple-400 transition duration-300"
-              download="Resume"
             >
               Resume
             </a>

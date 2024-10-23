@@ -7,7 +7,6 @@ import {
   RxLinkedinLogo,
   RxEnvelopeClosed,
 } from "react-icons/rx";
-import { FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -20,7 +19,6 @@ const Footer = () => {
               Connect with me on
             </div>
 
-            {/* Vertical arrangement of logos */}
             <div className="flex flex-col items-center my-[15px] space-y-4">
               {/* Github */}
               <a
@@ -61,7 +59,6 @@ const Footer = () => {
               Social Links
             </div>
 
-            {/* Vertical arrangement of social links */}
             <div className="flex flex-col items-center my-[15px] space-y-4">
               {/* Twitter */}
               <a
