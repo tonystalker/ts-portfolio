@@ -41,7 +41,7 @@ const HeroContent = () => {
           className="text-base text-gray-400 mt-4 max-w-[600px] leading-relaxed"
         >
           A Web3 developer with experience in full stack development and a
-          passion for decentralized tech. I&apso;m an engineering student and a
+          passion for decentralized tech. I&apos;m an engineering student and a
           degen, I love building innovative products and exploring the world of
           crypto. Let&apos;s shape the future of Web3!
         </motion.p>
