@@ -14,7 +14,7 @@ const Projects = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-10 max-w-7xl w-full">
         <ProjectCard
           src="/NextWebsite.png"
-          title="Modern Next.js Portfolio"
+          title="CrowdFundMe"
           description="A modern, responsive portfolio built with Next.js showcasing my work and skills."
         />
         <ProjectCard
