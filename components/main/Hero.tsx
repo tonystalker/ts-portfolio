@@ -13,7 +13,7 @@ const Hero = () => {
         <source src="./a1.webm" type="video/webm" />
       </video>
 
-      <div className="relative z-[2] w-full h-full flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-md">
+      <div className="relative z-[1] w-full h-full flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-md">
         <HeroContent />
       </div>
     </div>

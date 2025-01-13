@@ -1,14 +1,34 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.relative {
+  position: relative; 
+  z-index: 1; /* Ensure this can be layered correctly */
+}
 
+.ProjectCard {
+  position: relative; 
+  z-index: 10; /* Ensure the card appears above its background */
+  overflow: hidden; 
+}
+
+.ProjectCard img {
+  position: relative; /* Ensures the image behaves as part of the stacking context */
+  z-index: 2; /* Images need to be above the card background */
+}
+
+.gradient-background {
+  position: absolute; 
+  inset: 0; 
+  z-index: -1; /* Positioned behind other content */
+}
 
 .cursive {
   font-family: "Cedarville Cursive", cursive;
 }
+
 .Welcome-text {
   background: linear-gradient(
       0deg,
@@ -21,8 +41,9 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .Welcome-box {
-  isolation: isolate;
+  isolation: isolate; 
   overflow: hidden;
   align-items: center;
   -webkit-backdrop-filter: blur(6px);
@@ -30,9 +51,7 @@
   border-radius: 32px;
   box-shadow: inset 0 -7px 11px #a48fff1f;
   display: flex;
-
   position: relative;
-  width: -moz-max-content;
   width: max-content;
   transition: 0.45s cubic-bezier(0.6, 0.6, 0, 1) box-shadow;
 }
@@ -61,11 +80,10 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }
-
-
 
 html {
   scroll-behavior: smooth;

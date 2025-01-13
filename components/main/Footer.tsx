@@ -11,7 +11,7 @@ import {
 
 const Footer = () => {
   return (
-    <div className="w-full h-full bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-200 shadow-lg p-[20px] border-t-2 border-gray-600">
+    <div className="w-full h-full bg-gradient-to-b from-gray-900 via-gray-800 to-black text-gray-200 shadow-lg p-[20px] border-t-2 border-gray-600 relative z-[30] mt-12">
       <div className="w-full flex flex-col items-center justify-center m-auto">
         <div className="w-full h-full flex flex-row items-center justify-around flex-wrap">
           {/* Social Section 1 */}

@@ -7,8 +7,7 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="relative flex flex-col items-center justify-center gap-16 h-full overflow-hidden pb-80 py-20"
-      style={{ transform: "scale(0.95)" }}
+      className="relative flex flex-col items-center justify-center gap-16 h-full overflow-hidden py-20"
     >
       <SkillText />
 
@@ -63,6 +62,7 @@ const Skills = () => {
         </div>
       </div>
 
+      {/* Adjust z-index of the background elements */}
       <div className="absolute inset-0 z-[-10] flex items-center justify-center bg-cover opacity-20 pointer-events-none">
         <video
           className="w-full h-full object-cover opacity-40 mix-blend-overlay"
