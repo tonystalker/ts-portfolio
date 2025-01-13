@@ -32,6 +32,16 @@ const Projects = () => {
         />
       </div>
 
+      {/* More Projects Section */}
+      <div className="mt-16 text-center">
+        <a
+          href="https://github.com/tonystalker"
+          className="text-lg font-semibold text-white bg-gradient-to-r from-purple-500 to-cyan-500 px-6 py-3 rounded-full inline-block transform transition duration-300 hover:scale-105 hover:from-purple-700 hover:to-cyan-700"
+        >
+          More Projects
+        </a>
+      </div>
+
       <div className="absolute inset-0 z-[-1] bg-gradient-to-t from-[#030014] via-transparent to-[#030014] opacity-60 pointer-events-none"></div>
     </section>
   );
