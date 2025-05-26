@@ -19,6 +19,12 @@ const Projects = () => {
           link="https://crowd-fund-me-i9j7.vercel.app/"
         />
         <ProjectCard
+          src="/intve.png"
+          title="Code Interview Platform"
+          description="A code interview platform where users can create and take coding challenges, with real-time code execution and evaluation."
+          link="https://code-chat-sigma.vercel.app/"
+        />
+        <ProjectCard
           src="/web3jobs.png"
           title="Web3 Jobs"
           description="A job portal where users can post jobs and apply for jobs, where a single recruiter can recruit for multiple companies."
