@@ -1,2 +1,2 @@
 
-Deployed at :  https://tony-stalker.vercel.app/
+Deployed at :  https://tonystalker.xyz
