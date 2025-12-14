@@ -48,7 +48,6 @@ const Projects = () => {
       className="relative flex flex-col items-center justify-center min-h-screen py-20 overflow-hidden"
       id="projects"
     >
-      {/* Animated background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
         <div className="absolute top-40 right-20 w-72 h-72 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -88,12 +87,11 @@ const Projects = () => {
       </div>
 
       <div className="relative w-full max-w-7xl mx-auto px-4 md:px-6 z-10">
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[minmax(400px,auto)]">
+        <div className="flex overflow-x-auto pb-8 gap-6 snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 md:pb-0 auto-rows-[minmax(400px,auto)]">
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className={`${index === 0 || index === 3 ? 'md:col-span-2' : 'md:col-span-1'}`}
+              className={`${index === 0 || index === 3 ? 'md:col-span-2' : 'md:col-span-1'} min-w-[85vw] md:min-w-0 snap-center`}
             >
               <ProjectCard
                 {...project}
@@ -104,7 +102,6 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Enhanced CTA Section */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
