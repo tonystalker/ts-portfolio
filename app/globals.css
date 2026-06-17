@@ -21,14 +21,16 @@
   --bg: #F5F0E8;
   --text: #1B5E20;
   --glow: #1B5E20;
-  --live-badge: var(--text);
+  --accent: #0055FF;
+  --live-badge: var(--accent);
 }
 
 .dark {
   --bg: #000000;
   --text: #F0F0F0;
   --glow: #FFFFFF;
-  --live-badge: #00FF00;
+  --accent: #00FFCC;
+  --live-badge: var(--accent);
 }
 
 /* ── Base ─────────────────────────────────────────────────────── */
@@ -37,7 +39,7 @@ html {
 }
 
 body {
-  background-color: var(--bg);
+  background-color: transparent;
   color: var(--text);
   font-family: var(--font-mono);
   -webkit-font-smoothing: antialiased;

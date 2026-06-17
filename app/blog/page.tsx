@@ -19,7 +19,7 @@ export default function BlogPage() {
   const posts = getAllPosts();
 
   return (
-    <main className="min-h-svh flex justify-center bg-[var(--bg)]">
+    <main className="min-h-svh flex justify-center">
       <div
         className="flex flex-col relative w-full items-center"
         style={{ maxWidth: "700px" }}

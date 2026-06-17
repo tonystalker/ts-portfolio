@@ -110,7 +110,7 @@ export default function Home() {
   const recentPosts = getAllPosts().slice(0, 3);
 
   return (
-    <main className="min-h-svh flex justify-center bg-[var(--bg)]" style={{ fontFamily: "var(--font-mono)" }}>
+    <main className="min-h-svh flex justify-center">
       <div className="flex flex-col relative w-full items-center" style={{ maxWidth: "700px", minHeight: "100svh" }}>
         <div className="w-full max-w-[640px] px-4 pb-32 flex flex-col items-start">
 
@@ -164,24 +164,36 @@ export default function Home() {
 
           {/* ── About ──────────────────────────────────────────────── */}
           <section className="mt-16 w-full" id="about" aria-label="About">
-            <KineticHeading
-              as="h2"
-              className="text-xl font-bold tracking-tight text-[var(--text)] mb-8"
-            >
-              a bit abt me
-            </KineticHeading>
-            <div className="space-y-5 leading-relaxed opacity-80 text-[15px]">
-              <p>
-                studied ceramic engineering at IIT (BHU). took the mandatory detour through blockchain. now heavily obsessed with ai & agents. the classic software pipeline.
-              </p>
-              <p>
-                generalist engineer and aspiring founder who builds for scale.
-              </p>
-              <ul className="list-disc ml-4 space-y-1">
-                <li>go · python · c++ · typescript · docker · whatever the problem needs</li>
-                <li>currently exploring: ai engineering, autonomous systems, and high-performance backend architecture.</li>
-              </ul>
-              <p>motto: ship fast, learn faster, break things intentionally.</p>
+            <div className="w-full rounded-xl border border-[var(--text)]/20 bg-[var(--text)]/5 overflow-hidden backdrop-blur-sm">
+              {/* Terminal Header */}
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--text)]/10 bg-[var(--text)]/5">
+                <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                <span className="ml-2 text-[12px] font-mono opacity-50">~ /usr/tony/about.sh</span>
+              </div>
+              {/* Terminal Body */}
+              <div className="p-6 font-mono text-[13px] sm:text-[14px] leading-relaxed space-y-4">
+                <p className="opacity-80">
+                  <span className="text-[var(--accent)] font-bold">➜ </span>
+                  <span className="opacity-50">~ </span>
+                  studied ceramic engineering at IIT (BHU). took the mandatory detour through blockchain. now heavily obsessed with ai & agents. the classic software pipeline.
+                </p>
+                <p className="opacity-80">
+                  <span className="text-[var(--accent)] font-bold">➜ </span>
+                  <span className="opacity-50">~ </span>
+                  generalist engineer and aspiring founder who builds for scale.
+                </p>
+                <div className="ml-4 opacity-80 border-l border-[var(--text)]/20 pl-4 py-2 space-y-2">
+                  <p>• go · python · c++ · typescript · docker · whatever the problem needs</p>
+                  <p>• currently exploring: ai engineering, autonomous systems, and high-performance backend architecture.</p>
+                </div>
+                <p className="opacity-80">
+                  <span className="text-[var(--accent)] font-bold">➜ </span>
+                  <span className="opacity-50">~ </span>
+                  motto: ship fast, learn faster, break things intentionally. <span className="animate-pulse font-bold text-[var(--accent)]">█</span>
+                </p>
+              </div>
             </div>
           </section>
 

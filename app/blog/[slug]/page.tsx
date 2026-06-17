@@ -105,7 +105,7 @@ export default async function BlogPostPage({
         slug={post.slug}
       />
 
-      <main className="min-h-svh flex justify-center bg-[var(--bg)]">
+      <main className="min-h-svh flex justify-center">
         <div
           className="flex flex-col relative w-full items-center"
           style={{ maxWidth: "700px" }}

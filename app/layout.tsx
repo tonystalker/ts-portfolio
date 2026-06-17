@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "geist/font/sans";
 import { NavPanel } from "@/components/main/NavPanel";
+import { ParticleWaveBackground } from "@/components/main/ParticleWaveBackground";
 import { Ticker } from "@/components/main/Ticker";
 import { LenisProvider } from "@/components/main/LenisProvider";
 import "./globals.css";
@@ -86,12 +88,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           }}
         />
       </head>
-      <body className={`${GeistMono.variable} font-mono bg-[var(--bg)] text-[var(--text)]`}>
-        <LenisProvider>
-          <NavPanel />
-          {children}
-          <Ticker />
-        </LenisProvider>
+      <body className={`${GeistSans.className} antialiased text-[var(--text)] selection:bg-[var(--accent)] selection:text-[var(--bg)] ${GeistMono.variable}`} style={{ background: "var(--bg)" }}>
+        <ParticleWaveBackground />
+        <div className="relative z-10">
+          <LenisProvider>
+            <NavPanel />
+            {children}
+            <Ticker />
+          </LenisProvider>
+        </div>
 
         {/* Footer */}
         <footer className="w-full border-t border-[var(--text)]/10 mb-8">

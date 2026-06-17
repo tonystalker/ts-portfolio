@@ -14,25 +14,22 @@ export function NavPanel() {
   const pathname = usePathname();
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center"
+    <div
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
       style={{ fontFamily: "var(--font-mono)" }}
     >
-      <div
-        className="w-full flex items-center justify-between px-5 py-4"
-        style={{ maxWidth: "700px" }}
-      >
-        <nav aria-label="Primary Navigation" className="flex items-center gap-8 sm:gap-12">
+      <div className="flex items-center gap-6 px-6 py-3 rounded-full border border-[var(--text)]/20 bg-[var(--bg)]/80 backdrop-blur-md shadow-lg transition-all duration-300">
+        <nav aria-label="Primary Navigation" className="flex items-center gap-6">
           {links.map((link) => {
             const active = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-[13px] tracking-widest no-underline transition-opacity duration-200 ${
+                className={`text-[13px] tracking-widest no-underline transition-all duration-300 relative ${
                   active
-                    ? "text-[var(--text)] opacity-100"
-                    : "text-[var(--text)] opacity-40 hover:opacity-100"
+                    ? "text-[var(--accent)] font-bold scale-110 drop-shadow-[0_0_8px_var(--accent)]"
+                    : "text-[var(--text)] opacity-50 hover:opacity-100 hover:scale-105"
                 }`}
               >
                 {active ? `[${link.label}]` : link.label}
@@ -40,9 +37,9 @@ export function NavPanel() {
             );
           })}
         </nav>
-
+        <div className="w-[1px] h-4 bg-[var(--text)]/20" />
         <ThemeToggle />
       </div>
-    </header>
+    </div>
   );
 }

@@ -8,8 +8,42 @@ import Image from "next/image";
 
 const words = ["ship fast", "learn faster", "break things"];
 
-export function Hero() {
+function Typewriter() {
   const [idx, setIdx] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = words[idx];
+    
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        if (displayText.length < currentWord.length) {
+          setDisplayText(currentWord.slice(0, displayText.length + 1));
+        } else {
+          setTimeout(() => setIsDeleting(true), 1500);
+        }
+      } else {
+        if (displayText.length > 0) {
+          setDisplayText(currentWord.slice(0, displayText.length - 1));
+        } else {
+          setIsDeleting(false);
+          setIdx((i) => (i + 1) % words.length);
+        }
+      }
+    }, isDeleting ? 40 : 80);
+
+    return () => clearTimeout(timeout);
+  }, [displayText, idx, isDeleting]);
+
+  return (
+    <span className="text-[var(--accent)] font-bold font-mono ml-1">
+      {displayText}<span className="animate-[pulse_0.8s_ease-in-out_infinite] ml-[2px]">█</span>
+    </span>
+  );
+}
+
+export function Hero() {
   const [isHoveringPfp, setIsHoveringPfp] = useState(false);
   const pfpRef = useRef<HTMLDivElement>(null);
   const [spotifyData, setSpotifyData] = useState<{ isPlaying: boolean; title?: string; artist?: string; songUrl?: string } | null>(null);
@@ -19,11 +53,6 @@ export function Hero() {
       .then((res) => res.json())
       .then((data) => setSpotifyData(data))
       .catch(() => setSpotifyData(null));
-  }, []);
-
-  useEffect(() => {
-    const t = setInterval(() => setIdx((i) => (i + 1) % words.length), 1800);
-    return () => clearInterval(t);
   }, []);
 
   useEffect(() => {
@@ -54,22 +83,8 @@ export function Hero() {
           ayush
         </KineticHeading>
 
-        <p className="text-[15px] text-[var(--text)] opacity-50 whitespace-nowrap flex items-center gap-1.5">
-          i{" "}
-          <span className="inline-block relative overflow-hidden h-[1.1em] w-[7.5rem]">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={words[idx]}
-                className="absolute inset-0 flex items-center"
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: "0%", opacity: 1 }}
-                exit={{ y: "-100%", opacity: 0 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {words[idx]}
-              </motion.span>
-            </AnimatePresence>
-          </span>
+        <p className="text-[15px] text-[var(--text)] opacity-50 whitespace-nowrap flex items-center gap-1.5 h-[1.1em]">
+          i <Typewriter />
         </p>
       </div>
 
