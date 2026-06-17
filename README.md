@@ -1,2 +1,2 @@
 
-Deployed at :  https://tonystalker.xyz
+Deployed at :  https://www.ayush-tripathi.in/
