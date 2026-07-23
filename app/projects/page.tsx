@@ -57,12 +57,12 @@ export default async function ProjectsPage() {
           })
         }}
       />
-      <main className="min-h-dvh flex justify-center" itemScope itemType="https://schema.org/CollectionPage">
+      <main className="min-h-dvh flex justify-center w-full overflow-x-hidden" itemScope itemType="https://schema.org/CollectionPage">
         <div
         className="flex flex-col relative w-full items-center"
-        style={{ maxWidth: "700px" }}
+        style={{ maxWidth: "760px" }}
       >
-        <div className="w-full max-w-[640px] px-5 pb-36 flex flex-col items-start">
+        <div className="w-full max-w-[680px] px-4 sm:px-6 pb-36 flex flex-col items-start relative">
           {/* ── Header ──────────────────────────────────────────────── */}
           <header className="mt-24 sm:mt-32 w-full" aria-label="Projects header">
             <h1 className="sr-only">Ayush Tripathi Projects - Software and AI Engineering</h1>

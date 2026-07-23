@@ -58,12 +58,12 @@ export default async function BlogPage() {
           ])
         }}
       />
-      <main className="min-h-dvh flex justify-center" itemScope itemType="https://schema.org/Blog">
+      <main className="min-h-dvh flex justify-center w-full overflow-x-hidden" itemScope itemType="https://schema.org/CollectionPage">
         <div
-        className="flex flex-col relative w-full items-center"
-        style={{ maxWidth: "700px" }}
-      >
-        <div className="w-full max-w-[640px] px-5 pb-36 flex flex-col items-start">
+          className="flex flex-col relative w-full items-center"
+          style={{ maxWidth: "760px" }}
+        >
+          <div className="w-full max-w-[680px] px-4 sm:px-6 pb-36 flex flex-col items-start relative">
 
           {/* ── Header ──────────────────────────────────────────────── */}
           <header className="mt-24 sm:mt-32 w-full" aria-label="Blog header">

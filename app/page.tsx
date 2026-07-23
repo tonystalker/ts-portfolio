@@ -57,7 +57,7 @@ export default async function Home() {
   const recentPosts = allArticles.slice(0, 3);
 
   return (
-    <main className="min-h-dvh flex justify-center" itemScope itemType="https://schema.org/CollectionPage">
+    <main className="min-h-dvh flex justify-center w-full overflow-x-hidden" itemScope itemType="https://schema.org/CollectionPage">
       {/* ── CollectionPage JSON-LD ── */}
       <script
         type="application/ld+json"
@@ -88,9 +88,9 @@ export default async function Home() {
       
       <div
         className="flex flex-col relative w-full items-center"
-        style={{ maxWidth: "700px", minHeight: "100dvh" }}
+        style={{ maxWidth: "760px", minHeight: "100dvh" }}
       >
-        <div className="w-full max-w-[640px] px-4 sm:px-5 pb-24 sm:pb-36 flex flex-col items-start relative">
+        <div className="w-full max-w-[680px] px-4 sm:px-6 pb-24 sm:pb-36 flex flex-col items-start relative">
           {/* ── Static Ambient Lights ── */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[500px] pointer-events-none z-[-1]" 
                style={{ background: "radial-gradient(ellipse at top, rgba(94, 139, 255, 0.07) 0%, transparent 70%)", filter: "blur(60px)" }} />
