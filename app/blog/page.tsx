@@ -1,125 +1,190 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllPosts } from "@/lib/posts";
+import { getArticles } from "@/lib/notion/service";
 
 export const metadata: Metadata = {
-  title: "Blog | Ayush Tripathi",
+  title: "Blog | Ayush Tripathi | AI Engineer",
   description:
-    "Engineering notes, deep dives into Web3 protocols, systems design, and full-stack development by Ayush Tripathi.",
+    "Engineering notes, deep dives into Web3 protocols, systems design, LLMs, and full-stack development by Ayush Tripathi.",
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "Blog | Ayush Tripathi",
+    title: "Blog | Ayush Tripathi | AI Engineer",
     description:
-      "Engineering notes and deep dives by Ayush Tripathi — Web3, systems design, and full-stack development.",
+      "Engineering notes, deep dives into Web3 protocols, systems design, LLMs, and full-stack development.",
     url: "https://www.ayush-tripathi.in/blog",
+    type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog | Ayush Tripathi",
+    description: "Engineering notes, LLMs, Web3 protocols, and systems design.",
+  }
 };
 
-export default function BlogPage() {
-  const posts = getAllPosts();
+export default async function BlogPage() {
+  const posts = await getArticles();
 
   return (
-    <main className="min-h-svh flex justify-center">
-      <div
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "Blog",
+              "name": "Ayush Tripathi's Engineering Blog",
+              "description": "Deep dives into Web3, Generative AI, and software engineering.",
+              "url": "https://www.ayush-tripathi.in/blog"
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://www.ayush-tripathi.in/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Blog",
+                  "item": "https://www.ayush-tripathi.in/blog"
+                }
+              ]
+            }
+          ])
+        }}
+      />
+      <main className="min-h-svh flex justify-center" itemScope itemType="https://schema.org/Blog">
+        <div
         className="flex flex-col relative w-full items-center"
         style={{ maxWidth: "700px" }}
       >
-        <div className="w-full max-w-[640px] px-4 pb-24 flex flex-col items-start">
+        <div className="w-full max-w-[640px] px-5 pb-36 flex flex-col items-start">
 
           {/* ── Header ──────────────────────────────────────────────── */}
-          <section className="mt-24 sm:mt-32 w-full" aria-label="Blog header">
+          <header className="mt-24 sm:mt-32 w-full" aria-label="Blog header">
+            <h1 className="sr-only">Engineering Blog - Ayush Tripathi</h1>
             <div className="flex flex-row items-end justify-between w-full">
-              <h1
-                className="text-[48px] sm:text-[64px] leading-[0.95] tracking-tight text-[var(--text)] font-bold cursor-crosshair"
-                style={{ fontFamily: "var(--font-mono, monospace)" }}
+              <h2
+                className="text-[48px] sm:text-[64px] font-semibold tracking-[-0.03em] leading-[0.95]"
+                style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
+                aria-hidden="true"
               >
-                blogs
-              </h1>
+                writing
+              </h2>
               <Link
                 href="/"
-                className="text-[13px] opacity-50 hover:opacity-100 transition-opacity no-underline text-[var(--text)] mb-1"
+                className="blog-nav-link text-[13px] no-underline transition-colors duration-200 mb-2"
               >
                 ← back
               </Link>
             </div>
             <p
-              className="mt-6 text-[15px] text-[var(--text)] opacity-50 leading-relaxed"
-              style={{ fontFamily: "var(--font-mono, monospace)" }}
+              className="mt-6 text-[14px] leading-relaxed"
+              style={{ color: "var(--text-body)", fontFamily: "var(--font-mono)" }}
             >
               engineering notes, deep dives, and things i figured out by
               breaking stuff
             </p>
-          </section>
-
-          {/* ── Divider ─────────────────────────────────────────────── */}
-          <div className="w-full mt-8 sm:mt-12 border-b border-[var(--text)]/20" />
+          </header>
 
           {/* ── Posts List ──────────────────────────────────────────── */}
-          <section
-            className="w-full mt-0"
-            aria-label="Blog posts"
-            style={{ fontFamily: "var(--font-mono, monospace)" }}
-          >
-            <div className="flex flex-col">
-              {posts.map((post) => (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  className="group block w-full border-b border-[var(--text)]/20 hover:bg-[var(--text)]/5 transition-colors no-underline"
-                >
-                  <div className="flex items-start justify-between py-5 px-2 gap-4">
-                    <div className="flex flex-col gap-2 flex-1 min-w-0">
-                      <div className="flex items-center gap-4">
-                        <span className="text-[12px] opacity-40 flex-shrink-0">
-                          {new Date(post.date).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                          })}
+          <section className="w-full mt-12 flex flex-col" aria-label="Blog posts">
+            {posts.map((post, i) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group flex flex-col gap-3 py-6 no-underline transition-all duration-200 ease-out rounded-xl px-4 -mx-4 hover:bg-[var(--glass)]"
+                style={{
+                  borderTop: i === 0 ? "1px solid var(--border)" : "none",
+                  borderBottom: "1px solid var(--border)",
+                }}
+              >
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center gap-4">
+                    <span
+                      className="text-[12px] tabular-nums flex-shrink-0"
+                      style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
+                    >
+                      {post.publishedDate ? new Date(post.publishedDate).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      }) : "Unknown Date"}
+                    </span>
+                    <div className="hidden sm:flex flex-wrap gap-1.5">
+                      {post.tags && post.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[10px] px-2 py-0.5 rounded-full"
+                          style={{
+                            color: "var(--text-muted)",
+                            background: "var(--border)",
+                            fontFamily: "var(--font-mono)",
+                            border: "1px solid var(--border-secondary)",
+                          }}
+                        >
+                          {tag}
                         </span>
-                        <div className="flex flex-wrap gap-1.5">
-                          {post.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-[9px] tracking-widest uppercase opacity-40 border border-[var(--text)]/20 px-1.5 py-0.5"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <span className="text-[15px] font-bold tracking-tight text-[var(--text)] uppercase leading-snug">
-                        {post.title}
-                      </span>
-                      <p className="text-[13px] opacity-60 leading-relaxed line-clamp-2">
-                        {post.description}
-                      </p>
-                      <span className="text-[11px] opacity-40 mt-1">
-                        {post.readTime} min read
-                      </span>
+                      ))}
                     </div>
-                    <span className="text-[var(--text)] text-[18px] leading-none flex-shrink-0 mt-1 opacity-40 group-hover:opacity-100 inline-block transition-all duration-500 group-hover:rotate-45">
+                  </div>
+                  <div className="flex items-center gap-3 text-[12px]">
+                    <span style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+                      {post.readingTime || "5 min read"}
+                    </span>
+                    <span
+                      className="text-[16px] transition-all duration-200 ease-out group-hover:rotate-45"
+                      style={{ color: "var(--text-muted)" }}
+                    >
                       ↗
                     </span>
                   </div>
-                </Link>
-              ))}
-            </div>
+                </div>
+
+                <div className="flex flex-col gap-1.5 mt-1">
+                  <span
+                    className="text-[16px] font-medium tracking-[-0.01em] transition-colors duration-200 group-hover:text-[var(--accent)]"
+                    style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
+                  >
+                    {post.title}
+                  </span>
+                  <p
+                    className="text-[13px] leading-relaxed line-clamp-2"
+                    style={{ color: "var(--text-body)", fontFamily: "var(--font-mono)" }}
+                  >
+                    {post.excerpt}
+                  </p>
+                </div>
+              </Link>
+            ))}
           </section>
 
           {/* ── Write CTA ───────────────────────────────────────────── */}
           <div
-            className="mt-16 w-full p-6 border border-[var(--text)]/20 bg-[var(--text)]/[0.02]"
-            style={{ fontFamily: "var(--font-mono, monospace)" }}
+            className="mt-16 w-full p-6"
+            style={{
+              borderRadius: "16px",
+              background: "var(--glass)",
+              border: "1px solid var(--border)",
+            }}
           >
-            <p className="text-[13px] opacity-60 leading-relaxed">
+            <p
+              className="text-[13px] leading-relaxed"
+              style={{ color: "var(--text-body)", fontFamily: "var(--font-mono)" }}
+            >
               more posts coming soon. i write when i build something interesting
               or figure out something non-obvious.{" "}
               <a
                 href="https://x.com/TonyStalkerr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="opacity-100 underline underline-offset-2"
+                className="blog-nav-link transition-colors underline underline-offset-4"
+                style={{ textDecorationColor: "var(--border-secondary)" }}
               >
                 follow on x
               </a>{" "}
@@ -130,5 +195,6 @@ export default function BlogPage() {
         </div>
       </div>
     </main>
+    </>
   );
 }

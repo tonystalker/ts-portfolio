@@ -13,94 +13,291 @@
     100% { transform: translateX(-50%); }
   }
 
-  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --font-sans: var(--font-geist-sans), "Inter", -apple-system, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
 }
 
-/* ── Color tokens ─────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────
+   DESIGN TOKENS
+   Inspired by: Apple HIG · Linear · Vercel · Stripe · Raycast
+   ───────────────────────────────────────────────────────────────── */
+
 :root {
-  --bg: #F5F0E8;
-  --text: #1B5E20;
-  --glow: #1B5E20;
-  --accent: #0055FF;
-  --live-badge: var(--accent);
+  /* ── Backgrounds ── */
+  --bg:              #F5F5F7;
+  --bg-secondary:    #F8F8FA;
+  --bg-gradient-top: #FCFCFD;
+  --bg-gradient-btm: #F3F4F6;
+
+  /* ── Surfaces ── */
+  --glass:           rgba(255,255,255,0.62);
+  --glass-elevated:  rgba(255,255,255,0.78);
+
+  /* ── Borders ── */
+  --border:          rgba(0,0,0,0.08);
+  --border-secondary:#E7E7EA;
+
+  /* ── Text ── */
+  --text:            #111113;
+  --text-body:       #494950;
+  --text-muted:      #7B7B84;
+  --text-placeholder:#9E9EA7;
+
+  /* ── Accent (one, only one) ── */
+  --accent:          #5E8BFF;
+  --accent-hover:    #8CB3FF;
+  --accent-pressed:  #4F79F2;
+
+  /* ── Live badge ── */
+  --live-badge:      #22C55E;
+
+  /* ── Shadows (Apple philosophy) ── */
+  --shadow-sm:   0 2px 8px  rgba(0,0,0,.04);
+  --shadow-md:   0 8px 24px rgba(0,0,0,.08);
+  --shadow-lg:   0 24px 80px rgba(0,0,0,.12);
 }
 
 .dark {
-  --bg: #000000;
-  --text: #F0F0F0;
-  --glow: #FFFFFF;
-  --accent: #00FFCC;
-  --live-badge: var(--accent);
+  /* ── Backgrounds ── */
+  --bg:              #09090B;
+  --bg-secondary:    #0F1013;
+  --bg-gradient-top: #070709;
+  --bg-gradient-btm: #121317;
+
+  /* ── Surfaces ── */
+  --glass:           rgba(30,30,34,0.55);
+  --glass-elevated:  rgba(40,40,44,0.72);
+
+  /* ── Borders ── */
+  --border:          rgba(255,255,255,0.08);
+  --border-secondary:rgba(255,255,255,0.05);
+
+  /* ── Text ── */
+  --text:            #FAFAFC;
+  --text-body:       #D0D0D7;
+  --text-muted:      #9A9AA2;
+  --text-placeholder:#7A7A83;
+
+  /* ── Accent (desaturated ~20pts for dark) ── */
+  --accent:          #7AA2FF;
+  --accent-hover:    #8CB3FF;
+  --accent-pressed:  #6690F5;
+
+  /* ── Live badge ── */
+  --live-badge:      #4ADE80;
+
+  /* ── Shadows ── */
+  --shadow-sm:   0 2px 8px  rgba(0,0,0,.20);
+  --shadow-md:   0 8px 24px rgba(0,0,0,.35);
+  --shadow-lg:   0 24px 80px rgba(0,0,0,.50);
 }
 
-/* ── Base ─────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
+  color-scheme: light dark;
 }
 
 body {
-  background-color: transparent;
+  background: linear-gradient(180deg, var(--bg-gradient-top) 0%, var(--bg-gradient-btm) 100%);
+  background-attachment: fixed;
   color: var(--text);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100svh;
 }
 
-/* ── View Transition ripple (theme toggle) ────────────────────── */
+/* ─────────────────────────────────────────────────────────────────
+   FOCUS (keyboard navigation — WCAG AA)
+   ───────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   VIEW TRANSITION (theme toggle)
+   ───────────────────────────────────────────────────────────────── */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-/* ── Shiki syntax highlighting (blog code blocks) ─────────────── */
-html span[style*="--shiki-light"] {
-  color: var(--shiki-light) !important;
-}
-html.dark span[style*="--shiki-dark"] {
-  color: var(--shiki-dark) !important;
+.theme-transition,
+.theme-transition * {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow !important;
+  transition-duration: 250ms !important;
+  transition-timing-function: ease-out !important;
 }
 
-/* ── Prose styles for blog content ───────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .theme-transition,
+  .theme-transition * {
+    transition: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   GLASS COMPONENT
+   backdrop-filter: blur(28px) saturate(180%) — subtle, almost invisible
+   ───────────────────────────────────────────────────────────────── */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.glass-elevated {
+  background: var(--glass-elevated);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   NAV — floating glass pill (Raycast / Linear style)
+   ───────────────────────────────────────────────────────────────── */
+.nav-pill {
+  border-radius: 999px;
+  background: var(--glass-elevated);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 180ms ease-out;
+}
+.nav-pill:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CARDS
+   ───────────────────────────────────────────────────────────────── */
+.card {
+  border-radius: 24px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 180ms ease-out, box-shadow 180ms ease-out;
+}
+.card:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: var(--shadow-md);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SHIKI syntax highlighting
+   ───────────────────────────────────────────────────────────────── */
+html span[style*="--shiki-light"] { color: var(--shiki-light) !important; }
+html.dark span[style*="--shiki-dark"] { color: var(--shiki-dark) !important; }
+
+/* ─────────────────────────────────────────────────────────────────
+   PROSE (blog)
+   ───────────────────────────────────────────────────────────────── */
 .prose-mono {
   font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1.8;
-  color: var(--text);
+  color: var(--text-body);
   width: 100%;
 }
-.prose-mono p { margin-bottom: 1.25rem; opacity: 0.8; }
+.prose-mono p       { margin-bottom: 1.25rem; }
 .prose-mono h2 {
-  font-size: 18px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
+  border-bottom: 1px solid var(--border-secondary);
+  color: var(--text);
 }
-.prose-mono h3 { font-size: 15px; font-weight: 700; margin-top: 1.75rem; margin-bottom: 0.75rem; }
-.prose-mono ul, .prose-mono ol { margin-left: 1.25rem; margin-bottom: 1.25rem; opacity: 0.8; }
-.prose-mono li { margin-bottom: 0.4rem; }
-.prose-mono a { text-decoration: underline; text-underline-offset: 3px; }
+.prose-mono h3      { font-size: 14px; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.75rem; color: var(--text); }
+.prose-mono ul,
+.prose-mono ol      { margin-left: 1.25rem; margin-bottom: 1.25rem; }
+.prose-mono li      { margin-bottom: 0.4rem; }
+.prose-mono a       { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 .prose-mono code {
   font-family: var(--font-mono);
   font-size: 12px;
-  padding: 0.1em 0.4em;
-  background: color-mix(in srgb, var(--text) 8%, transparent);
-  border: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+  padding: 0.15em 0.45em;
+  background: var(--border);
+  border: 1px solid var(--border-secondary);
+  border-radius: 6px;
+  color: var(--text);
 }
 .prose-mono pre {
-  padding: 1rem;
-  border: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
   overflow-x: auto;
   margin-bottom: 1.25rem;
 }
 .prose-mono pre code { background: transparent; border: none; padding: 0; }
 .prose-mono blockquote {
-  border-left: 2px solid var(--text);
+  border-left: 2px solid var(--accent);
   padding-left: 1rem;
-  opacity: 0.7;
+  color: var(--text-muted);
   margin-bottom: 1.25rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SCROLLBAR — minimal, tasteful
+   ───────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-secondary); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ─────────────────────────────────────────────────────────────────
+   LINKS (footer, back buttons, etc.)
+   ───────────────────────────────────────────────────────────────── */
+.footer-email-link,
+.blog-nav-link {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  transition: color 180ms ease-out;
+}
+.footer-email-link:hover,
+.blog-nav-link:hover {
+  color: var(--text);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   INTERACTIVE ELEMENTS (app/page.tsx replacements)
+   ───────────────────────────────────────────────────────────────── */
+.social-icon-link {
+  color: var(--text-muted);
+}
+.social-icon-link:hover {
+  color: var(--text);
+}
+
+.mail-cta-button {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(0);
+}
+.mail-cta-button:hover {
+  box-shadow: var(--shadow-md) !important;
+  transform: translateY(-1px) !important;
+}
+
+.stack-chip {
+  color: var(--text-body);
+  border-color: var(--border-secondary);
+  font-size: 12px;
+}
+.stack-chip:hover {
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  transform: translateY(-1px) !important;
 }

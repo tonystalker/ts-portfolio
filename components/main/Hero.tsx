@@ -1,52 +1,60 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { KineticHeading } from "@/components/main/KineticHeading";
+import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { SpotifyHoverCard } from "@/components/main/SpotifyHoverCard";
 import Image from "next/image";
 
-const words = ["ship fast", "learn faster", "break things"];
-
-function Typewriter() {
-  const [idx, setIdx] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
+function SubtitleCycler({ subtitles }: { subtitles: string[] }) {
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const currentWord = words[idx];
-    
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        if (displayText.length < currentWord.length) {
-          setDisplayText(currentWord.slice(0, displayText.length + 1));
-        } else {
-          setTimeout(() => setIsDeleting(true), 1500);
-        }
-      } else {
-        if (displayText.length > 0) {
-          setDisplayText(currentWord.slice(0, displayText.length - 1));
-        } else {
-          setIsDeleting(false);
-          setIdx((i) => (i + 1) % words.length);
-        }
-      }
-    }, isDeleting ? 40 : 80);
-
-    return () => clearTimeout(timeout);
-  }, [displayText, idx, isDeleting]);
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % subtitles.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [subtitles]);
 
   return (
-    <span className="text-[var(--accent)] font-bold font-mono ml-1">
-      {displayText}<span className="animate-[pulse_0.8s_ease-in-out_infinite] ml-[2px]">█</span>
-    </span>
+    <div className="relative h-[24px] overflow-hidden inline-block w-[200px]" style={{ verticalAlign: "bottom" }}>
+      <AnimatePresence mode="popLayout">
+        <m.div
+          key={index}
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -20, opacity: 0 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute left-0"
+          style={{ color: "var(--accent)" }}
+        >
+          {subtitles[index]}
+        </m.div>
+      </AnimatePresence>
+    </div>
   );
 }
 
-export function Hero() {
+function getGreeting() {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 18) return "Good afternoon";
+  return "Good evening";
+}
+
+export function Hero({ settings }: { settings: Record<string, string> }) {
+  const name = settings["About Name"] || "Ayush Tripathi";
+  const title = settings["About Title"] || "hey i'm ayush";
+  const subtitles = settings["About Subtitles"] ? settings["About Subtitles"].split(",") : ["I build fast", "I ship fast"];
+  const availability = settings["Availability"] || "Available for new opportunities";
+
   const [isHoveringPfp, setIsHoveringPfp] = useState(false);
   const pfpRef = useRef<HTMLDivElement>(null);
-  const [spotifyData, setSpotifyData] = useState<{ isPlaying: boolean; title?: string; artist?: string; songUrl?: string } | null>(null);
+  const [spotifyData, setSpotifyData] = useState<{
+    isPlaying: boolean;
+    title?: string;
+    artist?: string;
+    songUrl?: string;
+  } | null>(null);
 
   useEffect(() => {
     fetch("/api/spotify")
@@ -70,48 +78,186 @@ export function Hero() {
   }, []);
 
   return (
-    <div
-      className="flex flex-row items-center justify-between w-full select-none"
-      style={{ fontFamily: "var(--font-mono)" }}
-    >
-      <div className="flex flex-col gap-4 sm:gap-6">
-        <h1 className="sr-only">Ayush Tripathi</h1>
-        <KineticHeading
-          as="div"
-          className="flex flex-wrap text-[48px] sm:text-[64px] leading-[0.95] tracking-tight text-[var(--text)] mt-[-4px]"
+    <LazyMotion features={domAnimation}>
+      {/* Cursor blink keyframe */}
+      <style>{`
+        @keyframes cursor-blink {
+          0%, 100% { opacity: 1; }
+          50%       { opacity: 0; }
+        }
+      `}</style>
+
+      <div className="flex flex-col w-full">
+        {/* Top Section: Text & Portrait */}
+        <m.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-row items-center justify-between w-full"
         >
-          ayush
-        </KineticHeading>
+          <div className="flex flex-col gap-4">
+            <h1 className="sr-only">{name}</h1>
 
-        <p className="text-[15px] text-[var(--text)] opacity-50 whitespace-nowrap flex items-center gap-1.5 h-[1.1em]">
-          i <Typewriter />
-        </p>
-      </div>
+            {/* Dynamic Greeting */}
+            <div 
+              className="text-[13px] tracking-wide uppercase"
+              style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
+            >
+              {getGreeting()}
+            </div>
 
-      {/* Profile photo */}
-      <div
-        ref={pfpRef}
-        className="group relative w-20 h-20 sm:w-28 sm:h-28 flex-shrink-0 cursor-crosshair"
-        onMouseEnter={() => setIsHoveringPfp(true)}
-        onMouseLeave={() => setIsHoveringPfp(false)}
-        onClick={() => setIsHoveringPfp((v) => !v)}
-      >
-        <div suppressHydrationWarning className="w-full h-full border border-[var(--text)]/20 p-1 bg-[var(--bg)] shadow-[2px_2px_0px_var(--text)] transition-all duration-[500ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover:border-[var(--text)] overflow-hidden relative">
-          <Image
-            src="/heroimage.png"
-            alt="Ayush Tripathi – Software Engineer"
-            fill
-            className="object-cover grayscale mix-blend-luminosity transition-all duration-[500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grayscale-0 group-hover:mix-blend-normal group-hover:scale-[1.02]"
-            sizes="(max-width: 640px) 80px, 112px"
-            priority
+            <div
+              className="text-[48px] sm:text-[64px] font-semibold tracking-[-0.03em] leading-[1]"
+              style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
+            >
+              {title}
+            </div>
+
+            {/* Subtitle Cycler */}
+            <div
+              className="text-[15px] flex items-center gap-1.5"
+              style={{
+                color: "var(--text-muted)",
+                fontFamily: "var(--font-mono)",
+                letterSpacing: "0.01em",
+              }}
+            >
+              <SubtitleCycler subtitles={subtitles} />
+            </div>
+          </div>
+
+          {/* Profile photo */}
+          <div
+            ref={pfpRef}
+            className="relative flex-shrink-0 cursor-pointer"
+            style={{ width: "80px", height: "80px" }}
+            onMouseEnter={() => setIsHoveringPfp(true)}
+            onMouseLeave={() => setIsHoveringPfp(false)}
+            onClick={() => setIsHoveringPfp((v) => !v)}
+          >
+            {/* Ambient glow behind profile pic */}
+            <div 
+              className="absolute inset-0 rounded-full transition-opacity duration-300 pointer-events-none"
+              style={{
+                background: "var(--accent)",
+                filter: "blur(20px)",
+                opacity: isHoveringPfp ? 0.3 : 0.1,
+                transform: "scale(1.2)"
+              }}
+            />
+
+            <div
+              suppressHydrationWarning
+              className="w-full h-full overflow-hidden transition-all duration-300 ease-out relative z-10"
+              style={{
+                borderRadius: "28px",
+                border: "1px solid var(--border)",
+                boxShadow: "var(--shadow-md)",
+                transform: isHoveringPfp ? "scale(1.05) translateY(-2px)" : "scale(1) translateY(0)",
+              }}
+            >
+              <Image
+                src="/heroimage.png"
+                alt="Ayush Tripathi – Software Engineer"
+                fill
+                className="object-cover transition-all duration-500 ease-out grayscale mix-blend-luminosity hover:grayscale-0 hover:mix-blend-normal"
+                sizes="80px"
+                priority
+              />
+            </div>
+
+            <AnimatePresence>
+              {isHoveringPfp && <SpotifyHoverCard data={spotifyData} />}
+            </AnimatePresence>
+          </div>
+        </m.div>
+
+        {/* Editorial Bio Block */}
+        <m.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative overflow-hidden group w-full mt-16 mb-12"
+          style={{
+            borderRadius: "24px",
+            border: "1px solid var(--border)",
+            background: "var(--glass)",
+          }}
+        >
+          {/* Subtle Background Glow */}
+          <div 
+            className="absolute -top-32 -right-32 w-64 h-64 rounded-full pointer-events-none transition-opacity duration-500 opacity-20 group-hover:opacity-40"
+            style={{
+              background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+              filter: "blur(60px)",
+            }}
           />
-        </div>
+          
+          <div className="p-8 sm:p-10 flex flex-col relative z-10">
+            <div 
+              className="text-[10px] font-medium uppercase tracking-widest mb-6"
+              style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
+            >
+              CURRENTLY
+            </div>
 
-        {/* Hover card — "now playing" style */}
-        <AnimatePresence>
-          {isHoveringPfp && <SpotifyHoverCard data={spotifyData} />}
-        </AnimatePresence>
+            <div className="flex flex-col gap-5 mb-8">
+              <p
+                className="text-[15px] leading-[1.7]"
+                style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
+              >
+                studied ceramic engineering at IIT (BHU).
+              </p>
+              <p
+                className="text-[15px] leading-[1.7]"
+                style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
+              >
+                took the mandatory detour through blockchain.
+              </p>
+              <p
+                className="text-[15px] leading-[1.7]"
+                style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
+              >
+                now heavily obsessed with AI, agents, and building software that scales.
+              </p>
+            </div>
+            
+            <div 
+              className="text-[13px]"
+              style={{ 
+                color: "var(--text-muted)", 
+                fontFamily: "var(--font-mono)",
+              }}
+            >
+              generalist engineer · aspiring founder
+            </div>
+          </div>
+        </m.div>
+
+        {/* Availability Badge */}
+        <m.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div 
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full w-fit"
+            style={{ 
+              background: "var(--glass)", 
+              border: "1px solid var(--border)",
+              fontFamily: "var(--font-mono)",
+            }}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span className="text-[11px] font-medium" style={{ color: "var(--text-body)" }}>
+              {availability}
+            </span>
+          </div>
+        </m.div>
       </div>
-    </div>
+    </LazyMotion>
   );
 }

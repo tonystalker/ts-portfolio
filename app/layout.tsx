@@ -2,28 +2,33 @@ import type { Metadata } from "next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { NavPanel } from "@/components/main/NavPanel";
-import { ParticleWaveBackground } from "@/components/main/ParticleWaveBackground";
 import { Ticker } from "@/components/main/Ticker";
 import { LenisProvider } from "@/components/main/LenisProvider";
+import { BackgroundEffects } from "@/components/main/BackgroundEffects";
+import { CommandPalette } from "@/components/main/CommandPalette";
+import { getProjects } from "@/lib/notion/service";
 import "./globals.css";
 
-// ─── SEO Metadata ──────────────────────────────────────────────────────────────
+// ─── SEO Metadata ─────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Ayush Tripathi | Software Engineer & AI Infra",
+  title: "Ayush Tripathi | Software Engineer & AI Engineer",
   description:
-    "Software Engineer at IIT (BHU) building full-stack apps, backend systems, and Web3 protocols. Skilled in Go, Python, TypeScript, React, and Solidity.",
+    "Ayush Tripathi is a Software Engineer and AI Engineer at IIT (BHU) building full-stack apps, Generative AI agents, and Web3 protocols. Expert in TypeScript, Next.js, Go, Python.",
   keywords: [
-    "Ayush Tripathi", "Software Engineer", "AI Infrastructure",
+    "Ayush Tripathi", "Software Engineer", "AI Engineer", "AI Agent Developer",
     "Full Stack Developer", "IIT BHU", "Go", "Python", "TypeScript",
-    "React", "Next.js", "Solidity", "Web3", "DeFi",
+    "React", "Next.js", "Solidity", "Generative AI", "MCP Developer"
   ],
   authors: [{ name: "Ayush Tripathi", url: "https://www.ayush-tripathi.in" }],
+  creator: "Ayush Tripathi",
+  publisher: "Ayush Tripathi",
   metadataBase: new URL("https://www.ayush-tripathi.in"),
   alternates: { canonical: "/" },
+  formatDetection: { email: false, address: false, telephone: false },
+  appleWebApp: { title: "Ayush Tripathi", statusBarStyle: "black-translucent" },
   icons: {
-    icon: [
-      { url: '/iconimagee_round.png', type: 'image/png' },
-    ],
+    icon: [{ url: '/iconimagee_round.png', type: 'image/png' }],
+    apple: [{ url: '/iconimagee_round.png', type: 'image/png' }],
   },
   openGraph: {
     type: "website",
@@ -36,8 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ayush Tripathi | Software Engineer & AI Infra",
-    description: "Software Engineer at IIT (BHU) building full-stack apps, backend systems, and Web3 protocols.",
+    title: "Ayush Tripathi | Software Engineer & AI Engineer",
+    description: "Software Engineer at IIT (BHU) building full-stack apps, Generative AI agents, and Web3 protocols.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -46,68 +51,101 @@ export const metadata: Metadata = {
   },
 };
 
-// ─── JSON-LD Person Schema ─────────────────────────────────────────────────────
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Ayush Tripathi",
-  givenName: "Ayush",
-  familyName: "Tripathi",
-  url: "https://www.ayush-tripathi.in",
-  image: "https://www.ayush-tripathi.in/heroimage.png",
-  jobTitle: "Software Engineer",
-  description: "Software Engineer at IIT (BHU) specialising in full-stack development, Web3 protocols, and AI infrastructure.",
-  alumniOf: { 
-    "@type": "CollegeOrUniversity", 
-    name: "Indian Institute of Technology (BHU) Varanasi",
-    sameAs: "https://iitbhu.ac.in/"
+// ─── JSON-LD ──────────────────────────────────────────────────────────────────
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    url: "https://www.ayush-tripathi.in",
+    name: "Ayush Tripathi | Portfolio",
+    description: "Portfolio of Ayush Tripathi, Software Engineer and AI Agent Developer.",
   },
-  knowsAbout: [
-    "Software Engineering", "Artificial Intelligence", "Web3", 
-    "Blockchain", "Full Stack Development", "Go", "Python", "TypeScript"
-  ],
-  sameAs: [
-    "https://github.com/tonystalker",
-    "https://www.linkedin.com/in/ayush-tripathi-4a062b1b4/",
-    "https://x.com/TonyStalkerr",
-  ],
-};
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    dateCreated: "2024-01-01T00:00:00-05:00",
+    dateModified: new Date().toISOString(),
+    mainEntity: {
+      "@type": "Person",
+      name: "Ayush Tripathi",
+      givenName: "Ayush",
+      familyName: "Tripathi",
+      url: "https://www.ayush-tripathi.in",
+      image: "https://www.ayush-tripathi.in/heroimage.png",
+      jobTitle: "Software Engineer & AI Engineer",
+      description: "Ayush Tripathi is a Software Engineer studying at IIT (BHU), specialising in full-stack development, Generative AI, LLM Agents, and Web3 protocols. He builds highly scalable production systems using Next.js, React, TypeScript, Python, and Go.",
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: "Indian Institute of Technology (BHU) Varanasi",
+        sameAs: "https://iitbhu.ac.in/"
+      },
+      knowsAbout: [
+        "Software Engineering",
+        "Artificial Intelligence",
+        "Generative AI",
+        "AI Agents",
+        "MCP Development",
+        "LLMs",
+        "Web3",
+        "Blockchain",
+        "Full Stack Development",
+        "Next.js",
+        "TypeScript",
+        "Python",
+        "Go",
+      ],
+      sameAs: [
+        "https://github.com/tonystalker",
+        "https://www.linkedin.com/in/ayush-tripathi-4a062b1b4/",
+        "https://x.com/TonyStalkerr",
+      ],
+    }
+  }
+];
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const projects = await getProjects();
+  
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         {/* Theme init — prevents FOUC */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark');}else if(!t&&window.matchMedia('(prefers-color-scheme: light)').matches){document.documentElement.classList.remove('dark');}})();`,
-          }}
-        />
+        <script dangerouslySetInnerHTML={{
+          __html: `(function(){var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark');}else if(!t&&window.matchMedia('(prefers-color-scheme: light)').matches){document.documentElement.classList.remove('dark');}})();`,
+        }} />
       </head>
-      <body className={`${GeistSans.className} antialiased text-[var(--text)] selection:bg-[var(--accent)] selection:text-[var(--bg)] ${GeistMono.variable}`} style={{ background: "var(--bg)" }}>
-        <ParticleWaveBackground />
+      <body
+        className={`${GeistSans.className} antialiased ${GeistMono.variable}`}
+        style={{ color: "var(--text)" }}
+      >
+        {/* Ambient background lighting and noise */}
+        <BackgroundEffects />
+
         <div className="relative z-10">
           <LenisProvider>
             <NavPanel />
             {children}
             <Ticker />
+            <CommandPalette projects={projects} />
           </LenisProvider>
         </div>
 
         {/* Footer */}
-        <footer className="w-full border-t border-[var(--text)]/10 mb-8">
+        <footer
+          className="w-full border-t pb-8"
+          style={{ borderColor: "var(--border)" }}
+        >
           <div className="mx-auto px-4 py-6 flex items-center justify-between" style={{ maxWidth: "700px" }}>
-            <span className="text-[11px] opacity-30" style={{ fontFamily: "var(--font-mono)" }}>
+            <span
+              className="text-[11px]"
+              style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
+            >
               © {new Date().getFullYear()} ayush tripathi
             </span>
             <a
               href="mailto:707ayushtripathi@gmail.com"
-              className="text-[11px] opacity-30 hover:opacity-80 transition-opacity no-underline"
-              style={{ fontFamily: "var(--font-mono)" }}
+              className="footer-email-link text-[11px] no-underline"
             >
               707ayushtripathi@gmail.com
             </a>

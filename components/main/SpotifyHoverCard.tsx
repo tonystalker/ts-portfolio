@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export type SpotifyData = {
   isPlaying: boolean;
@@ -13,9 +14,8 @@ export type SpotifyData = {
 };
 
 export function SpotifyHoverCard({ data }: { data: SpotifyData | null }) {
-  if (data && !data.isPlaying && !data.isRecent && !data.isLockedIn) return null;
-
   const isLoading = data === null;
+  const isOffline = data && !data.isPlaying && !data.isRecent && !data.isLockedIn;
 
   return (
     <motion.a
@@ -34,10 +34,13 @@ export function SpotifyHoverCard({ data }: { data: SpotifyData | null }) {
           <div className="w-4 h-4 border-2 border-[var(--text)]/20 border-t-[var(--text)] rounded-full animate-spin"></div>
         ) : (
           <>
-            <img 
-              src={data.albumImageUrl} 
-              alt="Album Art" 
-              className="w-full h-full object-cover grayscale mix-blend-luminosity group-hover:grayscale-0 group-hover:mix-blend-normal transition-all duration-300"
+            <Image 
+              src={data.albumImageUrl || ""} 
+              alt="Album Art"
+              fill
+              className="object-cover grayscale mix-blend-luminosity group-hover:grayscale-0 group-hover:mix-blend-normal transition-all duration-300"
+              sizes="48px"
+              unoptimized={!data.albumImageUrl}
             />
             {data.isPlaying && (
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center gap-[2px] opacity-0 group-hover:opacity-100 transition-opacity">
@@ -52,13 +55,13 @@ export function SpotifyHoverCard({ data }: { data: SpotifyData | null }) {
 
       <div className="flex flex-col justify-center overflow-hidden w-full">
         <div className="text-[9px] uppercase tracking-widest opacity-40 mb-1 flex items-center justify-between">
-          <span>{isLoading ? "[ UPLINK ESTABLISHING ]" : (data?.isLockedIn ? "[ SILENCE DETECTED ]" : (data?.isPlaying ? "[ NOW PLAYING ]" : "[ LAST PLAYED ]"))}</span>
+          <span>{isLoading ? "[ UPLINK ESTABLISHING ]" : (isOffline || data?.isLockedIn ? "[ SILENCE DETECTED ]" : (data?.isPlaying ? "[ NOW PLAYING ]" : "[ LAST PLAYED ]"))}</span>
         </div>
         <div className="text-[12px] font-bold text-[var(--text)] truncate">
-          {isLoading ? "decrypting telemetry..." : data?.title}
+          {isLoading ? "decrypting telemetry..." : (isOffline ? "Not listening" : data?.title)}
         </div>
         <div className="text-[10px] text-[var(--text)] opacity-60 truncate mt-0.5">
-          {isLoading ? "standby" : data?.artist}
+          {isLoading ? "standby" : (isOffline ? "Spotify" : data?.artist)}
         </div>
       </div>
     </motion.a>

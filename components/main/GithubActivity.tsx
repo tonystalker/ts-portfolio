@@ -1,9 +1,14 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ActivityCalendar, type Activity } from "react-activity-calendar";
+import dynamic from "next/dynamic";
+import type { Activity } from "react-activity-calendar";
+
+const ActivityCalendar = dynamic(
+  () => import("react-activity-calendar").then((mod) => mod.ActivityCalendar),
+  { ssr: false, loading: () => <div className="h-[150px] w-full animate-pulse bg-[var(--glass)] rounded-xl" /> }
+);
 import "react-activity-calendar/tooltips.css";
-import { KineticHeading } from "./KineticHeading";
 
 // Poll interval in ms (5 minutes)
 const POLL_INTERVAL = 5 * 60 * 1000;
@@ -32,7 +37,11 @@ export function GithubActivity() {
   const fetchContributions = useCallback(async () => {
     try {
       const res = await fetch("/api/github", { cache: "no-store" });
-      if (!res.ok) throw new Error(`API returned ${res.status}`);
+      if (!res.ok) {
+        setError(true);
+        setLoading(false);
+        return;
+      }
       const json = await res.json();
 
       if (json.contributions && json.contributions.length > 0) {
@@ -67,14 +76,7 @@ export function GithubActivity() {
   }
 
   return (
-    <section className="mt-20 w-full" id="activity" aria-label="GitHub Activity">
-      <KineticHeading
-        as="h2"
-        className="text-xl font-bold tracking-tight text-[var(--text)] mb-8"
-      >
-        activity
-      </KineticHeading>
-      <div className="w-full overflow-x-auto pb-4 custom-scrollbar min-h-[150px]">
+    <div className="w-full overflow-x-auto pb-4 custom-scrollbar min-h-[150px]">
         {!mounted ? null : error && !data.length ? (
           <p style={{ color: "var(--text)", opacity: 0.5, fontSize: 13 }}>
             Unable to load GitHub activity.
@@ -125,6 +127,5 @@ export function GithubActivity() {
           />
         )}
       </div>
-    </section>
   );
 }

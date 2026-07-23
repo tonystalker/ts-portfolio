@@ -1,0 +1,22 @@
+.cmdk-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.1s ease;
+  margin-bottom: 2px;
+}
+
+.cmdk-item[aria-selected="true"] {
+  background-color: var(--bg-secondary);
+  color: var(--accent);
+}
+
+.cmdk-item:active {
+  transform: scale(0.98);
+}

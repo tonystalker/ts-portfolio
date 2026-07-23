@@ -9,11 +9,15 @@ const BASE_URL = "https://www.ayush-tripathi.in";
  */
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: [],
-    },
+    rules: [
+      { userAgent: "*", allow: "/" },
+      { userAgent: "CCBot", allow: "/" },
+      { userAgent: "ChatGPT-User", allow: "/" },
+      { userAgent: "Google-Extended", allow: "/" },
+      { userAgent: "anthropic-ai", allow: "/" },
+      { userAgent: "PerplexityBot", allow: "/" },
+      { userAgent: "OmgiliBot", allow: "/" }
+    ],
     sitemap: `${BASE_URL}/sitemap.xml`,
     host: BASE_URL,
   };

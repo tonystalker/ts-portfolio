@@ -7,36 +7,17 @@ export function ThemeToggle() {
     const isDark = document.documentElement.classList.contains("dark");
 
     const transition = () => {
+      document.documentElement.classList.add("theme-transition");
       document.documentElement.classList.toggle("dark");
       localStorage.setItem("theme", isDark ? "light" : "dark");
+      
+      // Remove class after transition completes to prevent jank on resizing
+      setTimeout(() => {
+        document.documentElement.classList.remove("theme-transition");
+      }, 250);
     };
 
-    // Use View Transition API for ripple if supported
-    if (!document.startViewTransition) {
-      transition();
-      return;
-    }
-
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
-    );
-
-    const vt = document.startViewTransition(transition);
-    vt.ready.then(() => {
-      const clipPath = [
-        `circle(0px at ${x}px ${y}px)`,
-        `circle(${endRadius}px at ${x}px ${y}px)`,
-      ];
-      document.documentElement.animate(
-        { clipPath: isDark ? clipPath : [...clipPath].reverse() },
-        {
-          duration: 400,
-          easing: "ease-in",
-          pseudoElement: isDark ? "::view-transition-new(root)" : "::view-transition-old(root)",
-        }
-      );
-    });
+    transition();
   };
 
   return (
