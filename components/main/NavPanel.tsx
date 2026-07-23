@@ -22,8 +22,8 @@ export function NavPanel() {
   });
 
   return (
-    <div className="fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 z-50 select-none">
-      <div className="nav-pill flex items-center gap-1 px-2 py-2 relative overflow-hidden">
+    <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] w-[calc(100vw-32px)] sm:w-auto left-4 sm:left-1/2 sm:-translate-x-1/2 z-50 select-none">
+      <div className="nav-pill flex items-center justify-between sm:justify-start gap-0.5 sm:gap-1 px-1 sm:px-2 py-1.5 sm:py-2 relative overflow-hidden w-full">
         {/* Scroll Progress Indicator */}
         <motion.div
           className="absolute top-0 left-0 right-0 h-[2px]"
@@ -45,7 +45,7 @@ export function NavPanel() {
                 key={link.href}
                 href={link.href}
                 prefetch={true}
-                className="relative flex items-center justify-center px-3 sm:px-4 min-h-[36px] sm:min-h-0 py-2 sm:py-1.5 text-[13px] font-medium no-underline transition-all duration-200 ease-out rounded-full"
+                className="relative flex items-center justify-center flex-1 sm:flex-none px-1 min-[360px]:px-2 sm:px-4 min-h-[40px] sm:min-h-0 py-2 sm:py-1.5 text-[11px] min-[360px]:text-[12px] sm:text-[13px] font-medium no-underline transition-all duration-200 ease-out rounded-full"
                 style={{
                   color: active ? "var(--accent)" : "var(--text-muted)",
                   background: active ? "rgba(94,139,255,0.10)" : "transparent",
@@ -61,7 +61,7 @@ export function NavPanel() {
 
         {/* Divider */}
         <div
-          className="w-[1px] h-4 mx-1"
+          className="w-[1px] h-4 mx-0.5 sm:mx-1 flex-shrink-0"
           style={{ background: "var(--border)" }}
         />
 

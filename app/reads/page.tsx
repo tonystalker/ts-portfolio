@@ -45,14 +45,18 @@ export default async function ReadsPage() {
                   "@type": "CreativeWork",
                   "name": r.title,
                   "url": r.url,
-                  "genre": r.category
+                  "genre": r.category,
+                  "author": r.author ? {
+                    "@type": "Person",
+                    "name": r.author
+                  } : undefined
                 }
               }))
             }
           })
         }}
       />
-      <main className="min-h-svh flex justify-center" itemScope itemType="https://schema.org/CollectionPage">
+      <main className="min-h-dvh flex justify-center" itemScope itemType="https://schema.org/CollectionPage">
         <div
           className="flex flex-col relative w-full items-center"
           style={{ maxWidth: "800px" }}

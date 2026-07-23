@@ -6,8 +6,19 @@ import { FiClock, FiCalendar } from "react-icons/fi";
 
 export const metadata: Metadata = {
   title: "Writing | Ayush Tripathi",
-  description: "Technical articles, thoughts, and essays.",
+  description: "Technical articles, tutorials, and engineering essays.",
   alternates: { canonical: "/writing" },
+  openGraph: {
+    title: "Writing | Ayush Tripathi",
+    description: "Technical articles, tutorials, and engineering essays.",
+    url: "https://www.ayush-tripathi.in/writing",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Writing | Ayush Tripathi",
+    description: "Technical articles, tutorials, and engineering essays.",
+  }
 };
 
 export const revalidate = 3600;
@@ -16,7 +27,33 @@ export default async function WritingPage() {
   const articles = await getArticles();
 
   return (
-    <main className="min-h-svh flex justify-center">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Writing | Ayush Tripathi",
+            "description": "Technical articles, tutorials, and engineering essays.",
+            "url": "https://www.ayush-tripathi.in/writing",
+            "mainEntity": {
+              "@type": "ItemList",
+              "itemListElement": articles.map((article, i) => ({
+                "@type": "ListItem",
+                "position": i + 1,
+                "item": {
+                  "@type": "BlogPosting",
+                  "headline": article.title,
+                  "url": `https://www.ayush-tripathi.in/writing/${article.slug}`,
+                  "datePublished": article.publishedDate
+                }
+              }))
+            }
+          })
+        }}
+      />
+      <main className="min-h-dvh flex justify-center" itemScope itemType="https://schema.org/CollectionPage">
       <div
         className="flex flex-col relative w-full items-center"
         style={{ maxWidth: "700px" }}
@@ -99,5 +136,6 @@ export default async function WritingPage() {
         </div>
       </div>
     </main>
+    </>
   );
 }

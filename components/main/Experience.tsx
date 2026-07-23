@@ -34,8 +34,8 @@ export function Experience({ roles }: { roles: NotionExperience[] }) {
             {/* Header (Always Visible) */}
             <header className="p-4 sm:p-5 flex items-center justify-between">
               <div className="flex flex-col gap-2 w-full">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-2 w-full mb-1 sm:mb-0">
-                  <div className="flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1.5 sm:gap-2 w-full mb-2 sm:mb-0">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-0.5 sm:gap-3">
                     <h3
                       className="text-[16px] font-semibold tracking-[-0.01em] transition-colors group-hover:text-[var(--accent)]"
                       style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
@@ -44,17 +44,17 @@ export function Experience({ roles }: { roles: NotionExperience[] }) {
                       {role.role}
                     </h3>
                     <span 
-                      className="text-[14px]"
+                      className="text-[13px] sm:text-[14px]"
                       style={{ color: "var(--text-muted)", fontFamily: "var(--font-sans)" }}
                       itemProp="worksFor"
                       itemScope
                       itemType="https://schema.org/Organization"
                     >
-                      @ <span itemProp="name">{role.company}</span>
+                      <span className="hidden sm:inline">@ </span><span itemProp="name">{role.company}</span>
                     </span>
                   </div>
                   <span 
-                    className="text-[12px] tabular-nums"
+                    className="text-[11px] sm:text-[12px] tabular-nums mt-0.5 sm:mt-0"
                     style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
                     itemProp="startDate"
                   >
@@ -64,7 +64,7 @@ export function Experience({ roles }: { roles: NotionExperience[] }) {
                 
                 {/* One line summary */}
                 <p
-                  className="text-[13px] leading-relaxed max-w-[90%]"
+                  className="text-[12.5px] sm:text-[13px] leading-relaxed max-w-full sm:max-w-[90%]"
                   style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
                   itemProp="description"
                 >

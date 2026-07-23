@@ -57,7 +57,7 @@ export default async function Home() {
   const recentPosts = allArticles.slice(0, 3);
 
   return (
-    <main className="min-h-svh flex justify-center" itemScope itemType="https://schema.org/CollectionPage">
+    <main className="min-h-dvh flex justify-center" itemScope itemType="https://schema.org/CollectionPage">
       {/* ── CollectionPage JSON-LD ── */}
       <script
         type="application/ld+json"
@@ -88,7 +88,7 @@ export default async function Home() {
       
       <div
         className="flex flex-col relative w-full items-center"
-        style={{ maxWidth: "700px", minHeight: "100svh" }}
+        style={{ maxWidth: "700px", minHeight: "100dvh" }}
       >
         <div className="w-full max-w-[640px] px-4 sm:px-5 pb-24 sm:pb-36 flex flex-col items-start relative">
           {/* ── Static Ambient Lights ── */}

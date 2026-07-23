@@ -59,7 +59,7 @@ export function ProjectShowcase({ projects }: { projects: NotionProject[] }) {
                   
                   {/* One line desc */}
                   <p
-                    className="text-[13px] leading-relaxed max-w-[90%] sm:max-w-[80%]"
+                    className="text-[12.5px] sm:text-[13px] leading-relaxed max-w-full sm:max-w-[80%]"
                     style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
                   >
                     {project.description}
@@ -68,7 +68,7 @@ export function ProjectShowcase({ projects }: { projects: NotionProject[] }) {
 
                 {/* Open Indicator */}
                 <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300"
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center transition-transform duration-300 mt-1 sm:mt-0 flex-shrink-0"
                   style={{
                     background: "var(--bg)",
                     border: "1px solid var(--border)",

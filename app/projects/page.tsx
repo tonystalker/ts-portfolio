@@ -42,17 +42,22 @@ export default async function ProjectsPage() {
                 "item": {
                   "@type": "SoftwareSourceCode",
                   "name": p.title,
-                  "description": p.description,
+                  "description": p.shortDescription || p.description,
                   "codeRepository": p.githubUrl || undefined,
                   "url": p.liveDemoUrl || undefined,
-                  "programmingLanguage": p.technologies || []
+                  "programmingLanguage": p.technologies || [],
+                  "author": {
+                    "@type": "Person",
+                    "name": "Ayush Tripathi",
+                    "url": "https://www.ayush-tripathi.in"
+                  }
                 }
               }))
             }
           })
         }}
       />
-      <main className="min-h-svh flex justify-center" itemScope itemType="https://schema.org/CollectionPage">
+      <main className="min-h-dvh flex justify-center" itemScope itemType="https://schema.org/CollectionPage">
         <div
         className="flex flex-col relative w-full items-center"
         style={{ maxWidth: "700px" }}

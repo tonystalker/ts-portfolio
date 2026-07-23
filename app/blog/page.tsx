@@ -58,7 +58,7 @@ export default async function BlogPage() {
           ])
         }}
       />
-      <main className="min-h-svh flex justify-center" itemScope itemType="https://schema.org/Blog">
+      <main className="min-h-dvh flex justify-center" itemScope itemType="https://schema.org/Blog">
         <div
         className="flex flex-col relative w-full items-center"
         style={{ maxWidth: "700px" }}

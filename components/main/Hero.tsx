@@ -93,21 +93,21 @@ export function Hero({ settings }: { settings: Record<string, string> }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col-reverse sm:flex-row items-start sm:items-center justify-between w-full gap-8 sm:gap-0"
+          className="flex flex-col-reverse sm:flex-row items-start sm:items-center justify-between w-full gap-5 sm:gap-0"
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3 sm:gap-4 w-full sm:w-auto">
             <h1 className="sr-only">{name}</h1>
 
             {/* Dynamic Greeting */}
             <div 
-              className="text-[13px] tracking-wide uppercase"
+              className="text-[11px] sm:text-[13px] tracking-wide uppercase"
               style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
             >
               {getGreeting()}
             </div>
 
             <div
-              className="text-[36px] min-[390px]:text-[42px] sm:text-[48px] md:text-[64px] font-semibold tracking-[-0.03em] leading-[1.1] md:leading-[1]"
+              className="text-[32px] min-[360px]:text-[38px] sm:text-[48px] md:text-[64px] font-semibold tracking-[-0.03em] leading-[1.1] md:leading-[1]"
               style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
             >
               {title}
@@ -115,7 +115,7 @@ export function Hero({ settings }: { settings: Record<string, string> }) {
 
             {/* Subtitle Cycler */}
             <div
-              className="text-[14px] sm:text-[15px] flex items-center gap-1.5 mt-1 sm:mt-0"
+              className="text-[13px] sm:text-[15px] flex items-center gap-1.5 mt-0.5 sm:mt-0"
               style={{
                 color: "var(--text-muted)",
                 fontFamily: "var(--font-mono)",
@@ -129,8 +129,7 @@ export function Hero({ settings }: { settings: Record<string, string> }) {
           {/* Profile photo */}
           <div
             ref={pfpRef}
-            className="relative flex-shrink-0 cursor-pointer"
-            style={{ width: "80px", height: "80px" }}
+            className="relative flex-shrink-0 cursor-pointer w-[64px] h-[64px] sm:w-[80px] sm:h-[80px]"
             onMouseEnter={() => setIsHoveringPfp(true)}
             onMouseLeave={() => setIsHoveringPfp(false)}
             onClick={() => setIsHoveringPfp((v) => !v)}
@@ -161,7 +160,7 @@ export function Hero({ settings }: { settings: Record<string, string> }) {
                 alt="Ayush Tripathi – Software Engineer"
                 fill
                 className="object-cover transition-all duration-500 ease-out grayscale mix-blend-luminosity hover:grayscale-0 hover:mix-blend-normal"
-                sizes="80px"
+                sizes="(max-width: 640px) 64px, 80px"
                 priority
               />
             </div>

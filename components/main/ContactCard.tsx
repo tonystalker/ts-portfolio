@@ -73,7 +73,7 @@ export function ContactCard() {
         {/* Email Copy Button */}
         <button
           onClick={handleCopy}
-          className="flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 rounded-full transition-all duration-200 ease-out hover:scale-105 active:scale-95 max-w-full"
+          className="flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 rounded-full transition-all duration-200 ease-out hover:scale-105 active:scale-95 w-[90%] sm:w-auto max-w-full"
           style={{
             background: "var(--text)",
             color: "var(--bg)",

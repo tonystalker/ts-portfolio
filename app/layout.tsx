@@ -11,9 +11,9 @@ import "./globals.css";
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Ayush Tripathi | Software Engineer & AI Engineer",
+  title: "Ayush Tripathi | Software Engineer",
   description:
-    "Ayush Tripathi is a Software Engineer and AI Engineer at IIT (BHU) building full-stack apps, Generative AI agents, and Web3 protocols. Expert in TypeScript, Next.js, Go, Python.",
+    "Software engineer from IIT (BHU) building AI applications, developer tools, and modern web experiences. Focused on scalable systems, clean engineering, and thoughtful user experiences.",
   keywords: [
     "Ayush Tripathi", "Software Engineer", "AI Engineer", "AI Agent Developer",
     "Full Stack Developer", "IIT BHU", "Go", "Python", "TypeScript",
@@ -35,14 +35,14 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://www.ayush-tripathi.in",
     siteName: "Ayush Tripathi",
-    title: "Ayush Tripathi | Software Engineer & AI Infra",
-    description: "Software Engineer at IIT (BHU) building full-stack apps, backend systems, and Web3 protocols.",
+    title: "Ayush Tripathi | Software Engineer",
+    description: "Software engineer from IIT (BHU) building AI applications, developer tools, and modern web experiences. Focused on scalable systems, clean engineering, and thoughtful user experiences.",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Ayush Tripathi" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ayush Tripathi | Software Engineer & AI Engineer",
-    description: "Software Engineer at IIT (BHU) building full-stack apps, Generative AI agents, and Web3 protocols.",
+    title: "Ayush Tripathi | Software Engineer",
+    description: "Software engineer from IIT (BHU) building AI applications, developer tools, and modern web experiences. Focused on scalable systems, clean engineering, and thoughtful user experiences.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -64,7 +64,6 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "ProfilePage",
     dateCreated: "2024-01-01T00:00:00-05:00",
-    dateModified: new Date().toISOString(),
     mainEntity: {
       "@type": "Person",
       name: "Ayush Tripathi",
@@ -72,11 +71,11 @@ const jsonLd = [
       familyName: "Tripathi",
       url: "https://www.ayush-tripathi.in",
       image: "https://www.ayush-tripathi.in/heroimage.png",
-      jobTitle: "Software Engineer & AI Engineer",
-      description: "Ayush Tripathi is a Software Engineer studying at IIT (BHU), specialising in full-stack development, Generative AI, LLM Agents, and Web3 protocols. He builds highly scalable production systems using Next.js, React, TypeScript, Python, and Go.",
+      jobTitle: "Software Engineer",
+      description: "Software engineer from IIT (BHU) building AI applications, developer tools, and modern web experiences. Focused on scalable systems, clean engineering, and thoughtful user experiences.",
       alumniOf: {
         "@type": "CollegeOrUniversity",
-        name: "Indian Institute of Technology (BHU) Varanasi",
+        name: "IIT (BHU)",
         sameAs: "https://iitbhu.ac.in/"
       },
       knowsAbout: [

@@ -19,14 +19,16 @@ export async function generateMetadata({
   const post = await getArticleBySlug(slug);
   if (!post) return {};
 
+  const fallbackDesc = "Software engineer from IIT (BHU) building AI applications, developer tools, and modern web experiences. Focused on scalable systems, clean engineering, and thoughtful user experiences.";
+  
   return {
     title: `${post.title} | Ayush Tripathi`,
-    description: post.excerpt || post.seoDescription || "",
+    description: post.excerpt || post.seoDescription || fallbackDesc,
     keywords: [...(post.tags || []), "Ayush Tripathi", "Software Engineer", "IIT BHU"],
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
       title: `${post.title} | Ayush Tripathi`,
-      description: post.excerpt || post.seoDescription || "",
+      description: post.excerpt || post.seoDescription || fallbackDesc,
       url: `https://www.ayush-tripathi.in/blog/${post.slug}`,
       type: "article",
       publishedTime: post.publishedDate || undefined,
@@ -36,7 +38,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: `${post.title} | Ayush Tripathi`,
-      description: post.excerpt || post.seoDescription || "",
+      description: post.excerpt || post.seoDescription || fallbackDesc,
     },
   };
 }
@@ -135,7 +137,7 @@ export default async function BlogPostPage({
         slug={post.slug}
       />
 
-      <main className="min-h-svh flex justify-center">
+      <main className="min-h-dvh flex justify-center">
         <div
           className="flex flex-col relative w-full items-center"
           style={{ maxWidth: "700px" }}
