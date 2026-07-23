@@ -32,9 +32,9 @@ export function Experience({ roles }: { roles: NotionExperience[] }) {
             onClick={() => setExpandedId(isExpanded ? null : role.id)}
           >
             {/* Header (Always Visible) */}
-            <header className="p-5 flex items-center justify-between">
+            <header className="p-4 sm:p-5 flex items-center justify-between">
               <div className="flex flex-col gap-2 w-full">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 w-full">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-2 w-full mb-1 sm:mb-0">
                   <div className="flex items-center gap-3">
                     <h3
                       className="text-[16px] font-semibold tracking-[-0.01em] transition-colors group-hover:text-[var(--accent)]"
@@ -82,7 +82,7 @@ export function Experience({ roles }: { roles: NotionExperience[] }) {
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <div className="p-5 pt-0 border-t flex flex-col gap-5" style={{ borderColor: "var(--border)" }}>
+                  <div className="p-4 sm:p-5 pt-0 sm:pt-0 border-t flex flex-col gap-4 sm:gap-5" style={{ borderColor: "var(--border)" }}>
                     {/* Bullet Points */}
                     <ul className="mt-5 space-y-3">
                       {role.contributions.map((detail, idx) => (

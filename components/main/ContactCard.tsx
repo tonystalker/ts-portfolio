@@ -35,7 +35,7 @@ export function ContactCard() {
         }}
       />
 
-      <div className="p-8 sm:p-10 flex flex-col items-center justify-center text-center relative z-10">
+      <div className="p-6 sm:p-8 md:p-10 flex flex-col items-center justify-center text-center relative z-10">
         
         {/* Availability Badge */}
         <div 
@@ -57,7 +57,7 @@ export function ContactCard() {
 
         {/* Heading */}
         <h2 
-          className="text-[32px] sm:text-[40px] font-semibold tracking-[-0.03em] mb-4"
+          className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold tracking-[-0.03em] mb-4"
           style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
         >
           Let&apos;s build something.
@@ -73,7 +73,7 @@ export function ContactCard() {
         {/* Email Copy Button */}
         <button
           onClick={handleCopy}
-          className="flex items-center gap-3 px-6 py-3 rounded-full transition-all duration-200 ease-out hover:scale-105 active:scale-95"
+          className="flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 rounded-full transition-all duration-200 ease-out hover:scale-105 active:scale-95 max-w-full"
           style={{
             background: "var(--text)",
             color: "var(--bg)",
@@ -81,7 +81,7 @@ export function ContactCard() {
             boxShadow: "0 8px 30px rgba(0,0,0,0.12)",
           }}
         >
-          <span className="text-[14px] font-medium tracking-tight">
+          <span className="text-[13px] sm:text-[14px] font-medium tracking-tight truncate">
             {copied ? "Copied to clipboard!" : "707ayushtripathi@gmail.com"}
           </span>
           {!copied && (

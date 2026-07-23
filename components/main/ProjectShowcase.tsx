@@ -29,9 +29,9 @@ export function ProjectShowcase({ projects }: { projects: NotionProject[] }) {
               onClick={() => setSelectedProject(project)}
             >
               {/* Header (Always Visible) */}
-              <div className="p-5 flex items-center justify-between">
+              <div className="p-4 sm:p-5 flex items-start sm:items-center justify-between">
                 <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                     <h3
                       className="text-[16px] font-semibold tracking-[-0.01em] transition-colors group-hover:text-[var(--accent)]"
                       style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
@@ -59,7 +59,7 @@ export function ProjectShowcase({ projects }: { projects: NotionProject[] }) {
                   
                   {/* One line desc */}
                   <p
-                    className="text-[13px] leading-relaxed max-w-[80%]"
+                    className="text-[13px] leading-relaxed max-w-[90%] sm:max-w-[80%]"
                     style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
                   >
                     {project.description}

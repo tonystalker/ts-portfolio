@@ -93,7 +93,7 @@ export function Hero({ settings }: { settings: Record<string, string> }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-row items-center justify-between w-full"
+          className="flex flex-col-reverse sm:flex-row items-start sm:items-center justify-between w-full gap-8 sm:gap-0"
         >
           <div className="flex flex-col gap-4">
             <h1 className="sr-only">{name}</h1>
@@ -107,7 +107,7 @@ export function Hero({ settings }: { settings: Record<string, string> }) {
             </div>
 
             <div
-              className="text-[48px] sm:text-[64px] font-semibold tracking-[-0.03em] leading-[1]"
+              className="text-[36px] min-[390px]:text-[42px] sm:text-[48px] md:text-[64px] font-semibold tracking-[-0.03em] leading-[1.1] md:leading-[1]"
               style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
             >
               {title}
@@ -115,7 +115,7 @@ export function Hero({ settings }: { settings: Record<string, string> }) {
 
             {/* Subtitle Cycler */}
             <div
-              className="text-[15px] flex items-center gap-1.5"
+              className="text-[14px] sm:text-[15px] flex items-center gap-1.5 mt-1 sm:mt-0"
               style={{
                 color: "var(--text-muted)",
                 fontFamily: "var(--font-mono)",
@@ -193,7 +193,7 @@ export function Hero({ settings }: { settings: Record<string, string> }) {
             }}
           />
           
-          <div className="p-8 sm:p-10 flex flex-col relative z-10">
+          <div className="p-6 sm:p-8 md:p-10 flex flex-col relative z-10">
             <div 
               className="text-[10px] font-medium uppercase tracking-widest mb-6"
               style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}

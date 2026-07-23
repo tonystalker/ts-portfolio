@@ -75,7 +75,7 @@ export function Ticker() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 border-t border-[var(--text)]/20 bg-[var(--bg)] overflow-hidden"
+      className="fixed bottom-0 left-0 right-0 z-50 border-t border-[var(--text)]/20 bg-[var(--bg)] overflow-hidden pb-[env(safe-area-inset-bottom)]"
       style={{ fontFamily: "var(--font-mono)" }}
     >
       <div className="flex whitespace-nowrap py-2">

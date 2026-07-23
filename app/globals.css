@@ -98,6 +98,7 @@
 html {
   scroll-behavior: smooth;
   color-scheme: light dark;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -108,6 +109,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100svh;
+  /* Safe Area Support */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ─────────────────────────────────────────────────────────────────

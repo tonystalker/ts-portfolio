@@ -84,6 +84,7 @@ export function TechStack() {
                 className="relative group cursor-crosshair"
                 onMouseEnter={() => setHoveredTech(tech.name)}
                 onMouseLeave={() => setHoveredTech(null)}
+                onClick={() => setHoveredTech(hoveredTech === tech.name ? null : tech.name)}
               >
                 <div
                   className="stack-chip flex items-center gap-2 px-3 py-1.5 transition-all duration-200 ease-out"

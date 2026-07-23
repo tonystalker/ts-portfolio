@@ -26,7 +26,7 @@ export function SpotifyHoverCard({ data }: { data: SpotifyData | null }) {
       animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
       exit={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      className={`absolute z-50 right-0 sm:right-full sm:left-auto top-full sm:top-0 mt-4 sm:mt-0 sm:mr-6 w-[260px] sm:w-64 bg-[var(--bg)] border border-[var(--text)]/20 shadow-[4px_4px_0px_var(--text)] p-3 flex gap-3 items-center group cursor-crosshair ${isLoading ? 'pointer-events-none' : 'no-underline'}`}
+      className={`absolute z-50 left-0 sm:left-auto sm:right-full top-full sm:top-0 mt-4 sm:mt-0 sm:mr-6 w-[260px] sm:w-64 bg-[var(--bg)] border border-[var(--text)]/20 shadow-[4px_4px_0px_var(--text)] p-3 flex gap-3 items-center group cursor-crosshair ${isLoading ? 'pointer-events-none' : 'no-underline'}`}
       style={{ fontFamily: "var(--font-mono)" }}
     >
       <div className="w-12 h-12 flex-shrink-0 border border-[var(--text)]/20 overflow-hidden relative bg-[var(--text)]/5 flex items-center justify-center">

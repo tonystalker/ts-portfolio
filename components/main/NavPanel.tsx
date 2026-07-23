@@ -22,7 +22,7 @@ export function NavPanel() {
   });
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 select-none">
+    <div className="fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 z-50 select-none">
       <div className="nav-pill flex items-center gap-1 px-2 py-2 relative overflow-hidden">
         {/* Scroll Progress Indicator */}
         <motion.div
@@ -45,7 +45,7 @@ export function NavPanel() {
                 key={link.href}
                 href={link.href}
                 prefetch={true}
-                className="relative px-4 py-1.5 text-[13px] font-medium no-underline transition-all duration-200 ease-out rounded-full"
+                className="relative flex items-center justify-center px-3 sm:px-4 min-h-[36px] sm:min-h-0 py-2 sm:py-1.5 text-[13px] font-medium no-underline transition-all duration-200 ease-out rounded-full"
                 style={{
                   color: active ? "var(--accent)" : "var(--text-muted)",
                   background: active ? "rgba(94,139,255,0.10)" : "transparent",

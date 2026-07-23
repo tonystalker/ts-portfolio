@@ -95,8 +95,8 @@ export function ProjectDrawer({ project, isOpen, onClose }: ProjectDrawerProps) 
             )}
 
             {/* Header */}
-            <header className="px-6 py-5 flex items-center justify-between border-b border-[var(--border-secondary)] sticky top-0 bg-[var(--bg)]/80 backdrop-blur-md z-10">
-              <h2 className="text-xl font-semibold tracking-tight" style={{ color: "var(--text)" }} itemProp="name">
+            <header className="px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between border-b border-[var(--border-secondary)] sticky top-0 bg-[var(--bg)]/80 backdrop-blur-md z-10">
+              <h2 className="text-lg sm:text-xl font-semibold tracking-tight" style={{ color: "var(--text)" }} itemProp="name">
                 {project.title}
               </h2>
               <button
@@ -109,7 +109,7 @@ export function ProjectDrawer({ project, isOpen, onClose }: ProjectDrawerProps) 
             </header>
 
             {/* Content Body */}
-            <div className="p-6 flex flex-col gap-8 pb-32">
+            <div className="p-5 sm:p-6 flex flex-col gap-6 sm:gap-8 pb-[calc(8rem+env(safe-area-inset-bottom))]">
               {/* Preview */}
               <div className="w-full">
                 <BrowserMockup 

@@ -90,7 +90,7 @@ export default async function Home() {
         className="flex flex-col relative w-full items-center"
         style={{ maxWidth: "700px", minHeight: "100svh" }}
       >
-        <div className="w-full max-w-[640px] px-5 pb-36 flex flex-col items-start relative">
+        <div className="w-full max-w-[640px] px-4 sm:px-5 pb-24 sm:pb-36 flex flex-col items-start relative">
           {/* ── Static Ambient Lights ── */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[500px] pointer-events-none z-[-1]" 
                style={{ background: "radial-gradient(ellipse at top, rgba(94, 139, 255, 0.07) 0%, transparent 70%)", filter: "blur(60px)" }} />
@@ -102,7 +102,7 @@ export default async function Home() {
                style={{ background: "radial-gradient(circle, rgba(255, 140, 94, 0.05) 0%, transparent 70%)", filter: "blur(60px)" }} />
 
           {/* ── Hero ──────────────────────────────────────────────────────── */}
-          <header className="mt-24 sm:mt-32 w-full" aria-label="Introduction">
+          <header className="mt-16 min-[390px]:mt-24 sm:mt-32 w-full" aria-label="Introduction">
             <h1 className="sr-only">Ayush Tripathi - Software Engineer & AI Infrastructure Developer</h1>
             <div className="sr-only">
               Building highly scalable production systems using Next.js, React, TypeScript, Python, and Go.
@@ -112,7 +112,7 @@ export default async function Home() {
 
           {/* ── Experience ─────────────────────────────────────────────────────── */}
           {experience.length > 0 && (
-            <section className="mt-20 sm:mt-32 w-full" aria-labelledby="experience-heading">
+            <section className="mt-16 sm:mt-20 md:mt-32 w-full" aria-labelledby="experience-heading">
               <ScrollReveal id="experience">
                 <SectionLabel><span id="experience-heading">experience</span></SectionLabel>
                 <Experience roles={experience} />
@@ -121,7 +121,7 @@ export default async function Home() {
           )}
 
           {/* ── GitHub Activity ────────────────────────────────────────────── */}
-          <section className="mt-20 sm:mt-32 w-full" aria-labelledby="activity-heading">
+          <section className="mt-16 sm:mt-20 md:mt-32 w-full" aria-labelledby="activity-heading">
             <ScrollReveal>
               <SectionLabel><span id="activity-heading">activity</span></SectionLabel>
               <GithubActivity />
@@ -130,7 +130,7 @@ export default async function Home() {
 
           {/* ── Projects ──────────────────────────────────────────────────── */}
           {featuredProjects.length > 0 && (
-            <section className="mt-20 sm:mt-32 w-full" aria-labelledby="projects-heading">
+            <section className="mt-16 sm:mt-20 md:mt-32 w-full" aria-labelledby="projects-heading">
               <ScrollReveal id="projects">
                 <SectionLabel><span id="projects-heading">pinned projects</span></SectionLabel>
                 <ProjectShowcase projects={featuredProjects} />
@@ -140,7 +140,7 @@ export default async function Home() {
 
           {/* ── Recent Posts ───────────────────────────────────────────────── */}
           {recentPosts.length > 0 && (
-            <ScrollReveal className="mt-20 sm:mt-32 w-full" id="blogs" ariaLabel="Recent blog posts">
+            <ScrollReveal className="mt-16 sm:mt-20 md:mt-32 w-full" id="blogs" ariaLabel="Recent blog posts">
               <div className="flex items-center justify-between mb-6">
                 <SectionLabel>recent writing</SectionLabel>
                 <Link
@@ -189,13 +189,13 @@ export default async function Home() {
           )}
 
           {/* ── Stack ─────────────────────────────────────────────────────── */}
-          <ScrollReveal className="mt-20 sm:mt-32 w-full" ariaLabel="Tech stack">
+          <ScrollReveal className="mt-16 sm:mt-20 md:mt-32 w-full" ariaLabel="Tech stack">
             <SectionLabel>stack</SectionLabel>
             <TechStack />
           </ScrollReveal>
 
           {/* ── Contact ────────────────────────────────────────────────────── */}
-          <ScrollReveal className="mt-20 sm:mt-32 mb-10 w-full">
+          <ScrollReveal className="mt-16 sm:mt-20 md:mt-32 mb-10 w-full">
             <ContactCard />
           </ScrollReveal>
 
