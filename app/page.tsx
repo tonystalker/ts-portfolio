@@ -1,63 +1,43 @@
 import { Hero } from "@/components/main/Hero";
+import { ProofStrip } from "@/components/main/ProofStrip";
 import { ProjectShowcase } from "@/components/main/ProjectShowcase";
 import { Experience } from "@/components/main/Experience";
 import { TechStack } from "@/components/main/TechStack";
+import { NowSection } from "@/components/main/NowSection";
 import { ContactCard } from "@/components/main/ContactCard";
+import { DoorScene } from "@/components/main/DoorScene";
 import { ScrollReveal } from "@/components/main/ScrollReveal";
-import { GithubActivity } from "@/components/main/GithubActivity";
-import Link from "next/link";
-import { getArticles, getProjects, getExperience, getSiteSettings } from "@/lib/notion/service";
-import {
-  SiGithub,
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
-  SiNodedotjs,
-  SiGo,
-  SiPython,
-  SiSolidity,
-  SiMongodb,
-  SiPostgresql,
-  SiDocker,
-  SiLangchain,
-  SiLanggraph,
-} from "react-icons/si";
-import { FaLinkedin } from "react-icons/fa";
-import { RxTwitterLogo } from "react-icons/rx";
-import type { IconType } from "react-icons";
+import { getProjects, getExperience, getSiteSettings } from "@/lib/notion/service";
+import { portfolioConfig } from "@/config/portfolio";
 
-
-// ─── Section heading ──────────────────────────────────────────────────────────
-
-
-
-
-
-
-// ─── Section heading ──────────────────────────────────────────────────────────
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function SectionLabel({ children, number }: { children: React.ReactNode; number?: string }) {
   return (
-    <h2
-      className="text-[11px] font-semibold uppercase tracking-[0.12em] mb-6"
-      style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
+    <div 
+      className="flex items-center gap-2.5 mb-6 sm:mb-8 pb-3 border-b w-full"
+      style={{ borderColor: "var(--line)" }}
     >
-      {children}
-    </h2>
+      {number && (
+        <span className="text-[11px] font-mono font-bold" style={{ color: "var(--accent)" }}>
+          {number}
+        </span>
+      )}
+      <h2
+        className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.14em]"
+        style={{ color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}
+      >
+        {children}
+      </h2>
+    </div>
   );
 }
 
 export default async function Home() {
-  // CMS Fetching
   const projects = await getProjects();
-  const featuredProjects = projects.filter(p => p.featured);
   const experience = await getExperience();
   const settings = await getSiteSettings();
-  
-  const allArticles = await getArticles();
-  const recentPosts = allArticles.slice(0, 3);
 
   return (
-    <main className="min-h-dvh flex justify-center w-full overflow-x-hidden" itemScope itemType="https://schema.org/CollectionPage">
+    <main className="min-h-dvh flex flex-col items-center w-full overflow-x-hidden" itemScope itemType="https://schema.org/CollectionPage">
       {/* ── CollectionPage JSON-LD ── */}
       <script
         type="application/ld+json"
@@ -65,142 +45,87 @@ export default async function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            "name": "Featured Projects by Ayush Tripathi",
-            "description": "A collection of software engineering and AI infrastructure projects.",
+            "name": "Ayush Tripathi — AI Systems & Product Engineering",
+            "description": "I build AI products and systems that stay reliable after the demo.",
             "mainEntity": {
               "@type": "ItemList",
-              "itemListElement": featuredProjects.map((p, i) => ({
+              "itemListElement": portfolioConfig.projects.slice(0, 3).map((p, i) => ({
                 "@type": "ListItem",
                 "position": i + 1,
                 "item": {
                   "@type": "SoftwareSourceCode",
                   "name": p.title,
                   "description": p.description,
-                  "codeRepository": p.githubUrl || undefined,
-                  "url": p.liveDemoUrl || undefined,
-                  "programmingLanguage": p.technologies || []
+                  "codeRepository": p.github,
+                  "url": p.website || undefined,
+                  "programmingLanguage": p.tech || []
                 }
               }))
             }
           })
         }}
       />
-      
-      <div
-        className="flex flex-col relative w-full items-center"
-        style={{ maxWidth: "760px", minHeight: "100dvh" }}
-      >
-        <div className="w-full max-w-[680px] px-4 sm:px-6 pb-24 sm:pb-36 flex flex-col items-start relative">
-          {/* ── Static Ambient Lights ── */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[500px] pointer-events-none z-[-1]" 
-               style={{ background: "radial-gradient(ellipse at top, rgba(94, 139, 255, 0.07) 0%, transparent 70%)", filter: "blur(60px)" }} />
-          
-          <div className="absolute top-[1200px] -left-[200px] w-[600px] h-[600px] pointer-events-none z-[-1]" 
-               style={{ background: "radial-gradient(circle, rgba(139, 94, 255, 0.04) 0%, transparent 70%)", filter: "blur(60px)" }} />
-               
-          <div className="absolute bottom-[200px] -right-[200px] w-[600px] h-[600px] pointer-events-none z-[-1]" 
-               style={{ background: "radial-gradient(circle, rgba(255, 140, 94, 0.05) 0%, transparent 70%)", filter: "blur(60px)" }} />
 
-          {/* ── Hero ──────────────────────────────────────────────────────── */}
-          <header className="mt-16 min-[390px]:mt-24 sm:mt-32 w-full" aria-label="Introduction">
-            <h1 className="sr-only">Ayush Tripathi - Software Engineer & AI Infrastructure Developer</h1>
-            <div className="sr-only">
-              Building highly scalable production systems using Next.js, React, TypeScript, Python, and Go.
-            </div>
-            <Hero settings={settings} />
-          </header>
+      {/* Main Content Column (Desktop max 1180px, responsive padding) */}
+      <div className="w-full max-w-[1180px] px-5 sm:px-8 md:px-12 pt-12 sm:pt-20 md:pt-24 pb-16 flex flex-col items-start relative">
+        
+        {/* 1. Hero / Thesis */}
+        <header className="w-full" aria-label="Introduction and Thesis">
+          <h1 className="sr-only">Ayush Tripathi — AI Systems & Product Engineering</h1>
+          <Hero settings={settings} />
+        </header>
 
-          {/* ── Experience ─────────────────────────────────────────────────────── */}
-          {experience.length > 0 && (
-            <section className="mt-16 sm:mt-20 md:mt-32 w-full" aria-labelledby="experience-heading">
-              <ScrollReveal id="experience">
-                <SectionLabel><span id="experience-heading">experience</span></SectionLabel>
-                <Experience roles={experience} />
-              </ScrollReveal>
-            </section>
-          )}
+        {/* 2. Proof Strip */}
+        <section className="w-full" aria-label="Current focus and availability">
+          <ProofStrip />
+        </section>
 
-          {/* ── GitHub Activity ────────────────────────────────────────────── */}
-          <section className="mt-16 sm:mt-20 md:mt-32 w-full" aria-labelledby="activity-heading">
-            <ScrollReveal>
-              <SectionLabel><span id="activity-heading">activity</span></SectionLabel>
-              <GithubActivity />
-            </ScrollReveal>
-          </section>
+        {/* 3. Selected Work (Exactly 3 strong projects in stacked editorial cards) */}
+        <section id="projects" className="mt-16 sm:mt-24 md:mt-28 w-full scroll-mt-24" aria-labelledby="selected-work-heading">
+          <ScrollReveal>
+            <SectionLabel number="01"><span id="selected-work-heading">Selected work</span></SectionLabel>
+            <ProjectShowcase projects={projects} />
+          </ScrollReveal>
+        </section>
 
-          {/* ── Projects ──────────────────────────────────────────────────── */}
-          {featuredProjects.length > 0 && (
-            <section className="mt-16 sm:mt-20 md:mt-32 w-full" aria-labelledby="projects-heading">
-              <ScrollReveal id="projects">
-                <SectionLabel><span id="projects-heading">pinned projects</span></SectionLabel>
-                <ProjectShowcase projects={featuredProjects} />
-              </ScrollReveal>
-            </section>
-          )}
+        {/* 4. Experience Timeline */}
+        <section id="experience" className="mt-20 sm:mt-28 md:mt-32 w-full" aria-labelledby="experience-heading">
+          <ScrollReveal>
+            <SectionLabel number="02"><span id="experience-heading">Experience</span></SectionLabel>
+            <Experience roles={experience} />
+          </ScrollReveal>
+        </section>
 
-          {/* ── Recent Posts ───────────────────────────────────────────────── */}
-          {recentPosts.length > 0 && (
-            <ScrollReveal className="mt-16 sm:mt-20 md:mt-32 w-full" id="blogs" ariaLabel="Recent blog posts">
-              <div className="flex items-center justify-between mb-6">
-                <SectionLabel>recent writing</SectionLabel>
-                <Link
-                  href="/blog"
-                  className="text-[12px] no-underline transition-colors duration-200 mb-6"
-                  style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}
-                >
-                  see all →
-                </Link>
-              </div>
-              <div className="w-full flex flex-col">
-                {recentPosts.map((post, i) => (
-                  <Link
-                    key={post.slug}
-                    href={`/blog/${post.slug}`}
-                    className="group flex items-center justify-between py-4 no-underline transition-all duration-200 ease-out rounded-xl px-3 -mx-3 hover:bg-[var(--glass)] hover:scale-[1.01]"
-                    style={{
-                      borderTop: i === 0 ? "1px solid var(--border)" : "none",
-                      borderBottom: "1px solid var(--border)",
-                    }}
-                  >
-                    <div className="flex items-center gap-5">
-                      <span
-                        className="text-[12px] tabular-nums flex-shrink-0"
-                        style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
-                      >
-                        {post.publishedDate ? new Date(post.publishedDate).getFullYear() : new Date().getFullYear()}
-                      </span>
-                      <span
-                        className="text-[14px] font-medium tracking-[-0.01em] transition-colors duration-200 group-hover:text-[var(--accent)]"
-                        style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
-                      >
-                        {post.title || "Untitled"}
-                      </span>
-                    </div>
-                    <span
-                      className="text-[16px] flex-shrink-0 ml-4 transition-all duration-200 ease-out group-hover:rotate-45"
-                      style={{ color: "var(--text-muted)" }}
-                    >
-                      ↗
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </ScrollReveal>
-          )}
-
-          {/* ── Stack ─────────────────────────────────────────────────────── */}
-          <ScrollReveal className="mt-16 sm:mt-20 md:mt-32 w-full" ariaLabel="Tech stack">
-            <SectionLabel>stack</SectionLabel>
+        {/* 5. Engineering Toolkit (Grouped by Capability) */}
+        <section className="mt-20 sm:mt-28 md:mt-32 w-full" aria-labelledby="toolkit-heading">
+          <ScrollReveal>
+            <SectionLabel number="03"><span id="toolkit-heading">Engineering toolkit</span></SectionLabel>
             <TechStack />
           </ScrollReveal>
+        </section>
 
-          {/* ── Contact ────────────────────────────────────────────────────── */}
-          <ScrollReveal className="mt-16 sm:mt-20 md:mt-32 mb-10 w-full">
+        {/* 6. Now / Active Research & GitHub Proof */}
+        <section className="mt-20 sm:mt-28 md:mt-32 w-full" aria-labelledby="now-heading">
+          <ScrollReveal>
+            <SectionLabel number="04"><span id="now-heading">Now & active research</span></SectionLabel>
+            <NowSection />
+          </ScrollReveal>
+        </section>
+
+        {/* 7. Contact Invitation */}
+        <section className="mt-20 sm:mt-28 md:mt-32 w-full" aria-labelledby="contact-heading">
+          <ScrollReveal>
+            <SectionLabel number="05"><span id="contact-heading">Contact</span></SectionLabel>
             <ContactCard />
           </ScrollReveal>
+        </section>
 
-        </div>
       </div>
+
+      {/* 8. Signature Interactive Ending — Door & Movable Light Scene */}
+      <section className="w-full mt-12 sm:mt-20" aria-label="Interactive closing experience">
+        <DoorScene />
+      </section>
     </main>
   );
 }

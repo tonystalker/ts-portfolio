@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { NavPanel } from "@/components/main/NavPanel";
-import { Ticker } from "@/components/main/Ticker";
 import { LenisProvider } from "@/components/main/LenisProvider";
 import { BackgroundEffects } from "@/components/main/BackgroundEffects";
 import { CommandPalette } from "@/components/main/CommandPalette";
@@ -118,38 +117,16 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         className={`${GeistSans.className} antialiased ${GeistMono.variable}`}
         style={{ color: "var(--text)" }}
       >
-        {/* Ambient background lighting and noise */}
+        {/* Ambient subtle noise texture */}
         <BackgroundEffects />
 
         <div className="relative z-10">
           <LenisProvider>
             <NavPanel />
             {children}
-            <Ticker />
             <CommandPalette projects={projects} />
           </LenisProvider>
         </div>
-
-        {/* Footer */}
-        <footer
-          className="w-full border-t pb-8"
-          style={{ borderColor: "var(--border)" }}
-        >
-          <div className="mx-auto px-4 py-6 flex items-center justify-between" style={{ maxWidth: "700px" }}>
-            <span
-              className="text-[11px]"
-              style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
-            >
-              © {new Date().getFullYear()} ayush tripathi
-            </span>
-            <a
-              href="mailto:707ayushtripathi@gmail.com"
-              className="footer-email-link text-[11px] no-underline"
-            >
-              707ayushtripathi@gmail.com
-            </a>
-          </div>
-        </footer>
       </body>
     </html>
   );
