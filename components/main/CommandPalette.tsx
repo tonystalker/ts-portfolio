@@ -85,37 +85,36 @@ export function CommandPalette({ projects }: { projects: NotionProject[] }) {
               </div>
 
               <Command.List className="max-h-[300px] overflow-y-auto p-2 scrollbar-hide">
-                <Command.Empty className="py-6 text-center text-[14px] text-[var(--text-muted)] font-mono">
+                <Command.Empty className="py-6 text-center text-[13px] text-[var(--text-muted)] font-mono">
                   No results found.
                 </Command.Empty>
 
-                <Command.Group heading="Navigation" className="px-2 text-[12px] font-medium text-[var(--text-muted)] py-2">
+                <Command.Group heading="Navigation" className="px-2 text-[11px] font-medium text-[var(--text-secondary)] py-2 uppercase tracking-wider font-mono">
                   <Command.Item onSelect={() => runCommand(() => router.push("/"))} className="cmdk-item">
                     <span>Home</span>
                   </Command.Item>
-                  <Command.Item onSelect={() => runCommand(() => router.push("/work"))} className="cmdk-item">
-                    <span>Work</span>
-                  </Command.Item>
                   <Command.Item onSelect={() => runCommand(() => router.push("/projects"))} className="cmdk-item">
-                    <span>Projects</span>
+                    <span>Work / Projects</span>
                   </Command.Item>
                   <Command.Item onSelect={() => runCommand(() => router.push("/blog"))} className="cmdk-item">
-                    <span>Blog</span>
+                    <span>Writing / Blog</span>
+                  </Command.Item>
+                  <Command.Item onSelect={() => runCommand(() => router.push("/reads"))} className="cmdk-item">
+                    <span>Curated Reads</span>
                   </Command.Item>
                 </Command.Group>
 
-                <Command.Group heading="Actions" className="px-2 text-[12px] font-medium text-[var(--text-muted)] py-2 border-t border-[var(--border-secondary)] mt-1">
+                <Command.Group heading="Actions" className="px-2 text-[11px] font-medium text-[var(--text-secondary)] py-2 border-t border-[var(--line)] mt-1 uppercase tracking-wider font-mono">
                   <Command.Item onSelect={() => runCommand(() => window.open("/resume.pdf", "_blank"))} className="cmdk-item">
-                    <span>Open Resume</span>
+                    <span>View Resume</span>
                   </Command.Item>
                   <Command.Item onSelect={() => runCommand(() => {
                     navigator.clipboard.writeText("707ayushtripathi@gmail.com");
-                    // Could add a toast here
                   })} className="cmdk-item">
-                    <span>Copy Email Address</span>
+                    <span>Copy Email (707ayushtripathi@gmail.com)</span>
                   </Command.Item>
                   <Command.Item onSelect={() => runCommand(() => window.open("https://github.com/tonystalker", "_blank"))} className="cmdk-item">
-                    <span>GitHub Profile</span>
+                    <span>GitHub Profile (tonystalker)</span>
                   </Command.Item>
                 </Command.Group>
 

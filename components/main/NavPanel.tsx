@@ -21,12 +21,27 @@ export function NavPanel() {
     restDelta: 0.001
   });
 
+  const triggerCommandPalette = () => {
+    window.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "k", metaKey: true, bubbles: true })
+    );
+  };
+
   return (
     <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 z-50 select-none flex justify-center pointer-events-none">
-      <div className="nav-pill flex items-center justify-between sm:justify-start gap-1 sm:gap-1 px-1.5 sm:px-2 py-1.5 sm:py-2 relative overflow-hidden w-full sm:w-auto pointer-events-auto">
+      <div 
+        className="flex items-center justify-between sm:justify-start gap-1 px-2 py-1.5 relative overflow-hidden w-full sm:w-auto pointer-events-auto rounded-full"
+        style={{
+          background: "rgba(17, 17, 17, 0.90)",
+          backdropFilter: "blur(24px) saturate(180%)",
+          WebkitBackdropFilter: "blur(24px) saturate(180%)",
+          border: "1px solid var(--line-strong)",
+          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.4)",
+        }}
+      >
         {/* Scroll Progress Indicator */}
         <motion.div
-          className="absolute top-0 left-0 right-0 h-[2px]"
+          className="absolute top-0 left-0 right-0 h-[1.5px]"
           style={{ 
             background: "var(--accent)", 
             scaleX, 
@@ -45,14 +60,20 @@ export function NavPanel() {
                 key={link.href}
                 href={link.href}
                 prefetch={true}
-                className="relative flex items-center justify-center flex-1 sm:flex-none px-2 sm:px-4 min-h-[44px] sm:min-h-0 py-2 sm:py-1.5 text-[12px] sm:text-[13px] font-medium no-underline transition-all duration-200 ease-out rounded-full"
+                className="relative flex items-center justify-center px-2.5 sm:px-3.5 min-h-[44px] sm:min-h-[36px] py-1 text-[12px] sm:text-[13px] font-medium no-underline transition-all duration-200 ease-out rounded-full"
                 style={{
-                  color: active ? "var(--accent)" : "var(--text-muted)",
-                  background: active ? "rgba(94,139,255,0.10)" : "transparent",
+                  color: active ? "var(--text-primary)" : "var(--text-secondary)",
+                  background: active ? "rgba(240, 238, 233, 0.08)" : "transparent",
                   fontFamily: "var(--font-sans)",
                   letterSpacing: "0.01em",
                 }}
               >
+                {active && (
+                  <span 
+                    className="w-1.5 h-1.5 rounded-full mr-1.5 hidden sm:inline-block"
+                    style={{ background: "var(--accent)" }}
+                  />
+                )}
                 {link.label}
               </Link>
             );
@@ -61,8 +82,32 @@ export function NavPanel() {
 
         {/* Divider */}
         <div
-          className="w-[1px] h-4 mx-0.5 sm:mx-1 flex-shrink-0"
-          style={{ background: "var(--border)" }}
+          className="w-[1px] h-4 mx-1 flex-shrink-0"
+          style={{ background: "var(--line)" }}
+        />
+
+        {/* Command Palette Trigger */}
+        <button
+          onClick={triggerCommandPalette}
+          className="flex items-center gap-1 px-2 min-h-[44px] sm:min-h-[36px] py-1 text-[11px] rounded-full transition-colors cursor-pointer"
+          style={{
+            color: "var(--text-secondary)",
+            fontFamily: "var(--font-mono)",
+          }}
+          aria-label="Open command palette (Ctrl+K or ⌘K)"
+          title="Command Palette (⌘K)"
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span className="hidden sm:inline text-[10px] opacity-75">⌘K</span>
+        </button>
+
+        {/* Divider */}
+        <div
+          className="w-[1px] h-4 mx-0.5 flex-shrink-0"
+          style={{ background: "var(--line)" }}
         />
 
         <ThemeToggle />
