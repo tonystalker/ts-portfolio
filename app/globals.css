@@ -18,78 +18,88 @@
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   DESIGN TOKENS
-   Inspired by: Apple HIG · Linear · Vercel · Stripe · Raycast
+   DESIGN TOKENS (Quiet Technical Editorial)
+   High-contrast, evidence-led, dark-first system
    ───────────────────────────────────────────────────────────────── */
 
 :root {
-  /* ── Backgrounds ── */
-  --bg:              #F5F5F7;
-  --bg-secondary:    #F8F8FA;
-  --bg-gradient-top: #FCFCFD;
-  --bg-gradient-btm: #F3F4F6;
+  /* ── Core Editorial Canvas Tokens (ui.md) ── */
+  --canvas:          #0b0b0b;
+  --surface:         #111111;
+  --surface-raised:  #171717;
+  --text-primary:    #f0eee9;
+  --text-secondary:  #aaa69d;
+  --line:            rgba(240, 238, 233, 0.13);
+  --line-strong:     rgba(240, 238, 233, 0.22);
+  --accent:          #c8d66a; /* Muted acid-lime for status & focus */
+  --accent-muted:    rgba(200, 214, 106, 0.15);
+  --lamp:            #efb66d; /* Warm light source */
+  --lamp-glow:       rgba(239, 182, 109, 0.25);
 
-  /* ── Surfaces ── */
-  --glass:           rgba(255,255,255,0.62);
-  --glass-elevated:  rgba(255,255,255,0.78);
+  /* ── Functional Aliases ── */
+  --bg:              #0b0b0b;
+  --bg-secondary:    #111111;
+  --bg-gradient-top: #0a0a0a;
+  --bg-gradient-btm: #0f0f10;
 
-  /* ── Borders ── */
-  --border:          rgba(0,0,0,0.08);
-  --border-secondary:#E7E7EA;
+  --glass:           rgba(17, 17, 17, 0.78);
+  --glass-elevated:  rgba(23, 23, 23, 0.88);
 
-  /* ── Text ── */
-  --text:            #111113;
-  --text-body:       #494950;
-  --text-muted:      #7B7B84;
-  --text-placeholder:#9E9EA7;
+  --border:          rgba(240, 238, 233, 0.12);
+  --border-secondary:rgba(240, 238, 233, 0.07);
 
-  /* ── Accent (one, only one) ── */
-  --accent:          #5E8BFF;
-  --accent-hover:    #8CB3FF;
-  --accent-pressed:  #4F79F2;
+  --text:            #f0eee9;
+  --text-body:       #c5c2ba;
+  --text-muted:      #aaa69d;
+  --text-placeholder:#7a776f;
 
-  /* ── Live badge ── */
-  --live-badge:      #22C55E;
+  --accent-hover:    #d9e680;
+  --accent-pressed:  #b6c459;
 
-  /* ── Shadows (Apple philosophy) ── */
-  --shadow-sm:   0 2px 8px  rgba(0,0,0,.04);
-  --shadow-md:   0 8px 24px rgba(0,0,0,.08);
-  --shadow-lg:   0 24px 80px rgba(0,0,0,.12);
+  --live-badge:      #c8d66a;
+
+  --shadow-sm:       0 1px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md:       0 4px 16px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.5);
+  --shadow-lg:       0 16px 48px rgba(0,0,0,0.85), 0 4px 12px rgba(0,0,0,0.6);
 }
 
 .dark {
-  /* ── Backgrounds ── */
-  --bg:              #09090B;
-  --bg-secondary:    #0F1013;
-  --bg-gradient-top: #070709;
-  --bg-gradient-btm: #121317;
+  --canvas:          #0b0b0b;
+  --surface:         #111111;
+  --surface-raised:  #171717;
+  --text-primary:    #f0eee9;
+  --text-secondary:  #aaa69d;
+  --line:            rgba(240, 238, 233, 0.13);
+  --line-strong:     rgba(240, 238, 233, 0.22);
+  --accent:          #c8d66a;
+  --accent-muted:    rgba(200, 214, 106, 0.15);
+  --lamp:            #efb66d;
+  --lamp-glow:       rgba(239, 182, 109, 0.25);
 
-  /* ── Surfaces ── */
-  --glass:           rgba(30,30,34,0.55);
-  --glass-elevated:  rgba(40,40,44,0.72);
+  --bg:              #0b0b0b;
+  --bg-secondary:    #111111;
+  --bg-gradient-top: #0a0a0a;
+  --bg-gradient-btm: #0f0f10;
 
-  /* ── Borders ── */
-  --border:          rgba(255,255,255,0.08);
-  --border-secondary:rgba(255,255,255,0.05);
+  --glass:           rgba(17, 17, 17, 0.78);
+  --glass-elevated:  rgba(23, 23, 23, 0.88);
 
-  /* ── Text ── */
-  --text:            #FAFAFC;
-  --text-body:       #D0D0D7;
-  --text-muted:      #9A9AA2;
-  --text-placeholder:#7A7A83;
+  --border:          rgba(240, 238, 233, 0.12);
+  --border-secondary:rgba(240, 238, 233, 0.07);
 
-  /* ── Accent (desaturated ~20pts for dark) ── */
-  --accent:          #7AA2FF;
-  --accent-hover:    #8CB3FF;
-  --accent-pressed:  #6690F5;
+  --text:            #f0eee9;
+  --text-body:       #c5c2ba;
+  --text-muted:      #aaa69d;
+  --text-placeholder:#7a776f;
 
-  /* ── Live badge ── */
-  --live-badge:      #4ADE80;
+  --accent-hover:    #d9e680;
+  --accent-pressed:  #b6c459;
 
-  /* ── Shadows ── */
-  --shadow-sm:   0 2px 8px  rgba(0,0,0,.20);
-  --shadow-md:   0 8px 24px rgba(0,0,0,.35);
-  --shadow-lg:   0 24px 80px rgba(0,0,0,.50);
+  --live-badge:      #c8d66a;
+
+  --shadow-sm:       0 1px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md:       0 4px 16px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.5);
+  --shadow-lg:       0 16px 48px rgba(0,0,0,0.85), 0 4px 12px rgba(0,0,0,0.6);
 }
 
 /* ─────────────────────────────────────────────────────────────────
@@ -102,9 +112,9 @@ html {
 }
 
 body {
-  background: linear-gradient(180deg, var(--bg-gradient-top) 0%, var(--bg-gradient-btm) 100%);
-  background-attachment: fixed;
-  color: var(--text);
+  background-color: var(--canvas);
+  background-image: radial-gradient(circle at 50% 0%, rgba(240, 238, 233, 0.02) 0%, transparent 70%);
+  color: var(--text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
