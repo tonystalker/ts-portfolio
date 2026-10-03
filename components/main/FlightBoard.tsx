@@ -17,9 +17,9 @@ export function FlightBoard({ projects }: FlightBoardProps) {
   const hoveredProject = projects.find((p) => p.slug === hoveredSlug);
 
   const statusConfig: Record<string, { color: string; label: string }> = {
-    LIVE:     { color: "var(--live-badge)", label: "Live" },
-    BUILDING: { color: "#F59E0B",           label: "Building" },
-    ARCHIVED: { color: "var(--text-muted)", label: "Archived" },
+    LIVE:     { color: "var(--accent)", label: "Live" },
+    BUILDING: { color: "#efb66d",       label: "Building" },
+    ARCHIVED: { color: "var(--text-secondary)", label: "Archived" },
   };
 
   return (
@@ -34,9 +34,9 @@ export function FlightBoard({ projects }: FlightBoardProps) {
             ref={(el) => { rowRefs.current[project.slug || project.id] = el as HTMLDivElement | null; }}
             className="group flex items-center justify-between py-4 no-underline transition-all duration-200 ease-out rounded-xl px-3 -mx-3 cursor-pointer"
             style={{
-              borderTop: i === 0 ? "1px solid var(--border)" : "none",
-              borderBottom: "1px solid var(--border)",
-              background: isHovered ? "var(--glass)" : "transparent",
+              borderTop: i === 0 ? "1px solid var(--line)" : "none",
+              borderBottom: "1px solid var(--line)",
+              background: isHovered ? "var(--surface)" : "transparent",
             }}
             onClick={() => setSelectedProject(project as NotionProject)}
             onMouseEnter={() => setHoveredSlug(project.slug)}
@@ -47,11 +47,11 @@ export function FlightBoard({ projects }: FlightBoardProps) {
               <span
                 className="text-[12px] tabular-nums flex-shrink-0"
                 style={{
-                  color: "var(--text-muted)",
+                  color: "var(--text-secondary)",
                   fontFamily: "var(--font-mono)",
                 }}
               >
-                {project.year || "—"}
+                {project.year || "2026"}
               </span>
 
               {/* Title + description */}
@@ -59,7 +59,7 @@ export function FlightBoard({ projects }: FlightBoardProps) {
                 <span
                   className="text-[14px] font-medium tracking-[-0.01em] truncate transition-colors duration-200"
                   style={{
-                    color: isHovered ? "var(--accent)" : "var(--text)",
+                    color: isHovered ? "var(--accent)" : "var(--text-primary)",
                     fontFamily: "var(--font-sans)",
                   }}
                 >
@@ -69,7 +69,7 @@ export function FlightBoard({ projects }: FlightBoardProps) {
                   <span
                     className="text-[12px] truncate hidden sm:block"
                     style={{
-                      color: "var(--text-muted)",
+                      color: "var(--text-secondary)",
                       fontFamily: "var(--font-mono)",
                     }}
                   >
@@ -82,15 +82,15 @@ export function FlightBoard({ projects }: FlightBoardProps) {
             <div className="flex items-center gap-4 flex-shrink-0 ml-4">
               {/* Tags */}
               <div className="hidden sm:flex gap-1.5">
-                {project.tags.slice(0, 2).map((tag) => (
+                {project.tags?.slice(0, 2).map((tag) => (
                   <span
                     key={tag}
-                    className="text-[10px] px-2 py-0.5 rounded-full"
+                    className="text-[10px] px-2 py-0.5 rounded"
                     style={{
-                      color: "var(--text-muted)",
-                      background: "var(--border)",
+                      color: "var(--text-secondary)",
+                      background: "var(--surface-raised)",
                       fontFamily: "var(--font-mono)",
-                      border: "1px solid var(--border-secondary)",
+                      border: "1px solid var(--line)",
                     }}
                   >
                     {tag}
@@ -120,7 +120,7 @@ export function FlightBoard({ projects }: FlightBoardProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center transition-colors duration-200 hover:text-[var(--accent)]"
-                    style={{ color: "var(--text-muted)" }}
+                    style={{ color: "var(--text-secondary)" }}
                     aria-label="GitHub Repository"
                   >
                     <SiGithub size={16} />
@@ -132,7 +132,7 @@ export function FlightBoard({ projects }: FlightBoardProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1 transition-colors duration-200 hover:text-[var(--accent)]"
-                    style={{ color: "var(--text-muted)" }}
+                    style={{ color: "var(--text-secondary)" }}
                   >
                     <span className="text-[13px] font-medium hidden sm:inline" style={{ fontFamily: "var(--font-sans)" }}>visit</span>
                     <span className="text-[16px] transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>

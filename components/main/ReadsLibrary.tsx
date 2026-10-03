@@ -50,12 +50,11 @@ export function ReadsLibrary({ reads }: { reads: NotionRead[] }) {
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className="px-3 py-1.5 rounded-full text-[12px] transition-all duration-200"
+              className="px-3 py-1.5 rounded-lg text-[11px] font-mono transition-all duration-200 cursor-pointer"
               style={{
-                fontFamily: "var(--font-mono)",
-                background: activeFilter === filter ? "var(--text)" : "transparent",
-                color: activeFilter === filter ? "var(--background)" : "var(--text-muted)",
-                border: `1px solid ${activeFilter === filter ? "transparent" : "var(--border)"}`
+                background: activeFilter === filter ? "var(--text-primary)" : "var(--surface)",
+                color: activeFilter === filter ? "var(--canvas)" : "var(--text-secondary)",
+                border: "1px solid var(--line)"
               }}
             >
               {filter}
@@ -70,63 +69,70 @@ export function ReadsLibrary({ reads }: { reads: NotionRead[] }) {
           {filteredReads.map((read) => (
             <motion.a
               layout
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
+              exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.2 }}
               key={read.id}
               href={read.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col p-4 rounded-2xl border transition-all duration-300 hover:border-gray-400/50 relative overflow-hidden"
+              className="group flex flex-col p-5 rounded-xl border transition-all duration-200 relative overflow-hidden"
               style={{ 
-                borderColor: "var(--border)", 
-                background: "rgba(255, 255, 255, 0.02)" 
+                borderColor: "var(--line)", 
+                background: "var(--surface)",
               }}
             >
               {/* Type Badge */}
-              <div className="absolute top-4 right-4 z-10 px-2 py-0.5 rounded-full text-[10px] font-medium"
-                   style={{ background: "var(--border)", color: "var(--text)", fontFamily: "var(--font-mono)" }}>
+              <div 
+                className="absolute top-4 right-4 z-10 px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider"
+                style={{ background: "var(--surface-raised)", border: "1px solid var(--line)", color: "var(--text-secondary)" }}
+              >
                 {read.type}
               </div>
 
               {read.thumbnail && (
-                <div className="w-full h-32 relative mb-4 rounded-xl overflow-hidden bg-black/10">
+                <div className="w-full h-32 relative mb-4 rounded-lg overflow-hidden bg-black/40">
                   <Image src={read.thumbnail} alt={read.title} fill className="object-cover" />
                 </div>
               )}
 
-              <div className="flex flex-col gap-1.5 flex-1">
-                <h3 className="text-[15px] font-medium leading-snug group-hover:text-blue-400 transition-colors" 
-                    style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}>
+              <div className="flex flex-col gap-1.5 flex-1 pr-12">
+                <h3 
+                  className="text-[14px] font-medium leading-snug group-hover:text-[var(--accent)] transition-colors" 
+                  style={{ color: "var(--text-primary)", fontFamily: "var(--font-sans)" }}
+                >
                   {read.title}
                 </h3>
                 {read.author && (
-                  <p className="text-[12px]" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-                    {read.author} • {read.source}
+                  <p className="text-[11px] font-mono" style={{ color: "var(--text-secondary)" }}>
+                    {read.author} {read.source ? `· ${read.source}` : ""}
                   </p>
                 )}
                 
                 {read.myTake && (
-                  <div className="mt-3 p-3 rounded-xl border border-dashed border-white/10 bg-white/[0.01]">
-                    <p className="text-[12px] leading-relaxed" style={{ color: "var(--text-body)", fontFamily: "var(--font-sans)" }}>
-                      <span className="font-semibold" style={{ color: "var(--accent)" }}>My Take: </span>
+                  <div className="mt-3 p-3 rounded-lg border" style={{ borderColor: "var(--line)", background: "var(--surface-raised)" }}>
+                    <p className="text-[12px] leading-relaxed" style={{ color: "var(--text-body)", fontFamily: "var(--font-mono)" }}>
+                      <span className="font-semibold" style={{ color: "var(--accent)" }}>Take: </span>
                       {read.myTake}
                     </p>
                   </div>
                 )}
               </div>
 
-              <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t flex items-center justify-between" style={{ borderColor: "var(--line)" }}>
                 <div className="flex flex-wrap gap-1.5">
                   {read.tags.slice(0, 3).map(tag => (
-                    <span key={tag} className="text-[10px] px-1.5 py-0.5 rounded-md" 
-                          style={{ background: "var(--border)", color: "var(--text-muted)" }}>
+                    <span 
+                      key={tag} 
+                      className="text-[10px] px-2 py-0.5 rounded font-mono" 
+                      style={{ background: "var(--surface-raised)", border: "1px solid var(--line)", color: "var(--text-secondary)" }}
+                    >
                       {tag}
                     </span>
                   ))}
                 </div>
-                <FiArrowUpRight className="text-[16px] text-gray-500 group-hover:text-white transition-colors" />
+                <FiArrowUpRight className="text-[14px] text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors" />
               </div>
             </motion.a>
           ))}

@@ -20,9 +20,35 @@ export const metadata: Metadata = {
 };
 
 import { getProjects } from "@/lib/notion/service";
+import { portfolioConfig } from "@/config/portfolio";
 
 export default async function ProjectsPage() {
-  const PROJECTS = await getProjects();
+  const notionProjects = await getProjects();
+  const PROJECTS = notionProjects.length > 0 ? notionProjects : portfolioConfig.projects.map(p => ({
+    id: p.slug,
+    title: p.title,
+    slug: p.slug,
+    published: true,
+    featured: p.featured ?? false,
+    shortDescription: p.shortDescription || p.description,
+    description: p.description,
+    coverImage: p.image,
+    galleryImages: [],
+    demoVideo: "",
+    architectureImage: "",
+    technologies: p.tech || p.tags,
+    category: "AI Systems",
+    status: p.status,
+    githubUrl: p.github || "",
+    liveDemoUrl: p.website || "",
+    year: p.year,
+    role: "Software & AI Engineer",
+    metrics: "",
+    tags: p.tags,
+    seoTitle: p.title,
+    seoDescription: p.description,
+    content: "",
+  }));
   return (
     <>
       <script
