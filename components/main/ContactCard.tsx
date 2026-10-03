@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa";
 import { RxTwitterLogo } from "react-icons/rx";
@@ -9,119 +8,95 @@ import { RxTwitterLogo } from "react-icons/rx";
 export function ContactCard() {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
+  const handleCopy = (e: React.MouseEvent) => {
+    e.preventDefault();
     navigator.clipboard.writeText("707ayushtripathi@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div
-      className="w-full relative overflow-hidden group"
+    <div 
+      className="w-full py-12 sm:py-16 px-6 sm:px-10 rounded-2xl flex flex-col items-start justify-between relative overflow-hidden"
       style={{
-        borderRadius: "24px",
-        border: "1px solid var(--border)",
-        background: "var(--glass)",
-        backdropFilter: "blur(28px) saturate(180%)",
-        WebkitBackdropFilter: "blur(28px) saturate(180%)",
+        background: "var(--surface)",
+        border: "1px solid var(--line)",
       }}
     >
-      {/* Subtle Background Glow */}
-      <div 
-        className="absolute -top-32 -right-32 w-64 h-64 rounded-full pointer-events-none transition-opacity duration-500 opacity-20 group-hover:opacity-40"
-        style={{
-          background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
-          filter: "blur(60px)",
-        }}
-      />
+      <div className="flex flex-col gap-3 max-w-xl">
+        <span 
+          className="text-[11px] font-mono uppercase tracking-[0.14em]"
+          style={{ color: "var(--accent)" }}
+        >
+          CONTACT & COLLABORATION
+        </span>
 
-      <div className="p-6 sm:p-8 md:p-10 flex flex-col items-center justify-center text-center relative z-10">
-        
-        {/* Availability Badge */}
-        <div 
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6"
-          style={{ 
-            background: "var(--bg)", 
-            border: "1px solid var(--border)",
-            fontFamily: "var(--font-mono)",
+        <h2 
+          className="text-[26px] sm:text-[34px] md:text-[38px] font-semibold tracking-[-0.02em] leading-[1.18]"
+          style={{ color: "var(--text-primary)", fontFamily: "var(--font-sans)" }}
+        >
+          Have a hard product or systems problem?
+          <span className="block text-[var(--text-secondary)] font-normal mt-1">
+            Let’s make it reliable.
+          </span>
+        </h2>
+      </div>
+
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mt-8 w-full">
+        {/* Prominent Mail Link */}
+        <a
+          href="mailto:707ayushtripathi@gmail.com"
+          className="inline-flex items-center gap-3 px-5 py-3 rounded-lg text-[13px] sm:text-[14px] font-medium transition-all"
+          style={{
+            background: "var(--text-primary)",
+            color: "var(--canvas)",
+            fontFamily: "var(--font-sans)",
           }}
         >
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-          </span>
-          <span className="text-[10px] font-medium uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
-            Available for hire
-          </span>
-        </div>
+          <span>707ayushtripathi@gmail.com</span>
+          <span className="text-[14px]">↗</span>
+        </a>
 
-        {/* Heading */}
-        <h2 
-          className="text-[28px] sm:text-[32px] md:text-[40px] font-semibold tracking-[-0.03em] mb-4"
-          style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
-        >
-          Let&apos;s build something.
-        </h2>
-        
-        <p 
-          className="text-[14px] max-w-sm mb-8"
-          style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
-        >
-          I&apos;m currently looking for new opportunities. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
-        </p>
-
-        {/* Email Copy Button */}
+        {/* Copy button fallback */}
         <button
           onClick={handleCopy}
-          className="flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 rounded-full transition-all duration-200 ease-out hover:scale-105 active:scale-95 w-[90%] sm:w-auto max-w-full"
-          style={{
-            background: "var(--text)",
-            color: "var(--bg)",
-            fontFamily: "var(--font-sans)",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.12)",
-          }}
+          className="text-[12px] font-mono transition-colors cursor-pointer py-1"
+          style={{ color: "var(--text-secondary)" }}
+          aria-label="Copy email address"
         >
-          <span className="text-[13px] sm:text-[14px] font-medium tracking-tight truncate">
-            {copied ? "Copied to clipboard!" : "707ayushtripathi@gmail.com"}
-          </span>
-          {!copied && (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-            </svg>
-          )}
-          {copied && (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-500">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          )}
+          {copied ? "✓ Copied to clipboard" : "Click to copy"}
         </button>
 
-        {/* Social Links */}
-        <div className="flex items-center gap-6 mt-10">
-          <a href="https://github.com/tonystalker" target="_blank" rel="noopener noreferrer" className="social-icon-link hover:-translate-y-1 transition-all duration-200">
-            <SiGithub size={20} />
+        {/* Small secondary links */}
+        <div className="flex items-center gap-5 sm:ml-auto pt-2 sm:pt-0 border-t sm:border-t-0 w-full sm:w-auto" style={{ borderColor: "var(--line)" }}>
+          <a 
+            href="https://github.com/tonystalker" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+            aria-label="GitHub profile"
+          >
+            <SiGithub size={18} />
           </a>
-          <a href="https://x.com/TonyStalkerr" target="_blank" rel="noopener noreferrer" className="social-icon-link hover:-translate-y-1 transition-all duration-200">
-            <RxTwitterLogo size={20} />
+          <a 
+            href="https://x.com/TonyStalkerr" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+            aria-label="Twitter / X profile"
+          >
+            <RxTwitterLogo size={18} />
           </a>
-          <a href="https://www.linkedin.com/in/ayush-tripathi-4a062b1b4/" target="_blank" rel="noopener noreferrer" className="social-icon-link hover:-translate-y-1 transition-all duration-200">
-            <FaLinkedin size={20} />
+          <a 
+            href="https://www.linkedin.com/in/ayush-tripathi-4a062b1b4/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+            aria-label="LinkedIn profile"
+          >
+            <FaLinkedin size={18} />
           </a>
         </div>
-
-        {/* Response Time Indicator */}
-        <div 
-          className="mt-8 text-[11px] flex items-center gap-2"
-          style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
-        >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          Responds within 24 hours
-        </div>
-
       </div>
     </div>
   );
