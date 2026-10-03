@@ -5,7 +5,7 @@ import { Experience } from "@/components/main/Experience";
 import { TechStack } from "@/components/main/TechStack";
 import { NowSection } from "@/components/main/NowSection";
 import { ContactCard } from "@/components/main/ContactCard";
-import { DoorScene } from "@/components/main/DoorScene";
+import { AyushTypographyFooter } from "@/components/main/AyushTypographyFooter";
 import { ScrollReveal } from "@/components/main/ScrollReveal";
 import { getProjects, getExperience, getSiteSettings } from "@/lib/notion/service";
 import { portfolioConfig } from "@/config/portfolio";
@@ -122,9 +122,9 @@ export default async function Home() {
 
       </div>
 
-      {/* 8. Signature Interactive Ending — Door & Movable Light Scene */}
-      <section className="w-full mt-12 sm:mt-20" aria-label="Interactive closing experience">
-        <DoorScene />
+      {/* 8. Signature Interactive Ending — Giant Illuminated 3D AYUSH Typography */}
+      <section className="w-full mt-12 sm:mt-20" aria-label="Interactive illuminated typography ending">
+        <AyushTypographyFooter />
       </section>
     </main>
   );
