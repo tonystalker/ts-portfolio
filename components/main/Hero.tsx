@@ -4,49 +4,13 @@ import { useState, useEffect, useRef } from "react";
 import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { SpotifyHoverCard } from "@/components/main/SpotifyHoverCard";
 import Image from "next/image";
+import Link from "next/link";
 
-function SubtitleCycler({ subtitles }: { subtitles: string[] }) {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % subtitles.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [subtitles]);
-
-  return (
-    <div className="relative h-[24px] overflow-hidden inline-block w-[200px]" style={{ verticalAlign: "bottom" }}>
-      <AnimatePresence mode="popLayout">
-        <m.div
-          key={index}
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -20, opacity: 0 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute left-0"
-          style={{ color: "var(--accent)" }}
-        >
-          {subtitles[index]}
-        </m.div>
-      </AnimatePresence>
-    </div>
-  );
+interface HeroProps {
+  settings?: Record<string, string>;
 }
 
-function getGreeting() {
-  const hour = new Date().getHours();
-  if (hour < 12) return "Good morning";
-  if (hour < 18) return "Good afternoon";
-  return "Good evening";
-}
-
-export function Hero({ settings }: { settings: Record<string, string> }) {
-  const name = settings["About Name"] || "Ayush Tripathi";
-  const title = settings["About Title"] || "hey i'm ayush";
-  const subtitles = settings["About Subtitles"] ? settings["About Subtitles"].split(",") : ["I build fast", "I ship fast"];
-  const availability = settings["Availability"] || "Available for new opportunities";
-
+export function Hero({ settings = {} }: HeroProps) {
   const [isHoveringPfp, setIsHoveringPfp] = useState(false);
   const pfpRef = useRef<HTMLDivElement>(null);
   const [spotifyData, setSpotifyData] = useState<{
@@ -77,186 +41,182 @@ export function Hero({ settings }: { settings: Record<string, string> }) {
     };
   }, []);
 
+  const scrollToProjects = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById("projects");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <LazyMotion features={domAnimation}>
-      {/* Cursor blink keyframe */}
-      <style>{`
-        @keyframes cursor-blink {
-          0%, 100% { opacity: 1; }
-          50%       { opacity: 0; }
-        }
-      `}</style>
-
-      <div className="flex flex-col w-full">
-        {/* Top Section: Text & Portrait */}
-        <m.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col-reverse sm:flex-row items-start sm:items-center justify-between w-full gap-5 sm:gap-0"
-        >
-          <div className="flex flex-col gap-3 sm:gap-4 w-full sm:w-auto">
-            <h1 className="sr-only">{name}</h1>
-
-            {/* Dynamic Greeting */}
-            <div 
-              className="text-[11px] sm:text-[13px] tracking-wide uppercase"
-              style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
-            >
-              {getGreeting()}
-            </div>
-
-            <div
-              className="text-[32px] min-[360px]:text-[38px] sm:text-[48px] md:text-[64px] font-semibold tracking-[-0.03em] leading-[1.1] md:leading-[1]"
-              style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
-            >
-              {title}
-            </div>
-
-            {/* Subtitle Cycler */}
-            <div
-              className="text-[13px] sm:text-[15px] flex items-center gap-1.5 mt-0.5 sm:mt-0"
-              style={{
-                color: "var(--text-muted)",
-                fontFamily: "var(--font-mono)",
-                letterSpacing: "0.01em",
-              }}
-            >
-              <SubtitleCycler subtitles={subtitles} />
-            </div>
-          </div>
-
-          {/* Profile photo */}
-          <div
-            ref={pfpRef}
-            className="relative flex-shrink-0 cursor-pointer w-[64px] h-[64px] sm:w-[80px] sm:h-[80px]"
-            onMouseEnter={() => setIsHoveringPfp(true)}
-            onMouseLeave={() => setIsHoveringPfp(false)}
-            onClick={() => setIsHoveringPfp((v) => !v)}
-          >
-            {/* Ambient glow behind profile pic */}
-            <div 
-              className="absolute inset-0 rounded-full transition-opacity duration-300 pointer-events-none"
-              style={{
-                background: "var(--accent)",
-                filter: "blur(20px)",
-                opacity: isHoveringPfp ? 0.3 : 0.1,
-                transform: "scale(1.2)"
-              }}
-            />
-
-            <div
-              suppressHydrationWarning
-              className="w-full h-full overflow-hidden transition-all duration-300 ease-out relative z-10"
-              style={{
-                borderRadius: "28px",
-                border: "1px solid var(--border)",
-                boxShadow: "var(--shadow-md)",
-                transform: isHoveringPfp ? "scale(1.05) translateY(-2px)" : "scale(1) translateY(0)",
-              }}
-            >
-              <Image
-                src="/heroimage.png"
-                alt="Ayush Tripathi – Software Engineer"
-                fill
-                className="object-cover transition-all duration-500 ease-out grayscale mix-blend-luminosity hover:grayscale-0 hover:mix-blend-normal"
-                sizes="(max-width: 640px) 64px, 80px"
-                priority
-              />
-            </div>
-
-            <AnimatePresence>
-              {isHoveringPfp && <SpotifyHoverCard data={spotifyData} />}
-            </AnimatePresence>
-          </div>
-        </m.div>
-
-        {/* Editorial Bio Block */}
-        <m.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative overflow-hidden group w-full mt-16 mb-12"
-          style={{
-            borderRadius: "24px",
-            border: "1px solid var(--border)",
-            background: "var(--glass)",
-          }}
-        >
-          {/* Subtle Background Glow */}
-          <div 
-            className="absolute -top-32 -right-32 w-64 h-64 rounded-full pointer-events-none transition-opacity duration-500 opacity-20 group-hover:opacity-40"
-            style={{
-              background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
-              filter: "blur(60px)",
-            }}
-          />
+      <m.div 
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full flex flex-col"
+      >
+        {/* Two-column layout on desktop: Thesis left, Evidence module right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start w-full">
           
-          <div className="p-6 sm:p-8 md:p-10 flex flex-col relative z-10">
+          {/* ── Left Column: Thesis & Call to Action (7 cols) ── */}
+          <div className="lg:col-span-7 flex flex-col">
+            {/* Eyebrow */}
             <div 
-              className="text-[10px] font-medium uppercase tracking-widest mb-6"
-              style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
+              className="text-[11px] sm:text-[12px] font-mono uppercase tracking-[0.14em] mb-4 sm:mb-5 flex items-center gap-2"
+              style={{ color: "var(--text-secondary)" }}
             >
-              CURRENTLY
+              <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--accent)" }} />
+              AI SYSTEMS · PRODUCT ENGINEERING · INDIA
             </div>
 
-            <div className="flex flex-col gap-5 mb-8">
-              <p
-                className="text-[15px] leading-[1.7]"
-                style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
+            {/* Main Thesis Heading */}
+            <h1 
+              className="text-[32px] sm:text-[42px] lg:text-[46px] font-semibold tracking-[-0.03em] leading-[1.12] mb-6 text-balance"
+              style={{ color: "var(--text-primary)", fontFamily: "var(--font-sans)" }}
+            >
+              I build AI products and systems that stay reliable after the demo.
+            </h1>
+
+            {/* Supporting Copy */}
+            <p 
+              className="text-[15px] sm:text-[16px] leading-[1.65] mb-8 text-pretty"
+              style={{ color: "var(--text-body)", fontFamily: "var(--font-sans)" }}
+            >
+              I work across agent workflows, backend infrastructure, and considered interfaces — 
+              turning ambiguous ideas into fast, usable software.
+            </p>
+
+            {/* Actions */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              <a
+                href="#projects"
+                onClick={scrollToProjects}
+                className="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 rounded-lg text-[13px] sm:text-[14px] font-medium transition-all duration-200 cursor-pointer"
+                style={{
+                  background: "var(--text-primary)",
+                  color: "var(--canvas)",
+                  fontFamily: "var(--font-sans)",
+                }}
               >
-                studied ceramic engineering at IIT (BHU).
-              </p>
-              <p
-                className="text-[15px] leading-[1.7]"
-                style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
+                View selected work
+                <span className="ml-2 text-[14px]">↓</span>
+              </a>
+
+              <a
+                href="mailto:707ayushtripathi@gmail.com"
+                className="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 rounded-lg text-[13px] sm:text-[14px] font-medium transition-all duration-200"
+                style={{
+                  background: "var(--surface)",
+                  color: "var(--text-primary)",
+                  border: "1px solid var(--line-strong)",
+                  fontFamily: "var(--font-sans)",
+                }}
               >
-                took the mandatory detour through blockchain.
-              </p>
-              <p
-                className="text-[15px] leading-[1.7]"
-                style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
-              >
-                now heavily obsessed with AI, agents, and building software that scales.
-              </p>
+                Start a conversation
+                <span className="ml-1.5 text-[14px]" style={{ color: "var(--accent)" }}>↗</span>
+              </a>
             </div>
-            
+          </div>
+
+          {/* ── Right Column: Quiet Evidence / Status Module (5 cols) ── */}
+          <div className="lg:col-span-5 w-full mt-2 lg:mt-0">
             <div 
-              className="text-[13px]"
-              style={{ 
-                color: "var(--text-muted)", 
-                fontFamily: "var(--font-mono)",
+              className="p-5 sm:p-6 rounded-2xl flex flex-col gap-5 relative overflow-hidden"
+              style={{
+                background: "var(--surface)",
+                border: "1px solid var(--line)",
+                boxShadow: "var(--shadow-sm)",
               }}
             >
-              generalist engineer · aspiring founder
+              {/* Top row: Portrait + Identity info */}
+              <div className="flex items-center justify-between gap-4 pb-4 border-b" style={{ borderColor: "var(--line)" }}>
+                <div className="flex items-center gap-3.5">
+                  <div
+                    ref={pfpRef}
+                    className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 cursor-pointer group"
+                    style={{ border: "1px solid var(--line-strong)" }}
+                    onMouseEnter={() => setIsHoveringPfp(true)}
+                    onMouseLeave={() => setIsHoveringPfp(false)}
+                    onClick={() => setIsHoveringPfp((v) => !v)}
+                  >
+                    <Image
+                      src="/heroimage.png"
+                      alt="Ayush Tripathi"
+                      fill
+                      className="object-cover grayscale contrast-125 transition-all duration-300 group-hover:grayscale-0"
+                      sizes="48px"
+                      priority
+                    />
+                    <AnimatePresence>
+                      {isHoveringPfp && <SpotifyHoverCard data={spotifyData} />}
+                    </AnimatePresence>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <span className="text-[14px] font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>
+                      Ayush Tripathi
+                    </span>
+                    <span className="text-[11px] font-mono" style={{ color: "var(--text-secondary)" }}>
+                      IIT (BHU) · Software & AI
+                    </span>
+                  </div>
+                </div>
+
+                {/* Status Dot */}
+                <div 
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider"
+                  style={{
+                    background: "rgba(200, 214, 106, 0.10)",
+                    border: "1px solid rgba(200, 214, 106, 0.25)",
+                    color: "var(--accent)",
+                  }}
+                >
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: "var(--accent)" }}></span>
+                  </span>
+                  Available
+                </div>
+              </div>
+
+              {/* Verified Metrics / Focus points */}
+              <div className="grid grid-cols-2 gap-3 py-1">
+                <div className="flex flex-col p-3 rounded-lg" style={{ background: "var(--surface-raised)", border: "1px solid var(--line)" }}>
+                  <span className="text-[18px] sm:text-[20px] font-semibold tabular-nums" style={{ color: "var(--text-primary)", fontFamily: "var(--font-mono)" }}>
+                    &lt;150ms
+                  </span>
+                  <span className="text-[11px] font-mono mt-0.5" style={{ color: "var(--text-secondary)" }}>
+                    voice speech-to-intent
+                  </span>
+                </div>
+
+                <div className="flex flex-col p-3 rounded-lg" style={{ background: "var(--surface-raised)", border: "1px solid var(--line)" }}>
+                  <span className="text-[18px] sm:text-[20px] font-semibold tabular-nums" style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}>
+                    100%
+                  </span>
+                  <span className="text-[11px] font-mono mt-0.5" style={{ color: "var(--text-secondary)" }}>
+                    local execution (Voiceflow)
+                  </span>
+                </div>
+              </div>
+
+              {/* Currently exploring row */}
+              <div className="flex flex-col gap-1 pt-3 border-t" style={{ borderColor: "var(--line)" }}>
+                <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: "var(--text-secondary)" }}>
+                  Currently shipping & exploring
+                </span>
+                <p className="text-[12px] leading-relaxed" style={{ color: "var(--text-body)", fontFamily: "var(--font-mono)" }}>
+                  Local MCP tool protocols, deterministic LangGraph multi-agent routing, and isolated code evaluation sandboxes.
+                </p>
+              </div>
+
             </div>
           </div>
-        </m.div>
 
-        {/* Availability Badge */}
-        <m.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div 
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full w-fit"
-            style={{ 
-              background: "var(--glass)", 
-              border: "1px solid var(--border)",
-              fontFamily: "var(--font-mono)",
-            }}
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="text-[11px] font-medium" style={{ color: "var(--text-body)" }}>
-              {availability}
-            </span>
-          </div>
-        </m.div>
-      </div>
+        </div>
+      </m.div>
     </LazyMotion>
   );
 }
