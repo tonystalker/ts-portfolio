@@ -65,32 +65,37 @@ export default async function BlogPage() {
         >
           <div className="w-full max-w-[680px] px-4 sm:px-6 pb-36 flex flex-col items-start relative">
 
-          {/* ── Header ──────────────────────────────────────────────── */}
-          <header className="mt-24 sm:mt-32 w-full" aria-label="Blog header">
-            <h1 className="sr-only">Engineering Blog - Ayush Tripathi</h1>
-            <div className="flex flex-row items-end justify-between w-full">
-              <h2
-                className="text-[48px] sm:text-[64px] font-semibold tracking-[-0.03em] leading-[0.95]"
-                style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
-                aria-hidden="true"
+            {/* ── Header ──────────────────────────────────────────────── */}
+            <header className="mt-20 sm:mt-28 w-full" aria-label="Blog header">
+              <h1 className="sr-only">Engineering Blog - Ayush Tripathi</h1>
+              <div className="flex flex-row items-end justify-between w-full pb-4 border-b" style={{ borderColor: "var(--line)" }}>
+                <div>
+                  <span className="text-[11px] font-mono uppercase tracking-[0.14em]" style={{ color: "var(--accent)" }}>
+                    Notes from the build
+                  </span>
+                  <h2
+                    className="text-[36px] sm:text-[48px] font-semibold tracking-[-0.03em] leading-[1.05] mt-1"
+                    style={{ color: "var(--text-primary)", fontFamily: "var(--font-sans)" }}
+                    aria-hidden="true"
+                  >
+                    writing
+                  </h2>
+                </div>
+                <Link
+                  href="/"
+                  className="text-[13px] font-mono no-underline transition-colors duration-200 mb-2"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  ← back
+                </Link>
+              </div>
+              <p
+                className="mt-4 text-[14px] sm:text-[15px] leading-relaxed max-w-[560px]"
+                style={{ color: "var(--text-body)", fontFamily: "var(--font-sans)" }}
               >
-                writing
-              </h2>
-              <Link
-                href="/"
-                className="blog-nav-link text-[13px] no-underline transition-colors duration-200 mb-2"
-              >
-                ← back
-              </Link>
-            </div>
-            <p
-              className="mt-6 text-[14px] leading-relaxed"
-              style={{ color: "var(--text-body)", fontFamily: "var(--font-mono)" }}
-            >
-              engineering notes, deep dives, and things i figured out by
-              breaking stuff
-            </p>
-          </header>
+                What I am learning about agents, infrastructure, product decisions, and the messy work between an idea and a reliable system.
+              </p>
+            </header>
 
           {/* ── Posts List ──────────────────────────────────────────── */}
           <section className="w-full mt-12 flex flex-col" aria-label="Blog posts">

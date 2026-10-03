@@ -7,6 +7,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 
 const links = [
   { href: "/", label: "home" },
+  { href: "/about", label: "about" },
   { href: "/projects", label: "work" },
   { href: "/blog", label: "writing" },
   { href: "/reads", label: "reads" },

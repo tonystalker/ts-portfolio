@@ -76,16 +76,15 @@ export function Hero({ settings = {} }: HeroProps) {
               className="text-[32px] sm:text-[42px] lg:text-[46px] font-semibold tracking-[-0.03em] leading-[1.12] mb-6 text-balance"
               style={{ color: "var(--text-primary)", fontFamily: "var(--font-sans)" }}
             >
-              I build AI products and systems that stay reliable after the demo.
+              I build AI products and systems that hold up after the demo.
             </h1>
 
             {/* Supporting Copy */}
             <p 
-              className="text-[15px] sm:text-[16px] leading-[1.65] mb-8 text-pretty"
+              className="text-[15px] sm:text-[16px] leading-[1.65] mb-8 text-pretty max-w-[560px]"
               style={{ color: "var(--text-body)", fontFamily: "var(--font-sans)" }}
             >
-              I work across agent workflows, backend infrastructure, and considered interfaces — 
-              turning ambiguous ideas into fast, usable software.
+              I work across agent workflows, backend infrastructure, and thoughtful interfaces—turning unclear ideas into software people can actually use.
             </p>
 
             {/* Actions */}
@@ -114,7 +113,7 @@ export function Hero({ settings = {} }: HeroProps) {
                   fontFamily: "var(--font-sans)",
                 }}
               >
-                Start a conversation
+                Let&apos;s build something
                 <span className="ml-1.5 text-[14px]" style={{ color: "var(--accent)" }}>↗</span>
               </a>
             </div>
@@ -181,35 +180,45 @@ export function Hero({ settings = {} }: HeroProps) {
                 </div>
               </div>
 
-              {/* Verified Metrics / Focus points */}
-              <div className="grid grid-cols-2 gap-3 py-1">
-                <div className="flex flex-col p-3 rounded-lg" style={{ background: "var(--surface-raised)", border: "1px solid var(--line)" }}>
-                  <span className="text-[18px] sm:text-[20px] font-semibold tabular-nums" style={{ color: "var(--text-primary)", fontFamily: "var(--font-mono)" }}>
-                    &lt;150ms
-                  </span>
-                  <span className="text-[11px] font-mono mt-0.5" style={{ color: "var(--text-secondary)" }}>
-                    voice speech-to-intent
-                  </span>
-                </div>
-
-                <div className="flex flex-col p-3 rounded-lg" style={{ background: "var(--surface-raised)", border: "1px solid var(--line)" }}>
-                  <span className="text-[18px] sm:text-[20px] font-semibold tabular-nums" style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}>
-                    100%
-                  </span>
-                  <span className="text-[11px] font-mono mt-0.5" style={{ color: "var(--text-secondary)" }}>
-                    local execution (Voiceflow)
-                  </span>
-                </div>
+              {/* NOW Block */}
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[10px] font-mono uppercase tracking-[0.14em] font-semibold" style={{ color: "var(--accent)" }}>
+                  NOW
+                </span>
+                <p className="text-[13px] leading-relaxed" style={{ color: "var(--text-primary)", fontFamily: "var(--font-sans)" }}>
+                  Building applied-AI products, learning systems design by shipping.
+                </p>
               </div>
 
-              {/* Currently exploring row */}
-              <div className="flex flex-col gap-1 pt-3 border-t" style={{ borderColor: "var(--line)" }}>
-                <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: "var(--text-secondary)" }}>
-                  Currently shipping & exploring
+              {/* PRINCIPLE Block */}
+              <div className="flex flex-col gap-1.5 pt-3 border-t" style={{ borderColor: "var(--line)" }}>
+                <span className="text-[10px] font-mono uppercase tracking-[0.14em] font-semibold" style={{ color: "var(--text-secondary)" }}>
+                  PRINCIPLE
                 </span>
-                <p className="text-[12px] leading-relaxed" style={{ color: "var(--text-body)", fontFamily: "var(--font-mono)" }}>
-                  Local MCP tool protocols, deterministic LangGraph multi-agent routing, and isolated code evaluation sandboxes.
+                <p className="text-[13px] font-medium leading-relaxed" style={{ color: "var(--text-primary)", fontFamily: "var(--font-mono)" }}>
+                  Move fast. Make it hold.
                 </p>
+              </div>
+
+              {/* Verified Metrics / Focus points */}
+              <div className="grid grid-cols-2 gap-3 pt-3 border-t" style={{ borderColor: "var(--line)" }}>
+                <div className="flex flex-col p-2.5 rounded-lg" style={{ background: "var(--surface-raised)", border: "1px solid var(--line)" }}>
+                  <span className="text-[16px] sm:text-[18px] font-semibold tabular-nums" style={{ color: "var(--text-primary)", fontFamily: "var(--font-mono)" }}>
+                    &lt;150ms
+                  </span>
+                  <span className="text-[10px] font-mono mt-0.5" style={{ color: "var(--text-secondary)" }}>
+                    voice latency
+                  </span>
+                </div>
+
+                <div className="flex flex-col p-2.5 rounded-lg" style={{ background: "var(--surface-raised)", border: "1px solid var(--line)" }}>
+                  <span className="text-[16px] sm:text-[18px] font-semibold tabular-nums" style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}>
+                    100%
+                  </span>
+                  <span className="text-[10px] font-mono mt-0.5" style={{ color: "var(--text-secondary)" }}>
+                    local execution
+                  </span>
+                </div>
               </div>
 
             </div>

@@ -90,28 +90,34 @@ export default async function ProjectsPage() {
       >
         <div className="w-full max-w-[680px] px-4 sm:px-6 pb-36 flex flex-col items-start relative">
           {/* ── Header ──────────────────────────────────────────────── */}
-          <header className="mt-24 sm:mt-32 w-full" aria-label="Projects header">
+          <header className="mt-20 sm:mt-28 w-full" aria-label="Projects header">
             <h1 className="sr-only">Ayush Tripathi Projects - Software and AI Engineering</h1>
-            <div className="flex flex-row items-end justify-between w-full">
-              <h2
-                className="text-[48px] sm:text-[64px] font-semibold tracking-[-0.03em] leading-[0.95]"
-                style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
-                aria-hidden="true"
-              >
-                work
-              </h2>
+            <div className="flex flex-row items-end justify-between w-full pb-4 border-b" style={{ borderColor: "var(--line)" }}>
+              <div>
+                <span className="text-[11px] font-mono uppercase tracking-[0.14em]" style={{ color: "var(--accent)" }}>
+                  Selected work
+                </span>
+                <h2
+                  className="text-[36px] sm:text-[48px] font-semibold tracking-[-0.03em] leading-[1.05] mt-1"
+                  style={{ color: "var(--text-primary)", fontFamily: "var(--font-sans)" }}
+                  aria-hidden="true"
+                >
+                  work
+                </h2>
+              </div>
               <Link
                 href="/"
-                className="blog-nav-link text-[13px] no-underline transition-colors duration-200 mb-2"
+                className="text-[13px] font-mono no-underline transition-colors duration-200 mb-2"
+                style={{ color: "var(--text-secondary)" }}
               >
                 ← back
               </Link>
             </div>
             <p
-              className="mt-6 text-[14px] leading-relaxed"
-              style={{ color: "var(--text-body)", fontFamily: "var(--font-mono)" }}
+              className="mt-4 text-[14px] sm:text-[15px] leading-relaxed max-w-[560px]"
+              style={{ color: "var(--text-body)", fontFamily: "var(--font-sans)" }}
             >
-              production-grade systems, experiments, and protocols i&apos;ve built.
+              Things I built to make difficult workflows simpler, faster, or more reliable.
             </p>
           </header>
 
