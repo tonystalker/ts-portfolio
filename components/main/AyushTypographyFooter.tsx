@@ -31,13 +31,14 @@ export function AyushTypographyFooter() {
 
     // ── 1. Scene, Camera, Renderer ────────────────────────────────────────────
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x070709);
+    // Exactly match site's --canvas token (#0b0b0b)
+    scene.background = new THREE.Color(0x0b0b0b);
 
     let width = container.clientWidth || window.innerWidth;
-    let height = container.clientHeight || 700;
+    let height = container.clientHeight || 450;
 
-    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.set(0, 0, 7.5);
+    const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
+    camera.position.set(0, 0, 6.2);
     camera.lookAt(0, 0, 0);
 
     const isMobile = width < 768;
@@ -55,132 +56,91 @@ export function AyushTypographyFooter() {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
 
-    // ── 2. Background Receiving Wall & Floor ──────────────────────────────────
-    // The back wall receives the dynamic shadow of the giant extruded AYUSH letters
-    const wallGeometry = new THREE.PlaneGeometry(30, 20);
+    // ── 2. Seamless Background Wall ───────────────────────────────────────────
+    // Receives soft shadows without any color mismatch
+    const wallGeometry = new THREE.PlaneGeometry(24, 16);
     const wallMaterial = new THREE.MeshStandardMaterial({
-      color: 0x0c0d10,
-      roughness: 0.92,
-      metalness: 0.08,
-    });
-    const backWall = new THREE.Mesh(wallGeometry, wallMaterial);
-    backWall.position.z = -0.55;
-    backWall.receiveShadow = true;
-    scene.add(backWall);
-
-    // Subtle ground plane
-    const floorGeometry = new THREE.PlaneGeometry(30, 10);
-    const floorMaterial = new THREE.MeshStandardMaterial({
-      color: 0x09090b,
+      color: 0x0b0b0b, // Perfectly matches site canvas
       roughness: 0.95,
       metalness: 0.05,
     });
-    const floor = new THREE.Mesh(floorGeometry, floorMaterial);
-    floor.rotation.x = -Math.PI / 2;
-    floor.position.y = -2.2;
-    floor.position.z = 2.0;
-    floor.receiveShadow = true;
-    scene.add(floor);
+    const backWall = new THREE.Mesh(wallGeometry, wallMaterial);
+    backWall.position.z = -0.35;
+    backWall.receiveShadow = true;
+    scene.add(backWall);
 
-    // ── 3. Base & Cinematic Lighting ──────────────────────────────────────────
-    // Low ambient fill so AYUSH is always readable even when the light is far away
-    const ambientLight = new THREE.AmbientLight(0x141822, 0.42);
+    // ── 3. Balanced Editorial Lighting ────────────────────────────────────────
+    // Ambient light tuned to match site legibility
+    const ambientLight = new THREE.AmbientLight(0x18191c, 0.65);
     scene.add(ambientLight);
 
-    // Subtle cool fill from opposite corner
-    const coolFill = new THREE.DirectionalLight(0x1a2638, 0.25);
-    coolFill.position.set(-5, 4, 3);
-    scene.add(coolFill);
-
-    // Main Warm Moving Spotlight (casts physical shadows & highlights)
-    const spotLight = new THREE.SpotLight(0xefb66d, 75, 16, Math.PI / 2.8, 0.75, 1.6);
-    spotLight.position.set(0, 0.5, 2.8);
+    // Soft warm-neutral spotlight matching --text-primary (#f0eee9)
+    const spotLight = new THREE.SpotLight(0xf5ede2, 24, 14, Math.PI / 3.0, 0.8, 1.5);
+    spotLight.position.set(0, 0.8, 2.4);
     spotLight.castShadow = true;
     spotLight.shadow.mapSize.width = isMobile ? 1024 : 2048;
     spotLight.shadow.mapSize.height = isMobile ? 1024 : 2048;
     spotLight.shadow.camera.near = 0.5;
-    spotLight.shadow.camera.far = 18;
-    spotLight.shadow.bias = -0.0006;
-    spotLight.shadow.radius = 3.2; // Soft PCF shadow edges
+    spotLight.shadow.camera.far = 16;
+    spotLight.shadow.bias = -0.0004;
+    spotLight.shadow.radius = 3.5;
     scene.add(spotLight);
 
-    // Moving point light for local highlight intensity and proximity glow
-    const pointLight = new THREE.PointLight(0xffdca8, 30, 9, 1.8);
+    // Point light for subtle specular highlight tracking
+    const pointLight = new THREE.PointLight(0xf2ebe1, 10, 7, 2.0);
     pointLight.position.copy(spotLight.position);
     scene.add(pointLight);
 
-    // Spotlight target at the center of the text
     const lightTarget = new THREE.Object3D();
     lightTarget.position.set(0, 0, 0);
     scene.add(lightTarget);
     spotLight.target = lightTarget;
 
-    // Glowing light bulb indicator
-    const bulbMesh = new THREE.Mesh(
-      new THREE.SphereGeometry(0.08, 16, 16),
-      new THREE.MeshBasicMaterial({ color: 0xfff0d0 })
-    );
-    bulbMesh.position.copy(spotLight.position);
-    scene.add(bulbMesh);
-
-    // Subtle warm halo ring around the light point
-    const haloMesh = new THREE.Mesh(
-      new THREE.SphereGeometry(0.18, 16, 16),
-      new THREE.MeshBasicMaterial({
-        color: 0xefb66d,
-        transparent: true,
-        opacity: 0.22,
-      })
-    );
-    haloMesh.position.copy(spotLight.position);
-    scene.add(haloMesh);
-
-    // ── 4. 3D Extruded "AYUSH" Typography ─────────────────────────────────────
+    // ── 4. Refined 3D "AYUSH" Typography ──────────────────────────────────────
     let textMesh: THREE.Mesh | null = null;
     const textGroup = new THREE.Group();
     scene.add(textGroup);
 
-    // Charcoal coated architectural material with fine bevel specular sheen
+    // Architectural dark titanium material with subtle warm specular response
     const textMaterial = new THREE.MeshStandardMaterial({
-      color: 0x27282c,
-      roughness: 0.38, // Allows sheen across beveled edges under spotlight
-      metalness: 0.28,
+      color: 0x1f2024,
+      roughness: 0.42,
+      metalness: 0.22,
     });
 
     const fontLoader = new FontLoader();
     fontLoader.load("/fonts/helvetiker_bold.typeface.json", (font: Font) => {
-      // Calculate responsive font size to span ~80% of container width
-      const baseSize = isMobile ? 0.95 : 1.7;
+      // Balanced, proportional size (not oversized)
+      const baseSize = 0.95;
       const textGeo = new TextGeometry("AYUSH", {
         font,
         size: baseSize,
-        depth: isMobile ? 0.35 : 0.55, // Extruded physical 3D depth
+        depth: 0.22, // Elegant, sleek physical relief
         curveSegments: 12,
         bevelEnabled: true,
-        bevelThickness: 0.05,
-        bevelSize: 0.03,
+        bevelThickness: 0.025,
+        bevelSize: 0.018,
         bevelOffset: 0,
-        bevelSegments: 5,
+        bevelSegments: 4,
       });
 
       textGeo.computeBoundingBox();
-      textGeo.center(); // Center text perfectly at (0, 0, 0)
+      textGeo.center();
 
       textMesh = new THREE.Mesh(textGeo, textMaterial);
-      textMesh.position.set(0, isMobile ? -0.1 : 0, 0);
+      textMesh.position.set(0, 0, 0);
       textMesh.castShadow = true;
       textMesh.receiveShadow = true;
       textGroup.add(textMesh);
 
-      // Auto-scale to fill viewport width neatly
       adjustTextScale();
     });
 
     const adjustTextScale = () => {
       if (!textMesh || !container) return;
       const currentWidth = container.clientWidth;
-      // Target text width relative to viewport
-      const targetAspect = currentWidth < 640 ? 0.92 : currentWidth < 1024 ? 0.86 : 0.80;
+      // Proportional width: spans ~55% on desktop, ~70% on mobile
+      const targetAspect = currentWidth < 640 ? 0.70 : currentWidth < 1024 ? 0.60 : 0.52;
       const fovRad = (camera.fov * Math.PI) / 180;
       const visibleHeight = 2 * Math.tan(fovRad / 2) * camera.position.z;
       const visibleWidth = visibleHeight * camera.aspect;
@@ -190,11 +150,13 @@ export function AyushTypographyFooter() {
       if (bbox) {
         const textWidth = bbox.max.x - bbox.min.x;
         const desiredScale = (visibleWidth * targetAspect) / textWidth;
-        textMesh.scale.set(desiredScale, desiredScale, desiredScale);
+        // Clamp scale so it never looks overwhelmingly massive
+        const clampedScale = Math.min(desiredScale, 1.45);
+        textMesh.scale.set(clampedScale, clampedScale, clampedScale);
       }
     };
 
-    // ── 5. Cursor Interaction & Cinematic Inertial Lag ─────────────────────────
+    // ── 5. Cursor Interaction & Inertia ───────────────────────────────────────
     let targetX = 0;
     let targetY = 0.5;
     let currentX = 0;
@@ -206,9 +168,8 @@ export function AyushTypographyFooter() {
       const normX = ((clientX - rect.left) / rect.width) * 2 - 1;
       const normY = -(((clientY - rect.top) / rect.height) * 2 - 1);
 
-      // Extrapolate light across the wide text plane
-      targetX = THREE.MathUtils.clamp(normX * 4.8, -4.5, 4.5);
-      targetY = THREE.MathUtils.clamp(normY * 2.2, -1.8, 2.0);
+      targetX = THREE.MathUtils.clamp(normX * 3.2, -3.0, 3.0);
+      targetY = THREE.MathUtils.clamp(normY * 1.5, -1.2, 1.4);
     };
 
     const onMouseMove = (e: MouseEvent) => {
@@ -225,7 +186,7 @@ export function AyushTypographyFooter() {
     container.addEventListener("mousemove", onMouseMove);
     container.addEventListener("touchmove", onTouchMove, { passive: true });
 
-    // ── 6. Render Animation Loop ──────────────────────────────────────────────
+    // ── 6. Animation Loop ─────────────────────────────────────────────────────
     let animationFrameId: number;
     let lastTime = performance.now();
 
@@ -236,8 +197,7 @@ export function AyushTypographyFooter() {
       lastTime = currentTime;
 
       if (!prefersReducedMotion) {
-        // 130ms buttery smooth inertial lag
-        const lagFactor = 1 - Math.exp(-dt * 8.5);
+        const lagFactor = 1 - Math.exp(-dt * 8.0);
         currentX += (targetX - currentX) * lagFactor;
         currentY += (targetY - currentY) * lagFactor;
       } else {
@@ -245,28 +205,20 @@ export function AyushTypographyFooter() {
         currentY = targetY;
       }
 
-      // Calculate light depth: slightly closer when near the edges to create dramatic grazing shadows
-      const distFromCenter = Math.sqrt(currentX * currentX + currentY * currentY);
-      const lightZ = 2.1 + Math.sin(Math.min(distFromCenter / 4.0, 1.0)) * 0.4;
-
-      spotLight.position.set(currentX, currentY, lightZ);
+      spotLight.position.set(currentX, currentY, 2.4);
       pointLight.position.copy(spotLight.position);
-      bulbMesh.position.copy(spotLight.position);
-      haloMesh.position.copy(spotLight.position);
-
-      // Dynamically point light target toward center and slightly leading the movement
-      lightTarget.position.set(currentX * 0.15, currentY * 0.15, 0);
+      lightTarget.position.set(currentX * 0.1, currentY * 0.1, 0);
 
       renderer.render(scene, camera);
     };
 
     animationFrameId = requestAnimationFrame(animate);
 
-    // ── 7. Responsive Resize ──────────────────────────────────────────────────
+    // ── 7. Resize ─────────────────────────────────────────────────────────────
     const handleResize = () => {
       if (!container) return;
       width = container.clientWidth;
-      height = container.clientHeight || 700;
+      height = container.clientHeight || 450;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
@@ -288,27 +240,26 @@ export function AyushTypographyFooter() {
     <footer 
       className="w-full relative overflow-hidden select-none border-t"
       style={{
-        background: "#070709",
+        background: "var(--canvas)",
         borderColor: "var(--line)",
-        minHeight: "80vh",
       }}
       aria-label="Interactive AYUSH Typography Footer"
     >
-      {/* 3D Canvas / Typography Viewport */}
+      {/* 3D Viewport with proportional, restrained height */}
       <div 
         ref={containerRef} 
-        className="w-full relative h-[78vh] sm:h-[86vh] flex items-center justify-center cursor-crosshair overflow-hidden"
+        className="w-full relative h-[42vh] sm:h-[52vh] flex items-center justify-center cursor-crosshair overflow-hidden"
       >
         {webGLSupported ? (
           <canvas
             ref={canvasRef}
             className="w-full h-full block touch-none"
-            aria-label="Giant 3D extruded AYUSH illuminated by interactive moving light"
+            aria-label="Sculptural 3D AYUSH typography illuminated by moving spotlight"
           />
         ) : (
-          /* Non-WebGL Fallback: Giant AYUSH text with layered 3D depth & moving light mask */
+          /* Non-WebGL Fallback: Tasteful display typography with soft light mask */
           <div 
-            className="w-full h-full flex items-center justify-center relative bg-[#070709]"
+            className="w-full h-full flex items-center justify-center relative bg-[var(--canvas)]"
             onMouseMove={(e) => {
               setHasInteracted(true);
               const rect = e.currentTarget.getBoundingClientRect();
@@ -318,61 +269,57 @@ export function AyushTypographyFooter() {
               });
             }}
           >
-            {/* Giant Display Typography */}
             <h2 
-              className="text-[20vw] font-black uppercase tracking-tighter select-none leading-none text-center"
+              className="text-[10vw] sm:text-[8vw] font-black uppercase tracking-tight select-none leading-none text-center"
               style={{
-                color: "#28292c",
+                color: "#1f2024",
                 fontFamily: "var(--font-sans)",
                 textShadow: `
-                  0 1px 0 #3a3b40,
-                  0 2px 0 #333438,
-                  0 3px 0 #2c2d30,
-                  0 4px 0 #242528,
-                  0 5px 0 #1c1d20,
-                  0 12px 24px rgba(0,0,0,0.8)
+                  0 1px 0 #2b2c30,
+                  0 2px 0 #242528,
+                  0 3px 0 #1c1d20,
+                  0 8px 20px rgba(0,0,0,0.6)
                 `,
               }}
             >
               AYUSH
             </h2>
 
-            {/* Draggable CSS Spotlight Radial Mask */}
             <div 
               className="absolute inset-0 pointer-events-none transition-opacity duration-300"
               style={{
-                background: `radial-gradient(circle 320px at ${mousePos.x}% ${mousePos.y}%, rgba(239, 182, 109, 0.45) 0%, rgba(239, 182, 109, 0.1) 40%, transparent 70%)`,
-                mixBlendMode: "color-dodge",
+                background: `radial-gradient(circle 240px at ${mousePos.x}% ${mousePos.y}%, rgba(245, 237, 226, 0.25) 0%, transparent 70%)`,
+                mixBlendMode: "screen",
               }}
             />
           </div>
         )}
 
-        {/* First-interaction prompt badge */}
+        {/* Quiet prompt badge */}
         {!hasInteracted && (
           <div 
-            className="absolute top-8 sm:top-12 left-1/2 -translate-x-1/2 pointer-events-none transition-opacity duration-500 z-20 flex items-center gap-2 px-3.5 py-1.5 rounded-full"
+            className="absolute top-6 left-1/2 -translate-x-1/2 pointer-events-none transition-opacity duration-500 z-20 flex items-center gap-2 px-3 py-1 rounded-full"
             style={{
-              background: "rgba(12, 13, 16, 0.88)",
-              border: "1px solid var(--line-strong)",
+              background: "rgba(17, 17, 17, 0.85)",
+              border: "1px solid var(--line)",
               backdropFilter: "blur(12px)",
               fontFamily: "var(--font-mono)",
             }}
           >
-            <span className="w-1.5 h-1.5 rounded-full inline-block animate-ping" style={{ background: "var(--lamp)" }} />
-            <span className="text-[11px] sm:text-[12px]" style={{ color: "var(--text-secondary)" }}>
-              drag to light AYUSH
+            <span className="w-1.5 h-1.5 rounded-full inline-block animate-ping" style={{ background: "var(--accent)" }} />
+            <span className="text-[10.5px] sm:text-[11px]" style={{ color: "var(--text-secondary)" }}>
+              hover to illuminate
             </span>
           </div>
         )}
       </div>
 
-      {/* Minimal Lower Edge Layout: Tiny metadata & subtle links outside the focal area */}
+      {/* Minimal Lower Edge Layout */}
       <div 
-        className="w-full border-t py-5 px-6 sm:px-12 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono relative z-20"
+        className="w-full border-t py-4 px-6 sm:px-12 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono relative z-20"
         style={{
           borderColor: "var(--line)",
-          background: "#070709",
+          background: "var(--canvas)",
           color: "var(--text-secondary)",
         }}
       >
@@ -419,5 +366,4 @@ export function AyushTypographyFooter() {
   );
 }
 
-// Export DoorScene alias for backward compatibility
 export const DoorScene = AyushTypographyFooter;
