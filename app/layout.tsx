@@ -1,12 +1,26 @@
 import type { Metadata } from "next";
+import { Outfit, Instrument_Serif } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
 import { NavPanel } from "@/components/main/NavPanel";
 import { LenisProvider } from "@/components/main/LenisProvider";
 import { BackgroundEffects } from "@/components/main/BackgroundEffects";
 import { CommandPalette } from "@/components/main/CommandPalette";
 import { getProjects } from "@/lib/notion/service";
 import "./globals.css";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-serif",
+  display: "swap",
+});
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
@@ -108,14 +122,14 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        {/* Theme init — prevents FOUC */}
+        {/* Theme init: prevents FOUC */}
         <script dangerouslySetInnerHTML={{
           __html: `(function(){var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark');}else if(!t&&window.matchMedia('(prefers-color-scheme: light)').matches){document.documentElement.classList.remove('dark');}})();`,
         }} />
       </head>
       <body
-        className={`${GeistSans.className} antialiased ${GeistMono.variable}`}
-        style={{ color: "var(--text)" }}
+        className={`${outfit.variable} ${GeistMono.variable} ${instrumentSerif.variable} antialiased`}
+        style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
       >
         {/* Ambient subtle noise texture */}
         <BackgroundEffects />

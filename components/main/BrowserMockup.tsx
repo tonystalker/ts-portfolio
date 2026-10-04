@@ -35,10 +35,10 @@ export function BrowserMockup({ variant = "safari", src, alt, previewType = "ima
       case "chrome":
         return (
           <div className="flex items-center px-3 py-2 bg-[var(--border-secondary)]">
-            <div className="flex gap-1.5 opacity-80">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-              <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-              <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+            <div className="flex gap-1.5 opacity-60">
+              <div className="w-2.5 h-2.5 rounded-full bg-[var(--text-muted)]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[var(--line-strong)]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[var(--line)]" />
             </div>
             <div className="mx-auto flex-1 max-w-[60%] ml-4 bg-[var(--bg)] rounded-md h-5 px-3 flex items-center shadow-inner">
               <span className="text-[10px] text-[var(--text-muted)] truncate">{alt}</span>
@@ -49,10 +49,10 @@ export function BrowserMockup({ variant = "safari", src, alt, previewType = "ima
       default:
         return (
           <div className="flex items-center justify-between px-3 py-2 border-b border-[var(--border-secondary)] bg-[var(--glass-elevated)] backdrop-blur-md">
-            <div className="flex gap-1.5 opacity-80">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#EC6A5E]" />
-              <div className="w-2.5 h-2.5 rounded-full bg-[#F4BF4F]" />
-              <div className="w-2.5 h-2.5 rounded-full bg-[#61C554]" />
+            <div className="flex gap-1.5 opacity-60">
+              <div className="w-2.5 h-2.5 rounded-full bg-[var(--text-muted)]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[var(--line-strong)]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[var(--line)]" />
             </div>
             <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center bg-[var(--bg)] border border-[var(--border)] rounded-md h-5 px-6 opacity-70">
               <span className="text-[10px] text-[var(--text-muted)] truncate">{alt}</span>

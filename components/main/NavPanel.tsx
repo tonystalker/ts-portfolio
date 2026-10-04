@@ -2,14 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "@/components/main/ThemeToggle";
 import { motion, useScroll, useSpring } from "framer-motion";
 
 const links = [
   { href: "/", label: "home" },
-  { href: "/about", label: "about" },
   { href: "/projects", label: "work" },
-  { href: "/blog", label: "writing" },
+  { href: "/writing", label: "writing" },
   { href: "/reads", label: "reads" },
 ];
 
@@ -54,7 +52,9 @@ export function NavPanel() {
           {links.map((link) => {
             const active =
               pathname === link.href ||
-              (link.href !== "/" && pathname.startsWith(link.href));
+              (link.href !== "/" && pathname.startsWith(link.href)) ||
+              (link.href === "/writing" && pathname.startsWith("/blog")) ||
+              (link.href === "/projects" && pathname.startsWith("/work"));
 
             return (
               <Link
@@ -104,14 +104,6 @@ export function NavPanel() {
           </svg>
           <span className="hidden sm:inline text-[10px] opacity-75">⌘K</span>
         </button>
-
-        {/* Divider */}
-        <div
-          className="w-[1px] h-4 mx-0.5 flex-shrink-0"
-          style={{ background: "var(--line)" }}
-        />
-
-        <ThemeToggle />
       </div>
     </div>
   );

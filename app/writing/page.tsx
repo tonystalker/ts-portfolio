@@ -1,23 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getArticles } from "@/lib/notion/service";
-import Image from "next/image";
-import { FiClock, FiCalendar } from "react-icons/fi";
+import { WritingsChiragView } from "@/components/main/WritingsChiragView";
 
 export const metadata: Metadata = {
-  title: "Writing | Ayush Tripathi",
-  description: "Technical articles, tutorials, and engineering essays.",
+  title: "Writing | Ayush Tripathi | AI Engineer",
+  description: "Technical essays, teardowns, and engineering notes on systems design, AI workflows, and software architecture.",
   alternates: { canonical: "/writing" },
   openGraph: {
-    title: "Writing | Ayush Tripathi",
-    description: "Technical articles, tutorials, and engineering essays.",
+    title: "Writing | Ayush Tripathi | AI Engineer",
+    description: "Technical essays, teardowns, and engineering notes on systems design, AI workflows, and software architecture.",
     url: "https://www.ayush-tripathi.in/writing",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Writing | Ayush Tripathi",
-    description: "Technical articles, tutorials, and engineering essays.",
+    description: "Technical essays, teardowns, and engineering notes on systems design, AI workflows, and software architecture.",
   }
 };
 
@@ -35,7 +34,7 @@ export default async function WritingPage() {
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             "name": "Writing | Ayush Tripathi",
-            "description": "Technical articles, tutorials, and engineering essays.",
+            "description": "Technical essays, teardowns, and engineering notes on systems design, AI workflows, and software architecture.",
             "url": "https://www.ayush-tripathi.in/writing",
             "mainEntity": {
               "@type": "ItemList",
@@ -53,89 +52,50 @@ export default async function WritingPage() {
           })
         }}
       />
-      <main className="min-h-dvh flex justify-center w-full overflow-x-hidden" itemScope itemType="https://schema.org/CollectionPage">
-        <div
-          className="flex flex-col relative w-full items-center"
-          style={{ maxWidth: "760px" }}
-        >
-          <div className="w-full max-w-[680px] px-4 sm:px-6 pb-36 flex flex-col items-start relative">
-          {/* ── Header ──────────────────────────────────────────────── */}
-          <section className="mt-24 sm:mt-32 w-full" aria-label="Writing header">
-            <div className="flex flex-row items-end justify-between w-full">
-              <h1
-                className="text-[48px] sm:text-[64px] font-semibold tracking-[-0.03em] leading-[0.95]"
-                style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
-              >
-                writing
-              </h1>
+      <main className="min-h-dvh flex justify-center w-full overflow-x-hidden bg-[#0a0a0b]" itemScope itemType="https://schema.org/CollectionPage">
+        <div className="w-full max-w-[1080px] px-5 sm:px-8 md:px-12 pt-16 sm:pt-24 pb-36 flex flex-col items-start relative">
+          {/* ── Editorial Header ─────────────────────────────────────────── */}
+          <header className="w-full mb-12 sm:mb-16 flex flex-col gap-4" aria-label="Writing header">
+            <div className="flex items-center justify-between w-full">
+              <span className="text-[11px] font-mono uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                WRITING · ESSAYS & TEARDOWNS
+              </span>
               <Link
                 href="/"
-                className="blog-nav-link text-[13px] no-underline transition-colors duration-200 mb-2"
+                className="text-[12px] font-mono text-[var(--text-secondary)] hover:text-white transition-colors duration-200 inline-flex items-center gap-1.5"
               >
-                ← back
+                <span>←</span>
+                <span>home</span>
               </Link>
             </div>
-            <p
-              className="mt-6 text-[14px] leading-relaxed max-w-[500px]"
-              style={{ color: "var(--text-body)", fontFamily: "var(--font-mono)" }}
-            >
-              technical articles, tutorials, and engineering essays.
-            </p>
-          </section>
 
-          {/* ── Articles List ──────────────────────────────────────────── */}
-          <section className="w-full mt-12 flex flex-col gap-6" aria-label="Articles List">
-            {articles.length === 0 ? (
-              <div className="py-12 flex flex-col items-center justify-center opacity-50">
-                <p className="text-[14px]" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-                  No articles found.
-                </p>
-              </div>
-            ) : (
-              articles.map((article) => (
-                <Link 
-                  key={article.id} 
-                  href={`/writing/${article.slug}`}
-                  className="group flex flex-col sm:flex-row gap-5 p-4 rounded-2xl border transition-all duration-300 hover:border-gray-400/50"
-                  style={{ borderColor: "var(--border)", background: "rgba(255,255,255,0.01)" }}
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4">
+              <div className="flex items-baseline gap-4 flex-wrap">
+                <h1
+                  className="text-[42px] sm:text-[54px] md:text-[62px] font-normal italic leading-[1.02] tracking-[-0.03em] text-white"
+                  style={{ fontFamily: "var(--font-serif)" }}
                 >
-                  {article.coverImage && (
-                    <div className="w-full sm:w-40 h-32 sm:h-auto relative rounded-xl overflow-hidden bg-black/10 flex-shrink-0">
-                      <Image src={article.coverImage} alt={article.title} fill className="object-cover" />
-                    </div>
-                  )}
-                  
-                  <div className="flex flex-col flex-1 justify-center">
-                    {article.featured && (
-                      <span className="text-[10px] uppercase tracking-wider mb-2 font-medium" style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}>
-                        Featured
-                      </span>
-                    )}
-                    <h2 className="text-[18px] font-medium leading-tight mb-2 group-hover:text-blue-400 transition-colors" style={{ color: "var(--text)" }}>
-                      {article.title}
-                    </h2>
-                    <p className="text-[13px] leading-relaxed mb-4 line-clamp-2" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-                      {article.excerpt}
-                    </p>
-                    
-                    <div className="flex items-center gap-4 text-[11px]" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-                      <div className="flex items-center gap-1.5">
-                        <FiCalendar />
-                        <span>{article.publishedDate}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <FiClock />
-                        <span>{article.readingTime}</span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))
-            )}
-          </section>
+                  writings
+                </h1>
+                <span className="text-[11px] font-mono uppercase tracking-widest text-[var(--text-muted)]">
+                  {articles.length} {articles.length === 1 ? "ARTICLE" : "ARTICLES"}
+                </span>
+              </div>
+              <p
+                className="text-[14px] leading-relaxed max-w-[500px] text-[var(--text-secondary)]"
+                style={{ fontFamily: "var(--font-sans)" }}
+              >
+                Essays, technical notes, and write-ups on engineering, systems design, and software architecture.
+              </p>
+            </div>
+          </header>
+
+          {/* ── Main Writings View ─────────────────────────────────────── */}
+          <div className="w-full">
+            <WritingsChiragView articles={articles} />
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
     </>
   );
 }

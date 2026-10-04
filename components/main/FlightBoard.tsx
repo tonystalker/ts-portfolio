@@ -144,7 +144,7 @@ export function FlightBoard({ projects }: FlightBoardProps) {
         );
       })}
 
-      {/* Floating preview — clean, minimal */}
+      {/* Floating preview: clean, minimal */}
       {hoveredProject && (
         <div
           className="fixed right-8 z-40 pointer-events-none hidden lg:block"
@@ -192,7 +192,7 @@ export function FlightBoard({ projects }: FlightBoardProps) {
                 className="text-[12px] leading-relaxed"
                 style={{ color: "var(--text-body)", fontFamily: "var(--font-mono)" }}
               >
-                {hoveredProject.description ?? "—"}
+                {hoveredProject.description ?? ""}
               </p>
             </div>
           </div>

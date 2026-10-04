@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { SiGithub } from "react-icons/si";
+import { FiX } from "react-icons/fi";
 import { BrowserMockup } from "@/components/main/BrowserMockup";
 import type { NotionProject } from "@/lib/notion/models";
 
@@ -101,10 +102,10 @@ export function ProjectDrawer({ project, isOpen, onClose }: ProjectDrawerProps) 
               </h2>
               <button
                 onClick={onClose}
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-[var(--bg-secondary)] hover:bg-[var(--border-secondary)] transition-colors"
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-[var(--bg-secondary)] hover:bg-[var(--border-secondary)] transition-colors text-[var(--text)]"
                 aria-label="Close"
               >
-                ✕
+                <FiX size={16} />
               </button>
             </header>
 

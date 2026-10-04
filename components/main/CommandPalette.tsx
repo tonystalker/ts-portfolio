@@ -108,6 +108,9 @@ export function CommandPalette({ projects }: { projects: NotionProject[] }) {
                 </Command.Group>
 
                 <Command.Group heading="Actions" className="px-2 text-[11px] font-medium text-[var(--text-secondary)] py-2 border-t border-[var(--line)] mt-1 uppercase tracking-wider font-mono">
+                  <Command.Item onSelect={() => runCommand(() => window.open("https://cal.com/ayush-tripathi/30min", "_blank"))} className="cmdk-item">
+                    <span>Book a Call (cal.com/ayush-tripathi/30min)</span>
+                  </Command.Item>
                   <Command.Item onSelect={() => runCommand(() => window.open("/resume.pdf", "_blank"))} className="cmdk-item">
                     <span>View Resume</span>
                   </Command.Item>

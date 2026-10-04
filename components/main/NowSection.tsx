@@ -1,25 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { GithubActivity } from "@/components/main/GithubActivity";
 
 const NOW_ITEMS = [
   {
     topic: "Building",
-    title: "Local MCP Tool Protocols & Low-Latency Voice",
-    content: "Optimizing Voiceflow for sub-150ms streaming turn-taking using open-weight local Whisper/Porcupine pipelines and Model Context Protocol servers.",
+    title: "Local Agent Workflows & MCP Integrations",
+    content: "Exploring low-latency streaming turn-taking, open-weight local inference, and Model Context Protocol tool routing.",
     status: "Active Sprint",
   },
   {
     topic: "Researching",
-    title: "Deterministic Grounding in Multi-Agent Support",
-    content: "Evaluating LangGraph supervisor nodes against edge-case hallucinations in FlowDesk — enforcing strict citation overlap thresholds before response generation.",
+    title: "Deterministic State Machines in LLM Systems",
+    content: "Investigating structured agent supervisor patterns, citation grounding thresholds, and failure-recovery boundaries.",
     status: "Ongoing Eval",
   },
   {
     topic: "Reading",
-    title: "Distributed Memory & AST-Guided Fix Generation",
-    content: "Studying CRDT-based state reconciliation for autonomous agent swarms and Tree-sitter semantic queries for automated PR patch validation.",
+    title: "Distributed Memory & Systems Architecture",
+    content: "Studying CRDT-based state reconciliation for autonomous agent swarms and tree-sitter AST queries for code generation.",
     status: "Notes in /reads",
     link: "/reads",
   },
@@ -73,31 +72,6 @@ export function NowSection() {
             )}
           </div>
         ))}
-      </div>
-
-      {/* GitHub Activity as real-world evidence */}
-      <div 
-        className="p-5 sm:p-6 rounded-xl flex flex-col gap-4"
-        style={{
-          background: "var(--surface)",
-          border: "1px solid var(--line)",
-        }}
-      >
-        <div className="flex items-center justify-between text-[11px] font-mono" style={{ color: "var(--text-secondary)" }}>
-          <span className="uppercase tracking-wider">GitHub Contribution Proof</span>
-          <a 
-            href="https://github.com/tonystalker" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="hover:underline flex items-center gap-1"
-            style={{ color: "var(--accent)" }}
-          >
-            @tonystalker ↗
-          </a>
-        </div>
-        <div className="w-full overflow-x-auto scrollbar-hide py-1">
-          <GithubActivity />
-        </div>
       </div>
     </div>
   );

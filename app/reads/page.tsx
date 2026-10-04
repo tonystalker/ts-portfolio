@@ -1,26 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getReads } from "@/lib/notion/service";
-import { ReadsLibrary } from "@/components/main/ReadsLibrary";
+import { ReadsChiragView } from "@/components/main/ReadsChiragView";
 
 export const metadata: Metadata = {
   title: "Reads | Ayush Tripathi | AI Engineer",
-  description: "Curated collection of interesting research papers, articles, and protocols on AI, Web3, and Software Engineering bookmarked by Ayush Tripathi.",
+  description: "Books, research papers, systems essays, and rabbit holes that changed how I think about building, distributed systems, and craft.",
   alternates: { canonical: "/reads" },
   openGraph: {
     title: "Reads | Ayush Tripathi",
-    description: "Curated collection of interesting research papers, articles, and protocols on AI, Web3, and Software Engineering.",
+    description: "Curated collection of foundational papers, books, and articles on systems and AI.",
     url: "https://www.ayush-tripathi.in/reads",
     type: "website",
   },
   twitter: {
     card: "summary",
     title: "Reads | Ayush Tripathi",
-    description: "Research papers, articles, and bookmarks on AI and Web3.",
+    description: "Curated shelf of papers, systems books, and articles.",
   }
 };
 
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 3600;
 
 export default async function ReadsPage() {
   const reads = await getReads();
@@ -34,7 +34,7 @@ export default async function ReadsPage() {
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             "name": "Ayush Tripathi's Reading List",
-            "description": "Curated collection of interesting research papers, articles, and protocols on AI, Web3, and Software Engineering.",
+            "description": "Curated collection of foundational papers, books, and articles on systems and AI.",
             "url": "https://www.ayush-tripathi.in/reads",
             "mainEntity": {
               "@type": "ItemList",
@@ -56,55 +56,47 @@ export default async function ReadsPage() {
           })
         }}
       />
-      <main className="min-h-dvh flex justify-center w-full overflow-x-hidden" itemScope itemType="https://schema.org/CollectionPage">
-        <div
-          className="flex flex-col relative w-full items-center"
-          style={{ maxWidth: "760px" }}
-        >
-          <div className="w-full max-w-[680px] px-4 sm:px-6 pb-36 flex flex-col items-start relative">
-            {/* ── Header ──────────────────────────────────────────────── */}
-            <header className="mt-20 sm:mt-28 w-full" aria-label="Reads header">
-              <h1 className="sr-only">Ayush Tripathi&apos;s Reading List and Bookmarks</h1>
-              <div className="flex flex-row items-end justify-between w-full pb-4 border-b" style={{ borderColor: "var(--line)" }}>
-                <div>
-                  <span className="text-[11px] font-mono uppercase tracking-[0.14em]" style={{ color: "var(--accent)" }}>
-                    Worth keeping open
-                  </span>
-                  <h2
-                    className="text-[36px] sm:text-[48px] font-semibold tracking-[-0.03em] leading-[1.05] mt-1"
-                    style={{ color: "var(--text-primary)", fontFamily: "var(--font-sans)" }}
-                    aria-hidden="true"
-                  >
-                    reads
-                  </h2>
-                </div>
-                <Link
-                  href="/"
-                  className="text-[13px] font-mono no-underline transition-colors duration-200 mb-2"
-                  style={{ color: "var(--text-secondary)" }}
+      <main className="min-h-dvh flex justify-center w-full overflow-x-hidden bg-[#0a0a0b]" itemScope itemType="https://schema.org/CollectionPage">
+        <div className="w-full max-w-[1080px] px-5 sm:px-8 md:px-12 pt-16 sm:pt-24 pb-36 flex flex-col items-start relative">
+          {/* ── Editorial Header ─────────────────────────────────────────── */}
+          <header className="w-full mb-12 sm:mb-16 flex flex-col gap-4" aria-label="Reads header">
+            <div className="flex items-center justify-between w-full">
+              <span className="text-[11px] font-mono uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                READS · CURATED SHELF
+              </span>
+              <Link
+                href="/"
+                className="text-[12px] font-mono text-[var(--text-secondary)] hover:text-white transition-colors duration-200 inline-flex items-center gap-1.5"
+              >
+                <span>←</span>
+                <span>home</span>
+              </Link>
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4">
+              <div className="flex items-baseline gap-4 flex-wrap">
+                <h1
+                  className="text-[42px] sm:text-[54px] md:text-[62px] font-normal italic leading-[1.02] tracking-[-0.03em] text-white"
+                  style={{ fontFamily: "var(--font-serif)" }}
                 >
-                  ← back
-                </Link>
+                  worth keeping open
+                </h1>
+                <span className="text-[11px] font-mono uppercase tracking-widest text-[var(--text-muted)]">
+                  {reads.length || 8} ITEMS
+                </span>
               </div>
               <p
-                className="mt-4 text-[14px] sm:text-[15px] leading-relaxed max-w-[560px]"
-                style={{ color: "var(--text-body)", fontFamily: "var(--font-sans)" }}
+                className="text-[14px] leading-relaxed max-w-[500px] text-[var(--text-secondary)]"
+                style={{ fontFamily: "var(--font-sans)" }}
               >
-                Books, essays, papers, and rabbit holes that changed how I think about building.
+                Books, essays, papers, and rabbit holes that changed how I think about building, systems, and craft.
               </p>
-            </header>
+            </div>
+          </header>
 
-            {/* ── Library ──────────────────────────────────────────── */}
-            <section className="w-full mt-10" aria-label="Reads Library">
-              <ReadsLibrary reads={reads} />
-            </section>
-
-            {/* ── Personal Footnote ─────────────────────────────────── */}
-            <footer className="w-full mt-16 pt-6 border-t" style={{ borderColor: "var(--line)" }}>
-              <p className="text-[12px] font-mono leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                Unrelated but true: I was the tallest kid in school until I stopped playing basketball. My height never negotiated another contract.
-              </p>
-            </footer>
+          {/* ── Main Reads View ────────────────────────────────────────── */}
+          <div className="w-full">
+            <ReadsChiragView reads={reads} />
           </div>
         </div>
       </main>

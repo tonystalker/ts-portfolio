@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa";
-import { RxTwitterLogo } from "react-icons/rx";
+import { FaXTwitter } from "react-icons/fa6";
+import { FiCheck } from "react-icons/fi";
 
 export function ContactCard() {
   const [copied, setCopied] = useState(false);
@@ -42,33 +43,56 @@ export function ContactCard() {
         </h2>
       </div>
 
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mt-8 w-full">
+      <div className="flex flex-wrap items-start gap-3 mt-8 w-full">
         {/* Prominent Mail Link */}
         <a
           href="mailto:707ayushtripathi@gmail.com"
-          className="inline-flex items-center gap-3 px-5 py-3 rounded-lg text-[13px] sm:text-[14px] font-medium transition-all"
+          className="inline-flex items-center gap-2 px-4 py-3 rounded-lg text-[12px] sm:text-[13px] md:text-[14px] font-medium transition-all min-w-0 shrink-0"
           style={{
             background: "var(--text-primary)",
             color: "var(--canvas)",
             fontFamily: "var(--font-sans)",
           }}
         >
-          <span>707ayushtripathi@gmail.com</span>
-          <span className="text-[14px]">↗</span>
+          <span className="truncate">707ayushtripathi@gmail.com</span>
+          <span className="text-[14px] flex-shrink-0">↗</span>
         </a>
 
-        {/* Copy button fallback */}
+        {/* Book a Call Link */}
+        <a
+          href="https://cal.com/ayush-tripathi/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-3 rounded-lg text-[13px] sm:text-[14px] font-medium transition-all duration-200 cursor-pointer hover:border-[var(--line-strong)] flex-shrink-0"
+          style={{
+            background: "var(--surface-raised)",
+            color: "var(--text-primary)",
+            border: "1px solid var(--line)",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          <span>Book a call</span>
+          <span className="text-[13px]">↗</span>
+        </a>
+
         <button
           onClick={handleCopy}
-          className="text-[12px] font-mono transition-colors cursor-pointer py-1"
+          className="text-[12px] font-mono transition-colors cursor-pointer py-1 inline-flex items-center gap-1.5 flex-shrink-0"
           style={{ color: "var(--text-secondary)" }}
           aria-label="Copy email address"
         >
-          {copied ? "✓ Copied to clipboard" : "Click to copy"}
+          {copied ? (
+            <>
+              <FiCheck className="text-emerald-400" size={13} />
+              <span>Copied to clipboard</span>
+            </>
+          ) : (
+            "Click to copy"
+          )}
         </button>
 
         {/* Small secondary links */}
-        <div className="flex items-center gap-5 sm:ml-auto pt-2 sm:pt-0 border-t sm:border-t-0 w-full sm:w-auto" style={{ borderColor: "var(--line)" }}>
+        <div className="flex items-center gap-5 ml-auto pt-0 border-t-0 w-auto" style={{ borderColor: "var(--line)" }}>
           <a 
             href="https://github.com/tonystalker" 
             target="_blank" 
@@ -83,9 +107,9 @@ export function ContactCard() {
             target="_blank" 
             rel="noopener noreferrer" 
             className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-            aria-label="Twitter / X profile"
+            aria-label="X profile"
           >
-            <RxTwitterLogo size={18} />
+            <FaXTwitter size={17} />
           </a>
           <a 
             href="https://www.linkedin.com/in/ayush-tripathi-4a062b1b4/" 

@@ -68,7 +68,7 @@ export async function GET() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ query }),
-      next: { revalidate: 0 }, // No caching — always fresh
+      next: { revalidate: 0 }, // No caching: always fresh
     });
 
     if (!res.ok) {

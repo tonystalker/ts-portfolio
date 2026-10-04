@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 
 /**
  * A lightweight 2D Canvas particle-wave background.
- * Inspired by ryanhugh.com — uses sine-wave math + mouse interaction.
- * No Three.js dependency — pure Canvas2D for maximum compatibility.
+ * Inspired by ryanhugh.com: uses sine-wave math + mouse interaction.
+ * No Three.js dependency: pure Canvas2D for maximum compatibility.
  */
 export function ParticleWaveBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -99,7 +99,7 @@ export function ParticleWaveBackground() {
           const x = baseX;
           const y = baseY + wave;
 
-          // Mouse/touch interaction — repel particles near pointer
+          // Mouse/touch interaction: repel particles near pointer
           let dx = 0;
           let dy = 0;
           const distX = x - mouseX;

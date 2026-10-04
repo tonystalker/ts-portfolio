@@ -1,15 +1,14 @@
 import { Hero } from "@/components/main/Hero";
 import { ProofStrip } from "@/components/main/ProofStrip";
+import { GithubActivity } from "@/components/main/GithubActivity";
 import { StorySection } from "@/components/main/StorySection";
 import { ProjectShowcase } from "@/components/main/ProjectShowcase";
 import { Experience } from "@/components/main/Experience";
-import { TechStack } from "@/components/main/TechStack";
 import { NowSection } from "@/components/main/NowSection";
 import { ContactCard } from "@/components/main/ContactCard";
 import { AyushTypographyFooter } from "@/components/main/AyushTypographyFooter";
 import { ScrollReveal } from "@/components/main/ScrollReveal";
 import { getProjects, getExperience, getSiteSettings } from "@/lib/notion/service";
-import { portfolioConfig } from "@/config/portfolio";
 
 function SectionLabel({ 
   children, 
@@ -61,20 +60,20 @@ export default async function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            "name": "Ayush Tripathi — AI Systems & Product Engineering",
+            "name": "Ayush Tripathi | AI Systems & Product Engineering",
             "description": "I build AI products and systems that hold up after the demo.",
             "mainEntity": {
               "@type": "ItemList",
-              "itemListElement": portfolioConfig.projects.slice(0, 3).map((p, i) => ({
+              "itemListElement": projects.slice(0, 3).map((p, i) => ({
                 "@type": "ListItem",
                 "position": i + 1,
                 "item": {
                   "@type": "SoftwareSourceCode",
                   "name": p.title,
-                  "description": p.description,
-                  "codeRepository": p.github,
-                  "url": p.website || undefined,
-                  "programmingLanguage": p.tech || []
+                  "description": p.shortDescription || p.description,
+                  "codeRepository": p.githubUrl || undefined,
+                  "url": p.liveDemoUrl || undefined,
+                  "programmingLanguage": p.technologies || p.tags || []
                 }
               }))
             }
@@ -87,7 +86,7 @@ export default async function Home() {
         
         {/* 1. Hero / Thesis */}
         <header className="w-full" aria-label="Introduction and Thesis">
-          <h1 className="sr-only">Ayush Tripathi — AI Systems & Product Engineering</h1>
+          <h1 className="sr-only">Ayush Tripathi | AI Systems & Product Engineering</h1>
           <Hero settings={settings} />
         </header>
 
@@ -96,7 +95,14 @@ export default async function Home() {
           <ProofStrip />
         </section>
 
-        {/* 3. Story / How I got here */}
+        {/* 3. GitHub Activity Heatmap */}
+        <section className="w-full mt-8 sm:mt-10" aria-label="GitHub activity and contribution heatmap">
+          <ScrollReveal>
+            <GithubActivity />
+          </ScrollReveal>
+        </section>
+
+        {/* 4. Story / How I got here */}
         <section id="about" className="mt-12 sm:mt-16 w-full scroll-mt-24" aria-labelledby="story-heading">
           <ScrollReveal>
             <SectionLabel number="01">
@@ -127,19 +133,11 @@ export default async function Home() {
           </ScrollReveal>
         </section>
 
-        {/* 6. Engineering Toolkit (Grouped by Capability) */}
-        <section className="mt-20 sm:mt-28 md:mt-32 w-full" aria-labelledby="toolkit-heading">
-          <ScrollReveal>
-            <SectionLabel number="04"><span id="toolkit-heading">Engineering toolkit</span></SectionLabel>
-            <TechStack />
-          </ScrollReveal>
-        </section>
-
-        {/* 7. Notes from the build (Active Research & GitHub Proof) */}
+        {/* 6. Notes from the build (Active Research & GitHub Proof) */}
         <section className="mt-20 sm:mt-28 md:mt-32 w-full" aria-labelledby="now-heading">
           <ScrollReveal>
             <SectionLabel 
-              number="05"
+              number="04"
               subtitle="What I am learning about agents, infrastructure, product decisions, and the messy work between an idea and a reliable system."
             >
               <span id="now-heading">Notes from the build</span>
@@ -148,17 +146,17 @@ export default async function Home() {
           </ScrollReveal>
         </section>
 
-        {/* 8. Contact Invitation */}
+        {/* 7. Contact Invitation */}
         <section className="mt-20 sm:mt-28 md:mt-32 w-full" aria-labelledby="contact-heading">
           <ScrollReveal>
-            <SectionLabel number="06"><span id="contact-heading">Contact</span></SectionLabel>
+            <SectionLabel number="05"><span id="contact-heading">Contact</span></SectionLabel>
             <ContactCard />
           </ScrollReveal>
         </section>
 
       </div>
 
-      {/* 8. Signature Interactive Ending — Giant Illuminated 3D AYUSH Typography */}
+      {/* 8. Signature Interactive Ending: Giant Illuminated 3D AYUSH Typography */}
       <section className="w-full mt-12 sm:mt-20" aria-label="Interactive illuminated typography ending">
         <AyushTypographyFooter />
       </section>

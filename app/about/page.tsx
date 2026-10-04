@@ -6,7 +6,7 @@ import { ContactCard } from "@/components/main/ContactCard";
 export const metadata: Metadata = {
   title: "About | Ayush Tripathi | AI Systems & Product Engineering",
   description:
-    "How Ayush Tripathi got into programming: Java in class 8, a 4 GB laptop, Android Studio, JEE, Ceramic Engineering at IIT (BHU), crypto, Go key-value store, and applied AI systems.",
+    "How Ayush Tripathi got into programming: Java in class 8, a 2 GB laptop, Android Studio, JEE, Ceramic Engineering at IIT (BHU), crypto, Go key-value store, and applied AI systems.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About | Ayush Tripathi",
@@ -84,7 +84,7 @@ export default function AboutPage() {
 
             {/* ── Editorial Story (Full chapters open) ─────────────── */}
             <section className="w-full mt-10" aria-label="Personal narrative and story">
-              <StorySection initialExpanded={true} />
+              <StorySection compact={false} />
             </section>
 
             {/* ── Contact Section ─────────────────────────────────── */}

@@ -5,36 +5,29 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --animate-marquee: marquee 20s linear infinite;
-  --animate-marquee-fast: marquee 10s linear infinite;
-
-  @keyframes marquee {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  --font-sans: var(--font-geist-sans), "Inter", -apple-system, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
+  --font-sans: var(--font-outfit), "Outfit", "Avenir Next", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", "SFMono-Regular", Consolas, monospace;
+  --font-serif: var(--font-serif), "Instrument Serif", "Newsreader", "Times New Roman", Georgia, serif;
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   DESIGN TOKENS (Quiet Technical Editorial)
-   High-contrast, evidence-led, dark-first system
+   DESIGN TOKENS (Monochrome Quiet Technical Editorial)
+   Pure charcoal, black, and silver/soft-white system (revise.md)
    ───────────────────────────────────────────────────────────────── */
 
 :root {
-  /* ── Core Editorial Canvas Tokens (ui.md) ── */
+  /* ── Core Editorial Canvas Tokens (revise.md) ── */
   --canvas:          #0b0b0b;
   --surface:         #111111;
-  --surface-raised:  #171717;
-  --text-primary:    #f0eee9;
-  --text-secondary:  #aaa69d;
-  --line:            rgba(240, 238, 233, 0.13);
-  --line-strong:     rgba(240, 238, 233, 0.22);
-  --accent:          #c8d66a; /* Muted acid-lime for status & focus */
-  --accent-muted:    rgba(200, 214, 106, 0.15);
-  --lamp:            #efb66d; /* Warm light source */
-  --lamp-glow:       rgba(239, 182, 109, 0.25);
+  --surface-raised:  #181818;
+  --text-primary:    #f2f2f0;
+  --text-secondary:  #a7a7a4;
+  --text-muted:      #70706e;
+  --line:            rgba(242, 242, 240, 0.13);
+  --line-strong:     rgba(242, 242, 240, 0.22);
+  --accent:          #d5d5d0;
+  --accent-muted:    #858581;
+  --footer-light:    #f5f3ed;
 
   /* ── Functional Aliases ── */
   --bg:              #0b0b0b;
@@ -43,20 +36,19 @@
   --bg-gradient-btm: #0f0f10;
 
   --glass:           rgba(17, 17, 17, 0.78);
-  --glass-elevated:  rgba(23, 23, 23, 0.88);
+  --glass-elevated:  rgba(24, 24, 24, 0.88);
 
-  --border:          rgba(240, 238, 233, 0.12);
-  --border-secondary:rgba(240, 238, 233, 0.07);
+  --border:          rgba(242, 242, 240, 0.12);
+  --border-secondary:rgba(242, 242, 240, 0.07);
 
-  --text:            #f0eee9;
-  --text-body:       #c5c2ba;
-  --text-muted:      #aaa69d;
-  --text-placeholder:#7a776f;
+  --text:            #f2f2f0;
+  --text-body:       #a7a7a4;
+  --text-placeholder:#70706e;
 
-  --accent-hover:    #d9e680;
-  --accent-pressed:  #b6c459;
+  --accent-hover:    #ffffff;
+  --accent-pressed:  #b0b0ac;
 
-  --live-badge:      #c8d66a;
+  --live-badge:      #d5d5d0;
 
   --shadow-sm:       0 1px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.4);
   --shadow-md:       0 4px 16px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.5);
@@ -66,15 +58,15 @@
 .dark {
   --canvas:          #0b0b0b;
   --surface:         #111111;
-  --surface-raised:  #171717;
-  --text-primary:    #f0eee9;
-  --text-secondary:  #aaa69d;
-  --line:            rgba(240, 238, 233, 0.13);
-  --line-strong:     rgba(240, 238, 233, 0.22);
-  --accent:          #c8d66a;
-  --accent-muted:    rgba(200, 214, 106, 0.15);
-  --lamp:            #efb66d;
-  --lamp-glow:       rgba(239, 182, 109, 0.25);
+  --surface-raised:  #181818;
+  --text-primary:    #f2f2f0;
+  --text-secondary:  #a7a7a4;
+  --text-muted:      #70706e;
+  --line:            rgba(242, 242, 240, 0.13);
+  --line-strong:     rgba(242, 242, 240, 0.22);
+  --accent:          #d5d5d0;
+  --accent-muted:    #858581;
+  --footer-light:    #f5f3ed;
 
   --bg:              #0b0b0b;
   --bg-secondary:    #111111;
@@ -82,20 +74,20 @@
   --bg-gradient-btm: #0f0f10;
 
   --glass:           rgba(17, 17, 17, 0.78);
-  --glass-elevated:  rgba(23, 23, 23, 0.88);
+  --glass-elevated:  rgba(24, 24, 24, 0.88);
 
-  --border:          rgba(240, 238, 233, 0.12);
-  --border-secondary:rgba(240, 238, 233, 0.07);
+  --border:          rgba(242, 242, 240, 0.12);
+  --border-secondary:rgba(242, 242, 240, 0.07);
 
-  --text:            #f0eee9;
-  --text-body:       #c5c2ba;
-  --text-muted:      #aaa69d;
-  --text-placeholder:#7a776f;
+  --text:            #f2f2f0;
+  --text-body:       #a7a7a4;
+  --text-muted:      #70706e;
+  --text-placeholder:#70706e;
 
-  --accent-hover:    #d9e680;
-  --accent-pressed:  #b6c459;
+  --accent-hover:    #ffffff;
+  --accent-pressed:  #b0b0ac;
 
-  --live-badge:      #c8d66a;
+  --live-badge:      #d5d5d0;
 
   --shadow-sm:       0 1px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.4);
   --shadow-md:       0 4px 16px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.5);
@@ -106,7 +98,7 @@
    BASE
    ───────────────────────────────────────────────────────────────── */
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior handled by Lenis smooth scroll (§8) */
   color-scheme: light dark;
   -webkit-text-size-adjust: 100%;
 }
