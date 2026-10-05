@@ -1,0 +1,38 @@
+# Ayush Tripathi
+
+> Ayush Tripathi is an AI agent and backend engineer from IIT (BHU) Varanasi, building LangGraph multi-agent systems, RAG pipelines, and FastAPI backends.
+
+Ayush Tripathi (also known online as "ayutripathi") is based in India and is open to internships, freelance, and full-time roles. He specializes in agentic workflows, retrieval-augmented generation (RAG), and production backend engineering.
+
+## Primary Links
+
+- Website: https://www.ayush-tripathi.in
+- About: https://www.ayush-tripathi.in/about
+- Projects Index: https://www.ayush-tripathi.in/projects
+- Writing Index: https://www.ayush-tripathi.in/writing
+- Reading List: https://www.ayush-tripathi.in/reads
+
+## Core Projects
+
+- FlowDesk: https://www.ayush-tripathi.in/projects/flowdesk
+  Multi-agent customer support platform built with LangGraph, hybrid RAG, and multi-model routing.
+- Voiceflow: https://www.ayush-tripathi.in/projects/voiceflow
+  Local real-time AI voice assistant featuring wake-word detection and Model Context Protocol (MCP) tools.
+
+## Technical Skills
+
+- Frameworks and Libraries: LangGraph, LangChain, FastAPI, Model Context Protocol (MCP)
+- Vector Databases and RAG: Pinecone, Qdrant, hybrid retrieval
+- Models and Audio: Groq, Gemini, ElevenLabs
+- Core Competencies: AI agent architectures, backend APIs, distributed state handling, competitive programming
+
+## Writing
+
+- Technical Articles and Notes: https://www.ayush-tripathi.in/writing
+  Engineering notes by Ayush Tripathi on AI agents, LangGraph, RAG, MCP, backend systems, and Web3.
+
+## Profiles
+
+- GitHub: https://github.com/tonystalker
+- X (formerly Twitter): https://x.com/TonyStalkerr
+- LinkedIn: https://www.linkedin.com/in/ayush-tripathi-4a062b1b4/
