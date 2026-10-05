@@ -291,6 +291,14 @@ export function ProjectsChiragView({ projects }: ProjectsChiragViewProps) {
                       </div>
 
                       <div className="flex items-center gap-2.5">
+                        {p.slug && (
+                          <Link
+                            href={`/projects/${p.slug}`}
+                            className="text-[11px] font-mono px-3 py-1.5 rounded-lg border border-white/20 hover:border-white/40 text-white/90 hover:text-white transition-all inline-flex items-center gap-1.5"
+                          >
+                            <span>CASE STUDY</span>
+                          </Link>
+                        )}
                         {p.github && (
                           <a
                             href={p.github}
@@ -382,6 +390,14 @@ export function ProjectsChiragView({ projects }: ProjectsChiragViewProps) {
                 <div className="flex items-center justify-between text-[11px] font-mono pb-3">
                   <span className="text-[var(--text-muted)] tracking-wider">{numStr}</span>
                   <div className="flex items-center gap-3">
+                    {p.slug && (
+                      <Link
+                        href={`/projects/${p.slug}`}
+                        className="text-[var(--text-muted)] hover:text-white transition-colors inline-flex items-center gap-1"
+                      >
+                        <span className="text-[10px] tracking-wider uppercase">DETAILS</span>
+                      </Link>
+                    )}
                     {p.github && (
                       <a
                         href={p.github}

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { SiGithub } from "react-icons/si";
 import type { Project } from "@/config/portfolio";
 import type { NotionProject } from "@/lib/notion/models";
@@ -67,7 +68,13 @@ export function ProjectCardEditorial({ project, index }: ProjectCardEditorialPro
               className="text-[20px] sm:text-[22px] font-semibold tracking-tight"
               style={{ color: "var(--text-primary)", fontFamily: "var(--font-sans)" }}
             >
-              {title}
+              {project.slug ? (
+                <Link href={`/projects/${project.slug}`} className="hover:underline">
+                  {title}
+                </Link>
+              ) : (
+                title
+              )}
             </h3>
             <p 
               className="text-[13.5px] sm:text-[14px] leading-relaxed text-pretty"
@@ -106,6 +113,15 @@ export function ProjectCardEditorial({ project, index }: ProjectCardEditorialPro
             </div>
 
             <div className="flex items-center gap-3">
+              {project.slug && (
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="inline-flex items-center gap-1 text-[12px] font-medium font-mono hover:underline text-[var(--accent)]"
+                >
+                  <span>Case Study</span>
+                </Link>
+              )}
+
               {website && (
                 <a
                   href={website}
