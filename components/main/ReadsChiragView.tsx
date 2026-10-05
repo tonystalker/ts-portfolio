@@ -265,7 +265,7 @@ export function ReadsChiragView({ reads }: ReadsChiragViewProps) {
 
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/40 backdrop-blur-[2px]">
                         <span className="text-[11px] font-mono px-3 py-1.5 rounded-full bg-white text-black font-medium tracking-wider shadow-lg">
-                          READ SOURCE ↗
+                          READ SOURCE
                         </span>
                       </div>
                     </a>

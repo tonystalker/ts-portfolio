@@ -153,7 +153,7 @@ export function GithubActivity() {
       <div className="w-full flex flex-col gap-2 font-mono">
         <div className="flex items-center justify-between text-[11px] text-[var(--text-secondary)]">
           <span className="tracking-[0.14em] uppercase">GITHUB ACTIVITY</span>
-          <span className="opacity-50">open profile ↗</span>
+          <span className="opacity-50">open profile</span>
         </div>
         <div 
           className="w-full p-6 rounded-2xl animate-pulse"

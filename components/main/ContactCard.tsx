@@ -55,7 +55,6 @@ export function ContactCard() {
           }}
         >
           <span className="truncate">707ayushtripathi@gmail.com</span>
-          <span className="text-[14px] flex-shrink-0">↗</span>
         </a>
 
         {/* Book a Call Link */}
@@ -72,7 +71,6 @@ export function ContactCard() {
           }}
         >
           <span>Book a call</span>
-          <span className="text-[13px]">↗</span>
         </a>
 
         <button

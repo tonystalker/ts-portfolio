@@ -39,7 +39,7 @@ export function ProofStrip() {
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--accent)" }} />
           <span style={{ color: "var(--text-primary)" }}>
-            Open to internships, freelance & full-time
+            Open to opportunities which questions my knowledge
           </span>
         </div>
       </div>

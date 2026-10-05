@@ -115,7 +115,6 @@ export function ProjectCardEditorial({ project, index }: ProjectCardEditorialPro
                   style={{ color: "var(--text-primary)" }}
                 >
                   <span>Live</span>
-                  <span style={{ color: "var(--accent)" }}>↗</span>
                 </a>
               )}
 
@@ -181,7 +180,7 @@ export function ProjectCardEditorial({ project, index }: ProjectCardEditorialPro
 
               <div className="flex items-center justify-between text-[9px] sm:text-[10px] font-mono border-t pt-2.5" style={{ borderColor: "var(--line)" }}>
                 <span className="text-[var(--text-secondary)]">{github ? "Repository Linked" : "Architecture Verified"}</span>
-                <span className="text-[var(--text-primary)] font-medium">{website ? "Live Demo ↗" : "Production"}</span>
+                <span className="text-[var(--text-primary)] font-medium">{website ? "Live Demo" : "Production"}</span>
               </div>
             </div>
           )}

@@ -94,7 +94,6 @@ export function Hero({ settings = {} }: HeroProps) {
                   }}
                 >
                   <span>Let&apos;s build something</span>
-                  <span className="ml-1.5 text-[13px]">↗</span>
                 </a>
 
                 <a
@@ -111,7 +110,6 @@ export function Hero({ settings = {} }: HeroProps) {
                   title="Book a 30-min call"
                 >
                   <span>Book a call</span>
-                  <span className="ml-1.5 text-[13px]">↗</span>
                 </a>
 
                 {/* Say Hi to Mascot Button */}

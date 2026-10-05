@@ -134,8 +134,7 @@ export function FlightBoard({ projects }: FlightBoardProps) {
                     className="flex items-center gap-1 transition-colors duration-200 hover:text-[var(--accent)]"
                     style={{ color: "var(--text-secondary)" }}
                   >
-                    <span className="text-[13px] font-medium hidden sm:inline" style={{ fontFamily: "var(--font-sans)" }}>visit</span>
-                    <span className="text-[16px] transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+                    <span className="text-[13px] font-medium" style={{ fontFamily: "var(--font-sans)" }}>visit</span>
                   </a>
                 )}
               </div>

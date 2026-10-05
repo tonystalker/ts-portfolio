@@ -41,7 +41,7 @@ export const portfolioConfig = {
     bio: "I work across agent workflows, backend infrastructure, and thoughtful interfaces, turning unclear ideas into software people can actually use.",
     principle: "Move fast. Make it hold.",
     now: "Building applied-AI products, learning systems design by shipping.",
-    availability: "Open to internships, freelance, or full-time",
+    availability: "Open to opportunities which questions my knowledge",
     location: "India · UTC+5:30",
     email: "707ayushtripathi@gmail.com",
     shortAbout: [

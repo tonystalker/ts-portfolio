@@ -99,7 +99,7 @@ A compact horizontal band directly below hero. Include only true information:
 
 - Current focus: `AI agents / voice interfaces / scalable web systems`.
 - Location/time zone.
-- Availability: `Open to internships, freelance, or full-time` only if accurate.
+- Availability: `Open to opportunities which questions my knowledge` only if accurate.
 - One or two hard numbers only if independently supportable.
 
 Use a static, selectable text row. Remove the endlessly moving system ticker; it competes with reading and feels decorative rather than evidential.

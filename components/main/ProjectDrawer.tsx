@@ -170,7 +170,7 @@ export function ProjectDrawer({ project, isOpen, onClose }: ProjectDrawerProps) 
                       className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[14px] font-medium bg-[var(--text)] text-[var(--bg)] shadow-md hover:-translate-y-0.5 transition-transform"
                       itemProp="url"
                     >
-                      Live Demo ↗
+                      Live Demo
                     </a>
                   )}
                 </div>
