@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getReads } from "@/lib/notion/service";
 import { ReadsChiragView } from "@/components/main/ReadsChiragView";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "Reads | Reading Shelf & Research Papers",
@@ -27,37 +28,36 @@ export const revalidate = 3600;
 export default async function ReadsPage() {
   const reads = await getReads();
 
+  const readsSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Ayush Tripathi's Reading List",
+    description: "Curated collection of foundational papers, books, and articles on systems and AI.",
+    url: "https://www.ayush-tripathi.in/reads",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: reads.map((r, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "CreativeWork",
+          name: r.title,
+          url: r.url,
+          genre: r.category,
+          author: r.author
+            ? {
+                "@type": "Person",
+                name: r.author,
+              }
+            : undefined,
+        },
+      })),
+    },
+  };
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": "Ayush Tripathi's Reading List",
-            "description": "Curated collection of foundational papers, books, and articles on systems and AI.",
-            "url": "https://www.ayush-tripathi.in/reads",
-            "mainEntity": {
-              "@type": "ItemList",
-              "itemListElement": reads.map((r, i) => ({
-                "@type": "ListItem",
-                "position": i + 1,
-                "item": {
-                  "@type": "CreativeWork",
-                  "name": r.title,
-                  "url": r.url,
-                  "genre": r.category,
-                  "author": r.author ? {
-                    "@type": "Person",
-                    "name": r.author
-                  } : undefined
-                }
-              }))
-            }
-          })
-        }}
-      />
+      <JsonLd data={readsSchema} />
       <main className="min-h-dvh flex justify-center w-full overflow-x-hidden bg-[#0a0a0b]" itemScope itemType="https://schema.org/CollectionPage">
         <div className="w-full max-w-[1080px] px-5 sm:px-8 md:px-12 pt-16 sm:pt-24 pb-36 flex flex-col items-start relative">
           {/* ── Editorial Header ─────────────────────────────────────────── */}

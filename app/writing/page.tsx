@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getArticles } from "@/lib/notion/service";
 import { WritingsChiragView } from "@/components/main/WritingsChiragView";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "Writing | AI Agents & Engineering Notes",
@@ -27,33 +28,30 @@ export const revalidate = 3600;
 export default async function WritingPage() {
   const articles = await getArticles();
 
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Writing | Ayush Tripathi",
+    description: "Engineering notes by Ayush Tripathi on AI agents, LangGraph, RAG, MCP, backend systems, and Web3.",
+    url: "https://www.ayush-tripathi.in/writing",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: articles.map((article, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "BlogPosting",
+          headline: article.title,
+          url: `https://www.ayush-tripathi.in/writing/${article.slug}`,
+          datePublished: article.publishedDate,
+        },
+      })),
+    },
+  };
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": "Writing | Ayush Tripathi",
-            "description": "Technical essays, teardowns, and engineering notes on systems design, AI workflows, and software architecture.",
-            "url": "https://www.ayush-tripathi.in/writing",
-            "mainEntity": {
-              "@type": "ItemList",
-              "itemListElement": articles.map((article, i) => ({
-                "@type": "ListItem",
-                "position": i + 1,
-                "item": {
-                  "@type": "BlogPosting",
-                  "headline": article.title,
-                  "url": `https://www.ayush-tripathi.in/writing/${article.slug}`,
-                  "datePublished": article.publishedDate
-                }
-              }))
-            }
-          })
-        }}
-      />
+      <JsonLd data={collectionSchema} />
       <main className="min-h-dvh flex justify-center w-full overflow-x-hidden bg-[#0a0a0b]" itemScope itemType="https://schema.org/CollectionPage">
         <div className="w-full max-w-[1080px] px-5 sm:px-8 md:px-12 pt-16 sm:pt-24 pb-36 flex flex-col items-start relative">
           {/* ── Editorial Header ─────────────────────────────────────────── */}

@@ -5,6 +5,7 @@ import { NavPanel } from "@/components/main/NavPanel";
 import { LenisProvider } from "@/components/main/LenisProvider";
 import { BackgroundEffects } from "@/components/main/BackgroundEffects";
 import { CommandPalette } from "@/components/main/CommandPalette";
+import { JsonLd } from "@/components/json-ld";
 import { getProjects } from "@/lib/notion/service";
 import "./globals.css";
 
@@ -65,56 +66,48 @@ export const metadata: Metadata = {
   },
 };
 
-// ─── JSON-LD ──────────────────────────────────────────────────────────────────
-const jsonLd = [
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    url: "https://www.ayush-tripathi.in",
-    name: "Ayush Tripathi | Portfolio",
-    description: "Portfolio of Ayush Tripathi, Software Engineer and AI Agent Developer.",
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    dateCreated: "2024-01-01T00:00:00-05:00",
-    mainEntity: {
+// ─── JSON-LD Schema Graph ─────────────────────────────────────────────────────
+const personWebsiteGraph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
       "@type": "Person",
-      name: "Ayush Tripathi",
-      givenName: "Ayush",
-      familyName: "Tripathi",
-      url: "https://www.ayush-tripathi.in",
-      image: "https://www.ayush-tripathi.in/heroimage.png",
-      jobTitle: "Software Engineer",
-      description: "Software engineer from IIT (BHU) building AI applications, developer tools, and modern web experiences. Focused on scalable systems, clean engineering, and thoughtful user experiences.",
-      alumniOf: {
+      "@id": "https://www.ayush-tripathi.in/#person",
+      "name": "Ayush Tripathi",
+      "alternateName": ["ayutripathi"],
+      "url": "https://www.ayush-tripathi.in",
+      "image": "https://www.ayush-tripathi.in/og-image.png",
+      "jobTitle": "AI Agent Engineer",
+      "description": "AI agent and backend engineer from IIT (BHU) Varanasi.",
+      "alumniOf": {
         "@type": "CollegeOrUniversity",
-        name: "IIT (BHU)",
-        sameAs: "https://iitbhu.ac.in/"
+        "name": "Indian Institute of Technology (BHU) Varanasi"
       },
-      knowsAbout: [
-        "Software Engineering",
-        "Artificial Intelligence",
-        "Generative AI",
-        "AI Agents",
-        "MCP Development",
-        "LLMs",
-        "Web3",
-        "Blockchain",
-        "Full Stack Development",
-        "Next.js",
-        "TypeScript",
-        "Python",
-        "Go",
+      "knowsAbout": [
+        "AI agents",
+        "LangGraph",
+        "LangChain",
+        "RAG",
+        "Model Context Protocol",
+        "FastAPI",
+        "Backend development",
+        "Competitive programming"
       ],
-      sameAs: [
+      "sameAs": [
         "https://github.com/tonystalker",
-        "https://www.linkedin.com/in/ayush-tripathi-4a062b1b4/",
         "https://x.com/TonyStalkerr",
-      ],
+        "https://www.linkedin.com/in/ayush-tripathi-4a062b1b4/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.ayush-tripathi.in/#website",
+      "url": "https://www.ayush-tripathi.in",
+      "name": "Ayush Tripathi",
+      "publisher": { "@id": "https://www.ayush-tripathi.in/#person" }
     }
-  }
-];
+  ]
+};
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const projects = await getProjects();
@@ -122,7 +115,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <JsonLd data={personWebsiteGraph} />
         {/* Theme init: prevents FOUC */}
         <script dangerouslySetInnerHTML={{
           __html: `(function(){var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark');}else if(!t&&window.matchMedia('(prefers-color-scheme: light)').matches){document.documentElement.classList.remove('dark');}})();`,

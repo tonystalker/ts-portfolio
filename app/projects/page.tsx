@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ProjectsChiragView } from "@/components/main/ProjectsChiragView";
 import { getProjects } from "@/lib/notion/service";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "Projects | AI Agent & Backend Systems",
@@ -31,40 +32,36 @@ export default async function ProjectsPage() {
   const PROJECTS = await getProjects();
   const totalCount = String(PROJECTS.length).padStart(2, "0");
 
+  const projectsSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Projects by Ayush Tripathi",
+    description:
+      "AI agents, multi-agent orchestration systems, and backend platforms built by Ayush Tripathi, including FlowDesk and Voiceflow.",
+    url: "https://www.ayush-tripathi.in/projects",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: PROJECTS.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "SoftwareSourceCode",
+          name: p.title,
+          description: p.shortDescription || p.description,
+          codeRepository: p.githubUrl || undefined,
+          url: p.liveDemoUrl || undefined,
+          programmingLanguage: p.technologies || p.tags || [],
+          author: {
+            "@id": "https://www.ayush-tripathi.in/#person",
+          },
+        },
+      })),
+    },
+  };
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": "Projects by Ayush Tripathi",
-            "description": "Production products up top, each with adoption, business impact, and the engineering decisions that made it work.",
-            "url": "https://www.ayush-tripathi.in/projects",
-            "mainEntity": {
-              "@type": "ItemList",
-              "itemListElement": PROJECTS.map((p, i) => ({
-                "@type": "ListItem",
-                "position": i + 1,
-                "item": {
-                  "@type": "SoftwareSourceCode",
-                  "name": p.title,
-                  "description": p.shortDescription || p.description,
-                  "codeRepository": p.githubUrl || undefined,
-                  "url": p.liveDemoUrl || undefined,
-                  "programmingLanguage": p.technologies || p.tags || [],
-                  "author": {
-                    "@type": "Person",
-                    "name": "Ayush Tripathi",
-                    "url": "https://www.ayush-tripathi.in"
-                  }
-                }
-              }))
-            }
-          })
-        }}
-      />
+      <JsonLd data={projectsSchema} />
       <main className="min-h-dvh flex justify-center w-full overflow-x-hidden bg-[#0a0a0b]" itemScope itemType="https://schema.org/CollectionPage">
         <div className="w-full max-w-[1080px] px-5 sm:px-8 md:px-12 pt-16 sm:pt-24 pb-36 flex flex-col items-start relative">
           {/* ── Editorial Header ─────────────────────────────────────────── */}

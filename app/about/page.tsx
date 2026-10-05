@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { StorySection } from "@/components/main/StorySection";
 import { ContactCard } from "@/components/main/ContactCard";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "About | AI Agent & Backend Engineer",
@@ -25,28 +26,22 @@ export const metadata: Metadata = {
   },
 };
 
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: "About Ayush Tripathi",
+  description:
+    "Background and engineering journey of Ayush Tripathi, an AI agent and backend engineer from IIT (BHU) Varanasi.",
+  url: "https://www.ayush-tripathi.in/about",
+  mainEntity: {
+    "@id": "https://www.ayush-tripathi.in/#person",
+  },
+};
+
 export default function AboutPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "AboutPage",
-            "name": "About Ayush Tripathi",
-            "description": "How Ayush Tripathi got into programming, systems, and applied AI.",
-            "url": "https://www.ayush-tripathi.in/about",
-            "mainEntity": {
-              "@type": "Person",
-              "name": "Ayush Tripathi",
-              "alumniOf": "Indian Institute of Technology (BHU) Varanasi",
-              "jobTitle": "AI Systems & Product Engineer",
-              "url": "https://www.ayush-tripathi.in"
-            }
-          })
-        }}
-      />
+      <JsonLd data={aboutSchema} />
       <main className="min-h-dvh flex justify-center w-full overflow-x-hidden" itemScope itemType="https://schema.org/AboutPage">
         <div
           className="flex flex-col relative w-full items-center"

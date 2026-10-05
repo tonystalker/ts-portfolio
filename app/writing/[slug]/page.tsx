@@ -9,6 +9,7 @@ import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { FiClock, FiCalendar, FiArrowLeft } from "react-icons/fi";
+import { JsonLd } from "@/components/json-ld";
 
 export const revalidate = 3600;
 
@@ -53,62 +54,53 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 function ArticleJsonLd({ article }: { article: any }) {
+  const canonicalUrl = `https://www.ayush-tripathi.in/writing/${article.slug}`;
   const schema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: article.title,
-    description: article.excerpt,
+    description: article.seoDescription || article.excerpt || "",
     datePublished: article.publishedDate,
     dateModified: article.updatedDate || article.publishedDate,
     author: {
-      "@type": "Person",
-      name: "Ayush Tripathi",
-      url: "https://www.ayush-tripathi.in",
+      "@id": "https://www.ayush-tripathi.in/#person",
     },
-    url: `https://www.ayush-tripathi.in/writing/${article.slug}`,
     publisher: {
-      "@type": "Person",
-      name: "Ayush Tripathi",
-      url: "https://www.ayush-tripathi.in",
+      "@id": "https://www.ayush-tripathi.in/#person",
     },
-    image: article.coverImage ? [article.coverImage] : undefined,
+    image: article.coverImage ? [article.coverImage] : ["https://www.ayush-tripathi.in/og-image.png"],
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://www.ayush-tripathi.in/writing/${article.slug}`
-    }
+      "@id": canonicalUrl,
+    },
   };
 
   const breadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://www.ayush-tripathi.in/"
+        position: 1,
+        name: "Home",
+        item: "https://www.ayush-tripathi.in",
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "Writing",
-        "item": "https://www.ayush-tripathi.in/writing"
+        position: 2,
+        name: "Writing",
+        item: "https://www.ayush-tripathi.in/writing",
       },
       {
         "@type": "ListItem",
-        "position": 3,
-        "name": article.title,
-        "item": `https://www.ayush-tripathi.in/writing/${article.slug}`
-      }
-    ]
+        position: 3,
+        name: article.title,
+        item: canonicalUrl,
+      },
+    ],
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify([schema, breadcrumb]) }}
-    />
-  );
+  return <JsonLd data={[schema, breadcrumb]} />;
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
