@@ -257,7 +257,28 @@ export const getArticle = cache(
     }
   });
 
-  if (response.results.length === 0) return null;
+  if (response.results.length === 0) {
+    if (slug === "building-ai-agents") {
+      return {
+        id: "mock-sample-article",
+        title: "Building Production AI Agents with LangGraph and MCP",
+        slug: "building-ai-agents",
+        published: true,
+        featured: true,
+        coverImage: "/og-image.png",
+        excerpt: "An architectural guide to building reliable stateful multi-agent workflows with LangGraph and Model Context Protocol.",
+        readingTime: "5 min",
+        tags: ["AI Agents", "LangGraph", "MCP"],
+        category: "AI",
+        publishedDate: "2026-03-15",
+        updatedDate: "2026-03-20",
+        seoTitle: "Building Production AI Agents with LangGraph | Ayush Tripathi",
+        seoDescription: "An architectural guide by Ayush Tripathi on building reliable stateful multi-agent workflows with LangGraph and Model Context Protocol.",
+        content: "Engineering notes on state machines, deterministic routing, and tool integration.",
+      };
+    }
+    return null;
+  }
 
   const page = response.results[0] as any;
   const p = page.properties;
