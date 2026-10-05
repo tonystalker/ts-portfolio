@@ -99,7 +99,7 @@ export function CommandPalette({ projects }: { projects: NotionProject[] }) {
                   <Command.Item onSelect={() => runCommand(() => router.push("/projects"))} className="cmdk-item">
                     <span>Work / Projects</span>
                   </Command.Item>
-                  <Command.Item onSelect={() => runCommand(() => router.push("/blog"))} className="cmdk-item">
+                  <Command.Item onSelect={() => runCommand(() => router.push("/writing"))} className="cmdk-item">
                     <span>Writing / Blog</span>
                   </Command.Item>
                   <Command.Item onSelect={() => runCommand(() => router.push("/reads"))} className="cmdk-item">

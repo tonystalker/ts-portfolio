@@ -25,11 +25,11 @@ export async function generateMetadata({
     title: `${post.title} | Ayush Tripathi`,
     description: post.excerpt || post.seoDescription || fallbackDesc,
     keywords: [...(post.tags || []), "Ayush Tripathi", "Software Engineer", "IIT BHU"],
-    alternates: { canonical: `/blog/${post.slug}` },
+    alternates: { canonical: `https://www.ayush-tripathi.in/writing/${post.slug}` },
     openGraph: {
       title: `${post.title} | Ayush Tripathi`,
       description: post.excerpt || post.seoDescription || fallbackDesc,
-      url: `https://www.ayush-tripathi.in/blog/${post.slug}`,
+      url: `https://www.ayush-tripathi.in/writing/${post.slug}`,
       type: "article",
       publishedTime: post.publishedDate || undefined,
       authors: ["Ayush Tripathi"],

@@ -9,6 +9,20 @@ const nextConfig = {
   // Pin workspace root so Next.js doesn't get confused by
   // the stray package-lock.json at C:\Users\707ay\
   outputFileTracingRoot: __dirname,
+  async redirects() {
+    return [
+      {
+        source: "/blog",
+        destination: "/writing",
+        permanent: true,
+      },
+      {
+        source: "/blog/:slug*",
+        destination: "/writing/:slug*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
