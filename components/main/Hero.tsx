@@ -58,7 +58,7 @@ export function Hero({ settings = {} }: HeroProps) {
               style={{ color: "var(--text-secondary)" }}
             >
               <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--accent)" }} />
-              AI SYSTEMS · PRODUCT ENGINEERING · INDIA
+              AYUSH TRIPATHI · AI AGENT & BACKEND ENGINEER · IIT (BHU)
             </div>
 
             {/* Main Thesis Heading */}
@@ -78,7 +78,7 @@ export function Hero({ settings = {} }: HeroProps) {
               className="text-[15px] sm:text-[16px] leading-[1.65] mb-8 text-pretty max-w-[560px]"
               style={{ color: "var(--text-body)", fontFamily: "var(--font-sans)" }}
             >
-              I work across agent workflows, backend infrastructure, and thoughtful interfaces, turning unclear ideas into software people can actually use.
+              Ayush Tripathi is an AI agent and backend engineer from IIT (BHU) Varanasi, building LangGraph multi-agent systems, RAG pipelines, and FastAPI backends.
             </p>
 
             {/* Action buttons + Mascot wave button */}

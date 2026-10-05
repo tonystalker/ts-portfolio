@@ -36,7 +36,7 @@ export interface ExperienceRole {
 export const portfolioConfig = {
   about: {
     name: "Ayush Tripathi",
-    eyebrow: "AI SYSTEMS · PRODUCT ENGINEERING · INDIA",
+    eyebrow: "AYUSH TRIPATHI · AI AGENT & BACKEND ENGINEER · IIT (BHU)",
     title: "I build AI products and systems that hold up after the demo.",
     bio: "I work across agent workflows, backend infrastructure, and thoughtful interfaces, turning unclear ideas into software people can actually use.",
     principle: "Move fast. Make it hold.",

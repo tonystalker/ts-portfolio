@@ -94,7 +94,6 @@ export default async function Home() {
         
         {/* 1. Hero / Thesis */}
         <header className="w-full" aria-label="Introduction and Thesis">
-          <h1 className="sr-only">Ayush Tripathi | AI Systems & Product Engineering</h1>
           <Hero settings={settings} />
         </header>
 
