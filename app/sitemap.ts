@@ -2,6 +2,18 @@ import { MetadataRoute } from "next";
 import { getArticles, getProjects, getReads } from "@/lib/notion/service";
 
 const BASE_URL = "https://www.ayush-tripathi.in";
+export const revalidate = 3600;
+
+function toDate(value?: string | Date | null): Date | undefined {
+  if (!value) return undefined;
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? undefined : d;
+}
+
+function latest(dates: (Date | undefined)[]): Date | undefined {
+  const valid = dates.filter((d): d is Date => d !== undefined);
+  return valid.length ? new Date(Math.max(...valid.map((d) => d.getTime()))) : undefined;
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [articles, projects, reads] = await Promise.all([
@@ -10,58 +22,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getReads(),
   ]);
 
-  const now = new Date();
-
-  // Find the most recent dates for the index pages
-  const latestArticleDate = articles.length > 0 && articles[0].publishedDate
-    ? new Date(articles[0].publishedDate)
-    : now;
-    
-  const latestReadDate = reads.length > 0 && reads[0].dateAdded
-    ? new Date(reads[0].dateAdded)
-    : now;
-
-  // Static & Index routes
-  const routes: MetadataRoute.Sitemap = [
-    {
-      url: BASE_URL,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 1.0,
-    },
-    {
-      url: `${BASE_URL}/projects`,
-      lastModified: now, // Projects don't have a specific update date mapped in Notion models
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/writing`,
-      lastModified: latestArticleDate,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/reads`,
-      lastModified: latestReadDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-  ];
-
-  // Dynamic Article Routes
-  articles.forEach((post) => {
-    const postDate = post.updatedDate 
-      ? new Date(post.updatedDate) 
-      : (post.publishedDate ? new Date(post.publishedDate) : now);
-      
-    routes.push({
+  const articleEntries = articles
+    .filter((post) => Boolean(post.slug))
+    .map((post) => ({
       url: `${BASE_URL}/writing/${post.slug}`,
-      lastModified: postDate,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    });
-  });
+      lastModified: toDate(post.updatedDate) ?? toDate(post.publishedDate),
+    }));
 
-  return routes;
+  const latestArticle = latest(
+    articles.map((a) => toDate(a.updatedDate) ?? toDate(a.publishedDate))
+  );
+
+  const latestRead = latest(reads.map((r) => toDate(r.dateAdded)));
+
+  const projectEntries = projects
+    .filter((p) => Boolean(p.slug))
+    .map((p) => ({ url: `${BASE_URL}/projects/${p.slug}` }));
+
+  return [
+    { url: BASE_URL, lastModified: latestArticle },
+    { url: `${BASE_URL}/about` },
+    { url: `${BASE_URL}/projects` },
+    { url: `${BASE_URL}/writing`, lastModified: latestArticle },
+    { url: `${BASE_URL}/reads`, lastModified: latestRead },
+    ...projectEntries,
+    ...articleEntries,
+  ];
 }

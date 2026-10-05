@@ -63,6 +63,15 @@ const extractFileUrls = (property: any): string[] => {
 };
 
 
+const slugify = (text: string): string => {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+};
+
 // ─── PROJECTS ─────────────────────────────────────────────────────────────────
 
 export const getProjects = cache(
@@ -81,10 +90,13 @@ export const getProjects = cache(
 
   const projects = response.results.map((page: any) => {
     const p = page.properties;
+    const title = extractText(p.Title);
+    const slug = extractText(p.Slug) || slugify(title);
+
     return {
       id: page.id,
-      title: extractText(p.Title),
-      slug: extractText(p.Slug),
+      title,
+      slug,
       published: extractCheckbox(p.Published),
       featured: extractCheckbox(p.Featured),
       shortDescription: extractText(p["Short Description"]),
@@ -132,6 +144,7 @@ export const getProject = cache(
   const dbId = process.env.NOTION_PROJECTS_DB_ID;
   if (!dbId) return null;
 
+  let page: any = null;
   const response = await notionClient.databases.query({
     database_id: dbId,
     filter: {
@@ -142,18 +155,28 @@ export const getProject = cache(
     }
   });
 
-  if (response.results.length === 0) return null;
+  if (response.results.length > 0) {
+    page = response.results[0];
+  } else {
+    // Fallback: match by title-derived slug
+    const all = await getProjects();
+    const matched = all.find((p) => p.slug === slug);
+    if (matched) {
+      page = await notionClient.pages.retrieve({ page_id: matched.id });
+    }
+  }
 
-  const page = response.results[0] as any;
+  if (!page) return null;
+
   const p = page.properties;
-
   const mdBlocks = await n2m.pageToMarkdown(page.id);
   const content = n2m.toMarkdownString(mdBlocks).parent;
+  const title = extractText(p.Title);
 
   return {
     id: page.id,
-    title: extractText(p.Title),
-    slug: extractText(p.Slug),
+    title,
+    slug: extractText(p.Slug) || slugify(title),
     published: extractCheckbox(p.Published),
     featured: extractCheckbox(p.Featured),
     shortDescription: extractText(p["Short Description"]),
