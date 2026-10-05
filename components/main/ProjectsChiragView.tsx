@@ -200,7 +200,7 @@ export function ProjectsChiragView({ projects }: ProjectsChiragViewProps) {
                     >
                       <Image
                         src={p.image}
-                        alt={p.title}
+                        alt={`${p.title} - AI and systems architecture by Ayush Tripathi`}
                         fill
                         className="object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-500"
                         sizes="(max-width: 768px) 100vw, 40vw"

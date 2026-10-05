@@ -141,7 +141,7 @@ export function ProjectCardEditorial({ project, index }: ProjectCardEditorialPro
             <div className="w-full h-full min-h-[180px] max-h-[240px] rounded-xl relative overflow-hidden border border-[var(--line)] bg-[#0c0c0e] group">
               <Image
                 src={image}
-                alt={title}
+                alt={title ? `${title} - AI and systems project by Ayush Tripathi` : "Project preview"}
                 fill
                 className="object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-500"
                 sizes="(max-width: 1024px) 100vw, 400px"

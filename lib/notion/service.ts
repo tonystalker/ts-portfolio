@@ -72,6 +72,11 @@ const slugify = (text: string): string => {
     .replace(/^-+|-+$/g, "");
 };
 
+const getStaticProjectCover = (slug: string): string => {
+  if (slug === "flowdesk") return "/projects/flowdesk.png";
+  return "";
+};
+
 // ─── PROJECTS ─────────────────────────────────────────────────────────────────
 
 export const getProjects = cache(
@@ -101,7 +106,7 @@ export const getProjects = cache(
       featured: extractCheckbox(p.Featured),
       shortDescription: extractText(p["Short Description"]),
       description: extractText(p.Description),
-      coverImage: extractFileUrl(p["Cover Image"]),
+      coverImage: getStaticProjectCover(slug) || extractFileUrl(p["Cover Image"]),
       galleryImages: extractFileUrls(p["Gallery Images"]),
       demoVideo: extractFileUrl(p["Demo Video"]),
       architectureImage: extractFileUrl(p["Architecture Image"]),
@@ -181,7 +186,7 @@ export const getProject = cache(
     featured: extractCheckbox(p.Featured),
     shortDescription: extractText(p["Short Description"]),
     description: extractText(p.Description),
-    coverImage: extractFileUrl(p["Cover Image"]),
+    coverImage: getStaticProjectCover(slug) || extractFileUrl(p["Cover Image"]),
     galleryImages: extractFileUrls(p["Gallery Images"]),
     demoVideo: extractFileUrl(p["Demo Video"]),
     architectureImage: extractFileUrl(p["Architecture Image"]),
