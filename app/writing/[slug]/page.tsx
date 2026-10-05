@@ -24,27 +24,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const article = await getArticle(slug);
   if (!article) return {};
   
-  const fallbackDesc = "Software engineer from IIT (BHU) building AI applications, developer tools, and modern web experiences. Focused on scalable systems, clean engineering, and thoughtful user experiences.";
+  const fallbackDesc = "Engineering notes by Ayush Tripathi on AI agents, LangGraph, RAG, MCP, and backend systems.";
+  const title = article.seoTitle || article.title;
+  const description = article.seoDescription || article.excerpt || fallbackDesc;
+  const canonicalUrl = `https://www.ayush-tripathi.in/writing/${article.slug}`;
   
   return {
-    title: `${article.seoTitle || article.title} | Ayush Tripathi`,
-    description: article.seoDescription || article.excerpt || fallbackDesc,
-    keywords: [...(article.tags || []), "Ayush Tripathi", "Software Engineer"],
-    alternates: { canonical: `/writing/${article.slug}` },
+    title,
+    description,
+    alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${article.seoTitle || article.title} | Ayush Tripathi`,
-      description: article.seoDescription || article.excerpt || fallbackDesc,
-      url: `https://www.ayush-tripathi.in/writing/${article.slug}`,
+      title,
+      description,
+      url: canonicalUrl,
       type: "article",
       publishedTime: article.publishedDate || undefined,
+      modifiedTime: article.updatedDate || article.publishedDate || undefined,
       authors: ["Ayush Tripathi"],
-      images: article.coverImage ? [{ url: article.coverImage }] : undefined,
+      images: article.coverImage ? [{ url: article.coverImage }] : ["/og-image.png"],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${article.seoTitle || article.title} | Ayush Tripathi`,
-      description: article.seoDescription || article.excerpt || fallbackDesc,
-      images: article.coverImage ? [article.coverImage] : undefined,
+      title,
+      description,
+      images: article.coverImage ? [article.coverImage] : ["/og-image.png"],
     },
   };
 }

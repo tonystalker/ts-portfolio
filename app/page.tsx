@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Hero } from "@/components/main/Hero";
 import { ProofStrip } from "@/components/main/ProofStrip";
 import { GithubActivity } from "@/components/main/GithubActivity";
@@ -9,6 +10,13 @@ import { ContactCard } from "@/components/main/ContactCard";
 import { AyushTypographyFooter } from "@/components/main/AyushTypographyFooter";
 import { ScrollReveal } from "@/components/main/ScrollReveal";
 import { getProjects, getExperience, getSiteSettings } from "@/lib/notion/service";
+
+export const metadata: Metadata = {
+  title: "Ayush Tripathi | AI Agent & Backend Engineer, IIT BHU",
+  description:
+    "Ayush Tripathi is an AI agent and backend engineer (IIT BHU). Builds LangGraph multi-agent systems, RAG, and FastAPI backends. Open to roles.",
+  alternates: { canonical: "https://www.ayush-tripathi.in" },
+};
 
 function SectionLabel({ 
   children, 

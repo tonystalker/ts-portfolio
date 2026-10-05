@@ -4,20 +4,22 @@ import { getArticles } from "@/lib/notion/service";
 import { WritingsChiragView } from "@/components/main/WritingsChiragView";
 
 export const metadata: Metadata = {
-  title: "Writing | Ayush Tripathi | AI Engineer",
-  description: "Technical essays, teardowns, and engineering notes on systems design, AI workflows, and software architecture.",
-  alternates: { canonical: "/writing" },
+  title: "Writing | AI Agents & Engineering Notes",
+  description: "Engineering notes by Ayush Tripathi on AI agents, LangGraph, RAG, MCP, backend systems, and Web3.",
+  alternates: { canonical: "https://www.ayush-tripathi.in/writing" },
   openGraph: {
-    title: "Writing | Ayush Tripathi | AI Engineer",
-    description: "Technical essays, teardowns, and engineering notes on systems design, AI workflows, and software architecture.",
+    title: "Writing | Ayush Tripathi | AI Agents & Engineering Notes",
+    description: "Engineering notes by Ayush Tripathi on AI agents, LangGraph, RAG, MCP, backend systems, and Web3.",
     url: "https://www.ayush-tripathi.in/writing",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Writing by Ayush Tripathi" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Writing | Ayush Tripathi",
-    description: "Technical essays, teardowns, and engineering notes on systems design, AI workflows, and software architecture.",
-  }
+    title: "Writing | Ayush Tripathi | AI Agents & Engineering Notes",
+    description: "Engineering notes by Ayush Tripathi on AI agents, LangGraph, RAG, MCP, backend systems, and Web3.",
+    images: ["/og-image.png"],
+  },
 };
 
 export const revalidate = 3600;

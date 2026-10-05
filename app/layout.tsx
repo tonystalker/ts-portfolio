@@ -24,19 +24,17 @@ const instrumentSerif = Instrument_Serif({
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Ayush Tripathi | Software Engineer",
+  metadataBase: new URL("https://www.ayush-tripathi.in"),
+  title: {
+    default: "Ayush Tripathi | AI Agent & Backend Engineer, IIT BHU",
+    template: "%s | Ayush Tripathi",
+  },
   description:
-    "Software engineer from IIT (BHU) building AI applications, developer tools, and modern web experiences. Focused on scalable systems, clean engineering, and thoughtful user experiences.",
-  keywords: [
-    "Ayush Tripathi", "Software Engineer", "AI Engineer", "AI Agent Developer",
-    "Full Stack Developer", "IIT BHU", "Go", "Python", "TypeScript",
-    "React", "Next.js", "Solidity", "Generative AI", "MCP Developer"
-  ],
+    "Ayush Tripathi is an AI agent and backend engineer (IIT BHU). Builds LangGraph multi-agent systems, RAG, and FastAPI backends. Open to roles.",
   authors: [{ name: "Ayush Tripathi", url: "https://www.ayush-tripathi.in" }],
   creator: "Ayush Tripathi",
   publisher: "Ayush Tripathi",
-  metadataBase: new URL("https://www.ayush-tripathi.in"),
-  alternates: { canonical: "/" },
+  alternates: { canonical: "https://www.ayush-tripathi.in" },
   formatDetection: { email: false, address: false, telephone: false },
   appleWebApp: { title: "Ayush Tripathi", statusBarStyle: "black-translucent" },
   icons: {
@@ -48,18 +46,21 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://www.ayush-tripathi.in",
     siteName: "Ayush Tripathi",
-    title: "Ayush Tripathi | Software Engineer",
-    description: "Software engineer from IIT (BHU) building AI applications, developer tools, and modern web experiences. Focused on scalable systems, clean engineering, and thoughtful user experiences.",
+    title: "Ayush Tripathi | AI Agent & Backend Engineer, IIT BHU",
+    description:
+      "Ayush Tripathi is an AI agent and backend engineer (IIT BHU). Builds LangGraph multi-agent systems, RAG, and FastAPI backends. Open to roles.",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Ayush Tripathi" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ayush Tripathi | Software Engineer",
-    description: "Software engineer from IIT (BHU) building AI applications, developer tools, and modern web experiences. Focused on scalable systems, clean engineering, and thoughtful user experiences.",
+    title: "Ayush Tripathi | AI Agent & Backend Engineer, IIT BHU",
+    description:
+      "Ayush Tripathi is an AI agent and backend engineer (IIT BHU). Builds LangGraph multi-agent systems, RAG, and FastAPI backends. Open to roles.",
     images: ["/og-image.png"],
   },
   robots: {
-    index: true, follow: true,
+    index: true,
+    follow: true,
     googleBot: { index: true, follow: true, "max-video-preview": -1, "max-image-preview": "large", "max-snippet": -1 },
   },
 };

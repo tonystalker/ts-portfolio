@@ -4,20 +4,25 @@ import { ProjectsChiragView } from "@/components/main/ProjectsChiragView";
 import { getProjects } from "@/lib/notion/service";
 
 export const metadata: Metadata = {
-  title: "Projects | Ayush Tripathi | AI Engineer",
-  description: "Production products up top, each with adoption, business impact, and the engineering decisions that made it work. Smaller systems and experiments follow in the catalogue.",
-  alternates: { canonical: "/projects" },
+  title: "Projects | AI Agent & Backend Systems",
+  description:
+    "AI agents, multi-agent orchestration systems, and backend platforms built by Ayush Tripathi, including FlowDesk and Voiceflow.",
+  alternates: { canonical: "https://www.ayush-tripathi.in/projects" },
   openGraph: {
-    title: "Projects | Ayush Tripathi | AI Engineer",
-    description: "Production products up top, each with adoption, business impact, and the engineering decisions that made it work.",
+    title: "Projects | Ayush Tripathi | AI Agent & Backend Systems",
+    description:
+      "AI agents, multi-agent orchestration systems, and backend platforms built by Ayush Tripathi, including FlowDesk and Voiceflow.",
     url: "https://www.ayush-tripathi.in/projects",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Projects by Ayush Tripathi" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Projects | Ayush Tripathi",
-    description: "Production-grade systems, AI applications, and developer tools.",
-  }
+    title: "Projects | Ayush Tripathi | AI Agent & Backend Systems",
+    description:
+      "AI agents, multi-agent orchestration systems, and backend platforms built by Ayush Tripathi, including FlowDesk and Voiceflow.",
+    images: ["/og-image.png"],
+  },
 };
 
 export const revalidate = 3600;

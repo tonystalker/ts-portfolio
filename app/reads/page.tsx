@@ -4,20 +4,22 @@ import { getReads } from "@/lib/notion/service";
 import { ReadsChiragView } from "@/components/main/ReadsChiragView";
 
 export const metadata: Metadata = {
-  title: "Reads | Ayush Tripathi | AI Engineer",
-  description: "Books, research papers, systems essays, and rabbit holes that changed how I think about building, distributed systems, and craft.",
-  alternates: { canonical: "/reads" },
+  title: "Reads | Reading Shelf & Research Papers",
+  description: "Curated collection of foundational papers, books, and articles on systems and AI agents read by Ayush Tripathi.",
+  alternates: { canonical: "https://www.ayush-tripathi.in/reads" },
   openGraph: {
-    title: "Reads | Ayush Tripathi",
-    description: "Curated collection of foundational papers, books, and articles on systems and AI.",
+    title: "Reads | Ayush Tripathi | Reading Shelf & Research Papers",
+    description: "Curated collection of foundational papers, books, and articles on systems and AI agents read by Ayush Tripathi.",
     url: "https://www.ayush-tripathi.in/reads",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Reading shelf of Ayush Tripathi" }],
   },
   twitter: {
-    card: "summary",
-    title: "Reads | Ayush Tripathi",
-    description: "Curated shelf of papers, systems books, and articles.",
-  }
+    card: "summary_large_image",
+    title: "Reads | Ayush Tripathi | Reading Shelf & Research Papers",
+    description: "Curated collection of foundational papers, books, and articles on systems and AI agents read by Ayush Tripathi.",
+    images: ["/og-image.png"],
+  },
 };
 
 export const revalidate = 3600;

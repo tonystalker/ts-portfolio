@@ -4,20 +4,24 @@ import { StorySection } from "@/components/main/StorySection";
 import { ContactCard } from "@/components/main/ContactCard";
 
 export const metadata: Metadata = {
-  title: "About | Ayush Tripathi | AI Systems & Product Engineering",
+  title: "About | AI Agent & Backend Engineer",
   description:
-    "How Ayush Tripathi got into programming: Java in class 8, a 2 GB laptop, Android Studio, JEE, Ceramic Engineering at IIT (BHU), crypto, Go key-value store, and applied AI systems.",
-  alternates: { canonical: "/about" },
+    "Background and engineering journey of Ayush Tripathi, an AI agent and backend engineer from IIT (BHU) Varanasi building LangGraph multi-agent systems and FastAPI backends.",
+  alternates: { canonical: "https://www.ayush-tripathi.in/about" },
   openGraph: {
-    title: "About | Ayush Tripathi",
-    description: "Curiosity made me start early; constraints taught me resourcefulness; systems work taught me reliability.",
+    title: "About | Ayush Tripathi | AI Agent & Backend Engineer",
+    description:
+      "Background and engineering journey of Ayush Tripathi, an AI agent and backend engineer from IIT (BHU) Varanasi.",
     url: "https://www.ayush-tripathi.in/about",
     type: "profile",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "About Ayush Tripathi" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "About | Ayush Tripathi",
-    description: "Move fast. Make it hold. Route into software, systems, and applied AI.",
+    title: "About | Ayush Tripathi | AI Agent & Backend Engineer",
+    description:
+      "Background and engineering journey of Ayush Tripathi, an AI agent and backend engineer from IIT (BHU) Varanasi.",
+    images: ["/og-image.png"],
   },
 };
 
