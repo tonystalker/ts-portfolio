@@ -10,6 +10,14 @@ export async function generateStaticParams() {
 }
 
 // ─── Per-Post SEO Metadata ────────────────────────────────────────────────────
+function cleanDescription(text: string, maxLen = 155): string {
+  const trimmed = text.replace(/\s+/g, " ").trim();
+  if (trimmed.length <= maxLen) return trimmed;
+  const cut = trimmed.slice(0, maxLen);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > 20 ? cut.slice(0, lastSpace) : cut).replace(/[,.:;]+$/, "") + ".";
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -19,16 +27,18 @@ export async function generateMetadata({
   const post = await getArticleBySlug(slug);
   if (!post) return {};
 
-  const fallbackDesc = "Software engineer from IIT (BHU) building AI applications, developer tools, and modern web experiences. Focused on scalable systems, clean engineering, and thoughtful user experiences.";
+  const fallbackDesc = "Engineering notes by Ayush Tripathi on AI agents, LangGraph, RAG, MCP, and backend systems.";
+  const rawDesc = post.excerpt || post.seoDescription || fallbackDesc;
+  const description = cleanDescription(rawDesc, 155);
   
   return {
     title: `${post.title} | Ayush Tripathi`,
-    description: post.excerpt || post.seoDescription || fallbackDesc,
+    description,
     keywords: [...(post.tags || []), "Ayush Tripathi", "Software Engineer", "IIT BHU"],
     alternates: { canonical: `https://www.ayush-tripathi.in/writing/${post.slug}` },
     openGraph: {
       title: `${post.title} | Ayush Tripathi`,
-      description: post.excerpt || post.seoDescription || fallbackDesc,
+      description,
       url: `https://www.ayush-tripathi.in/writing/${post.slug}`,
       type: "article",
       publishedTime: post.publishedDate || undefined,
@@ -38,7 +48,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: `${post.title} | Ayush Tripathi`,
-      description: post.excerpt || post.seoDescription || fallbackDesc,
+      description,
     },
   };
 }

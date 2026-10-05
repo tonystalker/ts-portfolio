@@ -23,6 +23,14 @@ export async function generateStaticParams() {
     }));
 }
 
+function cleanDescription(text: string, maxLen = 155): string {
+  const trimmed = text.replace(/\s+/g, " ").trim();
+  if (trimmed.length <= maxLen) return trimmed;
+  const cut = trimmed.slice(0, maxLen);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > 20 ? cut.slice(0, lastSpace) : cut).replace(/[,.:;]+$/, "") + ".";
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -33,11 +41,12 @@ export async function generateMetadata({
   if (!project) return {};
 
   const title = project.seoTitle || `${project.title} | AI Agent & System Architecture`;
-  const description =
+  const rawDescription =
     project.seoDescription ||
     project.shortDescription ||
     project.description ||
     `${project.title} is an engineering project built by Ayush Tripathi using ${project.technologies.slice(0, 3).join(", ")}.`;
+  const description = cleanDescription(rawDescription, 155);
   const canonicalUrl = `https://www.ayush-tripathi.in/projects/${project.slug}`;
   const cover = project.coverImage || "/og-image.png";
 
@@ -274,6 +283,13 @@ export default async function ProjectDetailPage({
                   remarkPlugins={[remarkGfm]}
                   rehypePlugins={[rehypeRaw]}
                   components={{
+                    h1({ children, ...props }: any) {
+                      return (
+                        <h2 className="text-[20px] sm:text-[24px] font-semibold tracking-[-0.02em] text-white mt-8 mb-4" {...props}>
+                          {children}
+                        </h2>
+                      );
+                    },
                     code({ className, children, ...props }: any) {
                       const match = /language-(\w+)/.exec(className || "");
                       return match ? (

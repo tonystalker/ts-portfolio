@@ -20,6 +20,14 @@ export async function generateStaticParams() {
   }));
 }
 
+function cleanDescription(text: string, maxLen = 155): string {
+  const trimmed = text.replace(/\s+/g, " ").trim();
+  if (trimmed.length <= maxLen) return trimmed;
+  const cut = trimmed.slice(0, maxLen);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > 20 ? cut.slice(0, lastSpace) : cut).replace(/[,.:;]+$/, "") + ".";
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const article = await getArticle(slug);
@@ -27,7 +35,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   
   const fallbackDesc = "Engineering notes by Ayush Tripathi on AI agents, LangGraph, RAG, MCP, and backend systems.";
   const title = article.seoTitle || article.title;
-  const description = article.seoDescription || article.excerpt || fallbackDesc;
+  const rawDescription = article.seoDescription || article.excerpt || fallbackDesc;
+  const description = cleanDescription(rawDescription, 155);
   const canonicalUrl = `https://www.ayush-tripathi.in/writing/${article.slug}`;
   
   return {
@@ -167,6 +176,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
               components={{
+                h1({ children, ...props }: any) {
+                  return (
+                    <h2 className="text-[22px] sm:text-[26px] font-semibold mt-8 mb-4 text-white" {...props}>
+                      {children}
+                    </h2>
+                  );
+                },
                 code({ node, inline, className, children, ...props }: any) {
                   const match = /language-(\w+)/.exec(className || "");
                   return !inline && match ? (

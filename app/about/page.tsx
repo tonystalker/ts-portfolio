@@ -7,12 +7,12 @@ import { JsonLd } from "@/components/json-ld";
 export const metadata: Metadata = {
   title: "About | AI Agent & Backend Engineer",
   description:
-    "Background and engineering journey of Ayush Tripathi, an AI agent and backend engineer from IIT (BHU) Varanasi building LangGraph multi-agent systems and FastAPI backends.",
+    "Background and journey of Ayush Tripathi, an AI agent and backend engineer from IIT (BHU) Varanasi building LangGraph systems and FastAPI backends.",
   alternates: { canonical: "https://www.ayush-tripathi.in/about" },
   openGraph: {
     title: "About | Ayush Tripathi | AI Agent & Backend Engineer",
     description:
-      "Background and engineering journey of Ayush Tripathi, an AI agent and backend engineer from IIT (BHU) Varanasi.",
+      "Background and journey of Ayush Tripathi, an AI agent and backend engineer from IIT (BHU) Varanasi building LangGraph systems and FastAPI backends.",
     url: "https://www.ayush-tripathi.in/about",
     type: "profile",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "About Ayush Tripathi" }],
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About | Ayush Tripathi | AI Agent & Backend Engineer",
     description:
-      "Background and engineering journey of Ayush Tripathi, an AI agent and backend engineer from IIT (BHU) Varanasi.",
+      "Background and journey of Ayush Tripathi, an AI agent and backend engineer from IIT (BHU) Varanasi building LangGraph systems and FastAPI backends.",
     images: ["/og-image.png"],
   },
 };
